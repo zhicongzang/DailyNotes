@@ -10,7 +10,7 @@ import UIKit
 
 class RootButton: UIButton {
     
-    let AnimationDuration = 0.25
+    let AnimationDuration = 0.1
     let AnimationScale:CGFloat = 0.85
     
     override init(frame: CGRect) {
@@ -32,12 +32,14 @@ class RootButton: UIButton {
     }
     
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        super.touchesBegan(touches, withEvent: event)
         UIView.animateKeyframesWithDuration(AnimationDuration, delay: 0, options: UIViewKeyframeAnimationOptions.BeginFromCurrentState, animations: {
             self.layer.setAffineTransform(CGAffineTransformMakeScale(self.AnimationScale, self.AnimationScale))
             }, completion: nil)
     }
     
     override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        super.touchesEnded(touches, withEvent: event)
         UIView.animateKeyframesWithDuration(AnimationDuration, delay: 0, options: UIViewKeyframeAnimationOptions.BeginFromCurrentState, animations: {
             self.layer.setAffineTransform(CGAffineTransformIdentity)
             }, completion: nil)

@@ -11,17 +11,18 @@ import UIKit
 
 class RootViewController: UIViewController {
     
-    var rootButtonY: CGFloat = 0
+    @IBOutlet weak var noteButton: RootButton!
+    @IBOutlet weak var photoButton: RootButton!
+    @IBOutlet weak var reminderButton: RootButton!
+    @IBOutlet weak var listButton: RootButton!
+    @IBOutlet weak var audioButton: RootButton!
     
     @IBOutlet weak var searchingButton: UIButton!
     @IBOutlet weak var settingsButton: UIButton!
     
-    var noteButton = RootButton(image: UIImage(named: "Note"))
-    var photoButton = RootButton(image: UIImage(named: "Photo"))
-    var reminderButton = RootButton(image: UIImage(named: "Reminder"))
-    var listButton = RootButton(image: UIImage(named: "List"))
-    var audioButton = RootButton(image: UIImage(named: "Audio"))
     
+    @IBOutlet var buttonPaddings: [NSLayoutConstraint]!
+    @IBOutlet weak var buttonsToTopLayoutConstraint: NSLayoutConstraint!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,18 +34,12 @@ class RootViewController: UIViewController {
     }
     
     func setupButtons() {
-        noteButton.frame = CGRect(x: rootButtonSize, y: rootButtonY + rootButtonSize / 2, width: rootButtonSize, height: rootButtonSize)
-        photoButton.frame = CGRect(x: rootButtonSize * 3, y: rootButtonY + rootButtonSize / 2, width: rootButtonSize, height: rootButtonSize)
-        reminderButton.frame = CGRect(x: rootButtonSize * 5, y: rootButtonY + rootButtonSize / 2, width: rootButtonSize, height: rootButtonSize)
-        listButton.frame = CGRect(x: rootButtonSize * 7, y: rootButtonY + rootButtonSize / 2, width: rootButtonSize, height: rootButtonSize)
-        audioButton.frame = CGRect(x: rootButtonSize * 9, y: rootButtonY + rootButtonSize / 2, width: rootButtonSize, height: rootButtonSize)
-        self.view.addSubview(noteButton)
-        self.view.addSubview(photoButton)
-        self.view.addSubview(reminderButton)
-        self.view.addSubview(listButton)
-        self.view.addSubview(audioButton)
-        searchingButton.frame.size = CGSize(width: rootButtonSize / 2, height: rootButtonSize / 2)
-        settingsButton.frame.size = CGSize(width: rootButtonSize / 2, height: rootButtonSize / 2)
+        buttonsToTopLayoutConstraint.constant = rootButtonWidth / 2
+        buttonPaddings.forEach { (buttonPadding) in
+            buttonPadding.constant = rootButtonWidth
+        }
+        searchingButton.frame.size = CGSize(width: rootButtonWidth / 2, height: rootButtonWidth / 2)
+        settingsButton.frame.size = CGSize(width: rootButtonWidth / 2, height: rootButtonWidth / 2)
     }
     
     
