@@ -8,13 +8,16 @@
 
 /* Begin PBXBuildFile section */
 		DC6ED94A1D401FFD00AEFECB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC6ED9491D401FFD00AEFECB /* AppDelegate.swift */; };
-		DC6ED94C1D401FFD00AEFECB /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC6ED94B1D401FFD00AEFECB /* ViewController.swift */; };
 		DC6ED94F1D401FFD00AEFECB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DC6ED94D1D401FFD00AEFECB /* Main.storyboard */; };
 		DC6ED9521D401FFD00AEFECB /* DailyNotes.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = DC6ED9501D401FFD00AEFECB /* DailyNotes.xcdatamodeld */; };
 		DC6ED9541D401FFD00AEFECB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DC6ED9531D401FFD00AEFECB /* Assets.xcassets */; };
 		DC6ED9571D401FFD00AEFECB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DC6ED9551D401FFD00AEFECB /* LaunchScreen.storyboard */; };
 		DC6ED9621D401FFD00AEFECB /* DailyNotesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC6ED9611D401FFD00AEFECB /* DailyNotesTests.swift */; };
 		DC6ED96D1D401FFD00AEFECB /* DailyNotesUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC6ED96C1D401FFD00AEFECB /* DailyNotesUITests.swift */; };
+		DC6ED9811D40296C00AEFECB /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC6ED9801D40296C00AEFECB /* Constant.swift */; };
+		DC6ED9841D4029E500AEFECB /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC6ED9831D4029E500AEFECB /* RootViewController.swift */; };
+		DC6ED9861D402C6F00AEFECB /* RootButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC6ED9851D402C6F00AEFECB /* RootButton.swift */; };
+		DC6ED9881D40386100AEFECB /* RootNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC6ED9871D40386100AEFECB /* RootNavigationBar.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -37,7 +40,6 @@
 /* Begin PBXFileReference section */
 		DC6ED9461D401FFD00AEFECB /* DailyNotes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DailyNotes.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC6ED9491D401FFD00AEFECB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		DC6ED94B1D401FFD00AEFECB /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		DC6ED94E1D401FFD00AEFECB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		DC6ED9511D401FFD00AEFECB /* DailyNotes.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DailyNotes.xcdatamodel; sourceTree = "<group>"; };
 		DC6ED9531D401FFD00AEFECB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -49,6 +51,10 @@
 		DC6ED9681D401FFD00AEFECB /* DailyNotesUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DailyNotesUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC6ED96C1D401FFD00AEFECB /* DailyNotesUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyNotesUITests.swift; sourceTree = "<group>"; };
 		DC6ED96E1D401FFD00AEFECB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DC6ED9801D40296C00AEFECB /* Constant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
+		DC6ED9831D4029E500AEFECB /* RootViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootViewController.swift; sourceTree = "<group>"; };
+		DC6ED9851D402C6F00AEFECB /* RootButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootButton.swift; sourceTree = "<group>"; };
+		DC6ED9871D40386100AEFECB /* RootNavigationBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootNavigationBar.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,12 +106,14 @@
 			isa = PBXGroup;
 			children = (
 				DC6ED9491D401FFD00AEFECB /* AppDelegate.swift */,
-				DC6ED94B1D401FFD00AEFECB /* ViewController.swift */,
+				DC6ED9831D4029E500AEFECB /* RootViewController.swift */,
 				DC6ED94D1D401FFD00AEFECB /* Main.storyboard */,
 				DC6ED9531D401FFD00AEFECB /* Assets.xcassets */,
 				DC6ED9551D401FFD00AEFECB /* LaunchScreen.storyboard */,
 				DC6ED9581D401FFD00AEFECB /* Info.plist */,
 				DC6ED9501D401FFD00AEFECB /* DailyNotes.xcdatamodeld */,
+				DC6ED9891D403A0900AEFECB /* Views */,
+				DC6ED9821D40297400AEFECB /* Utils */,
 			);
 			path = DailyNotes;
 			sourceTree = "<group>";
@@ -126,6 +134,23 @@
 				DC6ED96E1D401FFD00AEFECB /* Info.plist */,
 			);
 			path = DailyNotesUITests;
+			sourceTree = "<group>";
+		};
+		DC6ED9821D40297400AEFECB /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				DC6ED9801D40296C00AEFECB /* Constant.swift */,
+			);
+			name = Utils;
+			sourceTree = "<group>";
+		};
+		DC6ED9891D403A0900AEFECB /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				DC6ED9851D402C6F00AEFECB /* RootButton.swift */,
+				DC6ED9871D40386100AEFECB /* RootNavigationBar.swift */,
+			);
+			name = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -262,9 +287,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DC6ED9861D402C6F00AEFECB /* RootButton.swift in Sources */,
+				DC6ED9881D40386100AEFECB /* RootNavigationBar.swift in Sources */,
 				DC6ED9521D401FFD00AEFECB /* DailyNotes.xcdatamodeld in Sources */,
-				DC6ED94C1D401FFD00AEFECB /* ViewController.swift in Sources */,
 				DC6ED94A1D401FFD00AEFECB /* AppDelegate.swift in Sources */,
+				DC6ED9841D4029E500AEFECB /* RootViewController.swift in Sources */,
+				DC6ED9811D40296C00AEFECB /* Constant.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -489,6 +517,7 @@
 				DC6ED9731D401FFD00AEFECB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		DC6ED9741D401FFD00AEFECB /* Build configuration list for PBXNativeTarget "DailyNotesTests" */ = {
 			isa = XCConfigurationList;
@@ -497,6 +526,7 @@
 				DC6ED9761D401FFD00AEFECB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		DC6ED9771D401FFD00AEFECB /* Build configuration list for PBXNativeTarget "DailyNotesUITests" */ = {
 			isa = XCConfigurationList;
@@ -505,6 +535,7 @@
 				DC6ED9791D401FFD00AEFECB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
