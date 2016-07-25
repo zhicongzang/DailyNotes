@@ -20,6 +20,7 @@ class RootViewController: UIViewController {
     @IBOutlet weak var searchingButton: UIButton!
     @IBOutlet weak var settingsButton: UIButton!
     
+    @IBOutlet weak var testLabel: UILabel!
     
     @IBOutlet var buttonPaddings: [NSLayoutConstraint]!
     @IBOutlet weak var buttonsToTopLayoutConstraint: NSLayoutConstraint!
@@ -27,6 +28,11 @@ class RootViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupButtons()
+        let p1 = ZZPopOver(sender: testLabel, size: CGSize(width: 100, height: 100), direction: ZZPopOverDirection.FromTop(padding: 10))
+        let p2 = ZZPopOver(sender: testLabel, size: CGSize(width: 100, height: 100), direction: ZZPopOverDirection.FromButtom(padding: 10))
+        let p3 = ZZPopOver(sender: testLabel, size: CGSize(width: 100, height: 100), direction: ZZPopOverDirection.FromLeft(padding: 10))
+        let p4 = ZZPopOver(sender: testLabel, size: CGSize(width: 100, height: 100), direction: ZZPopOverDirection.FromRight(padding: 10))
+        
     }
     
     override func didReceiveMemoryWarning() {

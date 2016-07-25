@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="67G-PT-xKF">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="67G-PT-xKF">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -43,6 +43,12 @@
                                     <segue destination="NZt-zW-e1V" kind="presentation" id="cXL-MY-sz1"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SUPER" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vTv-Kv-xOl">
+                                <rect key="frame" x="180" y="358" width="54" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -52,11 +58,13 @@
                             <constraint firstItem="PFN-zG-Bsz" firstAttribute="width" secondItem="RuS-de-UFx" secondAttribute="width" multiplier="1/11" id="7zw-cE-Ca3"/>
                             <constraint firstItem="PFN-zG-Bsz" firstAttribute="height" secondItem="RuS-de-UFx" secondAttribute="width" multiplier="1/11" id="8vD-Se-Xms"/>
                             <constraint firstItem="PFN-zG-Bsz" firstAttribute="centerY" secondItem="5fg-Kw-weq" secondAttribute="centerY" id="AYr-H6-lA5"/>
+                            <constraint firstItem="vTv-Kv-xOl" firstAttribute="centerY" secondItem="RuS-de-UFx" secondAttribute="centerY" id="BQ7-nn-r2Z"/>
                             <constraint firstItem="izn-f7-G1H" firstAttribute="centerY" secondItem="5fg-Kw-weq" secondAttribute="centerY" id="E4Y-cM-5R0"/>
                             <constraint firstItem="izn-f7-G1H" firstAttribute="width" secondItem="RuS-de-UFx" secondAttribute="width" multiplier="1/11" id="FcY-B2-WVJ"/>
                             <constraint firstItem="izn-f7-G1H" firstAttribute="height" secondItem="RuS-de-UFx" secondAttribute="width" multiplier="1/11" id="KL4-z0-tJi"/>
                             <constraint firstItem="5fg-Kw-weq" firstAttribute="centerX" secondItem="RuS-de-UFx" secondAttribute="centerX" id="MqZ-Wk-b1p"/>
                             <constraint firstItem="2z7-M6-38V" firstAttribute="width" secondItem="RuS-de-UFx" secondAttribute="width" multiplier="1/11" id="Neb-Ks-vDq"/>
+                            <constraint firstItem="vTv-Kv-xOl" firstAttribute="centerX" secondItem="RuS-de-UFx" secondAttribute="centerX" id="Yfh-Mh-nNW"/>
                             <constraint firstItem="2z7-M6-38V" firstAttribute="leading" secondItem="PFN-zG-Bsz" secondAttribute="trailing" constant="39" id="ZbQ-DW-Zo7"/>
                             <constraint firstItem="5fg-Kw-weq" firstAttribute="height" secondItem="RuS-de-UFx" secondAttribute="width" multiplier="1/11" id="bnR-N0-dJD"/>
                             <constraint firstItem="5fg-Kw-weq" firstAttribute="top" secondItem="6hi-6y-IRe" secondAttribute="bottom" constant="20" id="e2P-Ba-iBd"/>
@@ -95,6 +103,7 @@
                         <outlet property="reminderButton" destination="5fg-Kw-weq" id="zCu-Q1-aNL"/>
                         <outlet property="searchingButton" destination="yzf-Vs-ErE" id="eNH-B2-Qfo"/>
                         <outlet property="settingsButton" destination="yP1-yf-8pE" id="QcC-48-0Hk"/>
+                        <outlet property="testLabel" destination="vTv-Kv-xOl" id="1c2-4M-eRX"/>
                         <outletCollection property="buttonPaddings" destination="ZbQ-DW-Zo7" collectionClass="NSMutableArray" id="nFy-gg-Knr"/>
                         <outletCollection property="buttonPaddings" destination="46V-bf-jf3" collectionClass="NSMutableArray" id="5rE-qo-zTM"/>
                         <outletCollection property="buttonPaddings" destination="p9f-dn-74n" collectionClass="NSMutableArray" id="tzG-2R-l0d"/>
