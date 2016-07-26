@@ -8,7 +8,7 @@
 
 import UIKit
 
-class KeyboardButton: UIButton {
+class KeyboardButton: NewNoteButton {
 
     let keyboardImage = UIImage(named: "Keyboard")
     let keyboardDownImage = UIImage(named: "KeyboardDown")

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="67G-PT-xKF">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="67G-PT-xKF">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -27,6 +27,9 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5fg-Kw-weq" customClass="RootButton" customModule="DailyNotes" customModuleProvider="target">
                                 <rect key="frame" x="189" y="84" width="37" height="38"/>
                                 <state key="normal" image="Reminder"/>
+                                <connections>
+                                    <action selector="reminderButtonPressed:" destination="ARR-tz-eD8" eventType="touchUpInside" id="3LT-m6-RsZ"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2z7-M6-38V" customClass="RootButton" customModule="DailyNotes" customModuleProvider="target">
                                 <rect key="frame" x="343" y="84" width="38" height="38"/>
@@ -43,12 +46,6 @@
                                     <segue destination="NZt-zW-e1V" kind="presentation" id="cXL-MY-sz1"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SUPER" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vTv-Kv-xOl">
-                                <rect key="frame" x="180" y="358" width="54" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -58,13 +55,11 @@
                             <constraint firstItem="PFN-zG-Bsz" firstAttribute="width" secondItem="RuS-de-UFx" secondAttribute="width" multiplier="1/11" id="7zw-cE-Ca3"/>
                             <constraint firstItem="PFN-zG-Bsz" firstAttribute="height" secondItem="RuS-de-UFx" secondAttribute="width" multiplier="1/11" id="8vD-Se-Xms"/>
                             <constraint firstItem="PFN-zG-Bsz" firstAttribute="centerY" secondItem="5fg-Kw-weq" secondAttribute="centerY" id="AYr-H6-lA5"/>
-                            <constraint firstItem="vTv-Kv-xOl" firstAttribute="centerY" secondItem="RuS-de-UFx" secondAttribute="centerY" id="BQ7-nn-r2Z"/>
                             <constraint firstItem="izn-f7-G1H" firstAttribute="centerY" secondItem="5fg-Kw-weq" secondAttribute="centerY" id="E4Y-cM-5R0"/>
                             <constraint firstItem="izn-f7-G1H" firstAttribute="width" secondItem="RuS-de-UFx" secondAttribute="width" multiplier="1/11" id="FcY-B2-WVJ"/>
                             <constraint firstItem="izn-f7-G1H" firstAttribute="height" secondItem="RuS-de-UFx" secondAttribute="width" multiplier="1/11" id="KL4-z0-tJi"/>
                             <constraint firstItem="5fg-Kw-weq" firstAttribute="centerX" secondItem="RuS-de-UFx" secondAttribute="centerX" id="MqZ-Wk-b1p"/>
                             <constraint firstItem="2z7-M6-38V" firstAttribute="width" secondItem="RuS-de-UFx" secondAttribute="width" multiplier="1/11" id="Neb-Ks-vDq"/>
-                            <constraint firstItem="vTv-Kv-xOl" firstAttribute="centerX" secondItem="RuS-de-UFx" secondAttribute="centerX" id="Yfh-Mh-nNW"/>
                             <constraint firstItem="2z7-M6-38V" firstAttribute="leading" secondItem="PFN-zG-Bsz" secondAttribute="trailing" constant="39" id="ZbQ-DW-Zo7"/>
                             <constraint firstItem="5fg-Kw-weq" firstAttribute="height" secondItem="RuS-de-UFx" secondAttribute="width" multiplier="1/11" id="bnR-N0-dJD"/>
                             <constraint firstItem="5fg-Kw-weq" firstAttribute="top" secondItem="6hi-6y-IRe" secondAttribute="bottom" constant="20" id="e2P-Ba-iBd"/>
@@ -103,7 +98,6 @@
                         <outlet property="reminderButton" destination="5fg-Kw-weq" id="zCu-Q1-aNL"/>
                         <outlet property="searchingButton" destination="yzf-Vs-ErE" id="eNH-B2-Qfo"/>
                         <outlet property="settingsButton" destination="yP1-yf-8pE" id="QcC-48-0Hk"/>
-                        <outlet property="testLabel" destination="vTv-Kv-xOl" id="1c2-4M-eRX"/>
                         <outletCollection property="buttonPaddings" destination="ZbQ-DW-Zo7" collectionClass="NSMutableArray" id="nFy-gg-Knr"/>
                         <outletCollection property="buttonPaddings" destination="46V-bf-jf3" collectionClass="NSMutableArray" id="5rE-qo-zTM"/>
                         <outletCollection property="buttonPaddings" destination="p9f-dn-74n" collectionClass="NSMutableArray" id="tzG-2R-l0d"/>
@@ -177,7 +171,7 @@
                                             <action selector="keyboardButtonPressed:" destination="tNh-37-q1I" eventType="touchUpInside" id="4EA-XG-ZKY"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8Ga-2i-chz">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8Ga-2i-chz" customClass="NewNoteButton" customModule="DailyNotes" customModuleProvider="target">
                                         <rect key="frame" x="262" y="5" width="30" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="l9I-CK-v5z"/>
@@ -185,7 +179,7 @@
                                         </constraints>
                                         <state key="normal" image="Photo"/>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tef-6t-zME">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tef-6t-zME" customClass="NewNoteButton" customModule="DailyNotes" customModuleProvider="target">
                                         <rect key="frame" x="300" y="5" width="30" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="30" id="Nh2-5j-e0T"/>
@@ -193,7 +187,7 @@
                                         </constraints>
                                         <state key="normal" image="Picture"/>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="I90-XB-LVm">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="I90-XB-LVm" customClass="NewNoteButton" customModule="DailyNotes" customModuleProvider="target">
                                         <rect key="frame" x="338" y="5" width="30" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="30" id="7K6-4N-YhU"/>
@@ -201,7 +195,7 @@
                                         </constraints>
                                         <state key="normal" image="Drawing"/>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QZd-aZ-AVm">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QZd-aZ-AVm" customClass="NewNoteButton" customModule="DailyNotes" customModuleProvider="target">
                                         <rect key="frame" x="376" y="5" width="30" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="30" id="EIb-6z-dOa"/>
@@ -209,23 +203,29 @@
                                         </constraints>
                                         <state key="normal" image="Audio"/>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qPu-wl-nzf">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qPu-wl-nzf" customClass="NewNoteButton" customModule="DailyNotes" customModuleProvider="target">
                                         <rect key="frame" x="46" y="5" width="30" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="EmV-rO-dG3"/>
                                             <constraint firstAttribute="width" constant="30" id="oWQ-8S-4vd"/>
                                         </constraints>
                                         <state key="normal" image="Font"/>
+                                        <connections>
+                                            <action selector="fontButtonPressed:" destination="tNh-37-q1I" eventType="touchUpInside" id="abN-Ef-52T"/>
+                                        </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6f5-6j-C0c">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6f5-6j-C0c" customClass="NewNoteButton" customModule="DailyNotes" customModuleProvider="target">
                                         <rect key="frame" x="84" y="5" width="30" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="62j-xg-Roo"/>
                                             <constraint firstAttribute="width" constant="30" id="pai-Dc-v4W"/>
                                         </constraints>
                                         <state key="normal" image="List"/>
+                                        <connections>
+                                            <action selector="listButtonPressed:" destination="tNh-37-q1I" eventType="touchUpInside" id="O5P-Qd-OGG"/>
+                                        </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EPW-kk-c1C">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EPW-kk-c1C" customClass="NewNoteButton" customModule="DailyNotes" customModuleProvider="target">
                                         <rect key="frame" x="192" y="5" width="30" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="SdX-fw-H81"/>

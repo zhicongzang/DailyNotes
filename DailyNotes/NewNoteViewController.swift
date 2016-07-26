@@ -16,6 +16,32 @@ class NewNoteViewController: UIViewController {
     
     @IBOutlet weak var toolBarLayoutConstraint: NSLayoutConstraint!
     
+    let alignLeftButton = FontSettingButton(image: UIImage(named: "AlignLeft"), highlightedImage: UIImage(named: "AlignLeftHighlight"))
+    let alignCenterButton = FontSettingButton(image: UIImage(named: "AlignCenter"), highlightedImage: UIImage(named: "AlignCenterHighlight"))
+    let alignRightButton = FontSettingButton(image: UIImage(named: "AlignRight"), highlightedImage: UIImage(named: "AlignRightHighlight"))
+    let textBackgroundColorButton = FontSettingButton(image: UIImage(named: "TextBackgroundColor"), highlightedImage: UIImage(named: "TextBackgroundColorHighlight"))
+    let fontStrikethroughButton = FontSettingButton(image: UIImage(named: "FontStrikethrough"), highlightedImage: UIImage(named: "FontStrikethroughHighlight"))
+    let fontUnderlineButton = FontSettingButton(image: UIImage(named: "FontUnderline"), highlightedImage: UIImage(named: "FontUnderlineHighlight"))
+    let fontItalicButton = FontSettingButton(image: UIImage(named: "FontItalic"), highlightedImage: UIImage(named: "FontItalicHighlight"))
+    let fontBoldButton = FontSettingButton(image: UIImage(named: "FontBold"), highlightedImage: UIImage(named: "FontBoldHighlight"))
+    
+    let bulletedListButton = FontSettingButton(image: UIImage(named: "BulletedList"), highlightedImage: UIImage(named: "BulletedListHighlight"))
+    let todoListButton = FontSettingButton(image: UIImage(named: "TodoList"), highlightedImage: UIImage(named: "TodoListHighlight"))
+    let numberedListButton = FontSettingButton(image: UIImage(named: "NumberedList"), highlightedImage: UIImage(named: "NumberedListHighlight"))
+    
+    
+    var fontSettingButtons: [UIButton] {
+        get {
+            return [alignLeftButton, alignCenterButton, alignRightButton, textBackgroundColorButton, fontStrikethroughButton, fontUnderlineButton, fontItalicButton, fontBoldButton]
+        }
+    }
+    
+    var listSettingButtons: [UIButton] {
+        get {
+            return [bulletedListButton, numberedListButton, todoListButton]
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -98,6 +124,15 @@ class NewNoteViewController: UIViewController {
         self.dismissViewControllerAnimated(true, completion: nil)
     }
     
+    @IBAction func fontButtonPressed(sender: AnyObject) {
+        let popOver = ZZPopOver(sender: sender as! UIButton, holder: self, paddingFromSender: 5, style: ZZPopOverSpecialStyle.AlignHorizontalCenter(padding: 10, fromTop: false, height: self.view.frame.width / 10))
+        popOver.showPopOver(animated: true, contents: fontSettingButtons, contentsStyle: ZZPopOverContentsStyle.ResizeToSameSize)
+       
+    }
     
+    @IBAction func listButtonPressed(sender: AnyObject) {
+        let popOver = ZZPopOver(sender: sender as! UIButton, holder: self, size: CGSize(width: (self.view.frame.width / 17) * 7, height: self.view.frame.width / 10), direction: ZZPopOverDirection.FromButtom(padding: 5), triangleAlignStyle: ZZPopOverTriangleAlignStyle.AlignCustom(factor: 0.3))
+        popOver.showPopOver(animated: true, contents: listSettingButtons, contentsStyle: ZZPopOverContentsStyle.ResizeToSameSize)
+    }
 
 }

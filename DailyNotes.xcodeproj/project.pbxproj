@@ -18,6 +18,10 @@
 		DC6ED9841D4029E500AEFECB /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC6ED9831D4029E500AEFECB /* RootViewController.swift */; };
 		DC6ED9861D402C6F00AEFECB /* RootButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC6ED9851D402C6F00AEFECB /* RootButton.swift */; };
 		DC6ED9881D40386100AEFECB /* RootNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC6ED9871D40386100AEFECB /* RootNavigationBar.swift */; };
+		DC8B9AA51D4803A3009DB76B /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC8B9AA41D4803A3009DB76B /* Extensions.swift */; };
+		DC8B9AA71D48151A009DB76B /* FontSettingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC8B9AA61D48151A009DB76B /* FontSettingButton.swift */; };
+		DC8B9AA91D481F64009DB76B /* NewNoteButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC8B9AA81D481F64009DB76B /* NewNoteButton.swift */; };
+		DC8B9AAB1D48266D009DB76B /* NewReminderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC8B9AAA1D48266D009DB76B /* NewReminderView.swift */; };
 		DC9F2CAC1D41991E006E8675 /* ZZPopOver.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC9F2CAB1D41991E006E8675 /* ZZPopOver.swift */; };
 		DCF94C071D41795A00CCDE42 /* NewNoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCF94C061D41795A00CCDE42 /* NewNoteViewController.swift */; };
 		DCF94C091D41885900CCDE42 /* KeyboardButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCF94C081D41885900CCDE42 /* KeyboardButton.swift */; };
@@ -58,6 +62,10 @@
 		DC6ED9831D4029E500AEFECB /* RootViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootViewController.swift; sourceTree = "<group>"; };
 		DC6ED9851D402C6F00AEFECB /* RootButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootButton.swift; sourceTree = "<group>"; };
 		DC6ED9871D40386100AEFECB /* RootNavigationBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootNavigationBar.swift; sourceTree = "<group>"; };
+		DC8B9AA41D4803A3009DB76B /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		DC8B9AA61D48151A009DB76B /* FontSettingButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FontSettingButton.swift; sourceTree = "<group>"; };
+		DC8B9AA81D481F64009DB76B /* NewNoteButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewNoteButton.swift; sourceTree = "<group>"; };
+		DC8B9AAA1D48266D009DB76B /* NewReminderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewReminderView.swift; sourceTree = "<group>"; };
 		DC9F2CAB1D41991E006E8675 /* ZZPopOver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZZPopOver.swift; sourceTree = "<group>"; };
 		DCF94C061D41795A00CCDE42 /* NewNoteViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewNoteViewController.swift; sourceTree = "<group>"; };
 		DCF94C081D41885900CCDE42 /* KeyboardButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardButton.swift; sourceTree = "<group>"; };
@@ -147,6 +155,7 @@
 			isa = PBXGroup;
 			children = (
 				DC6ED9801D40296C00AEFECB /* Constant.swift */,
+				DC8B9AA41D4803A3009DB76B /* Extensions.swift */,
 			);
 			name = Utils;
 			sourceTree = "<group>";
@@ -157,7 +166,10 @@
 				DC9F2CAB1D41991E006E8675 /* ZZPopOver.swift */,
 				DC6ED9851D402C6F00AEFECB /* RootButton.swift */,
 				DCF94C081D41885900CCDE42 /* KeyboardButton.swift */,
+				DC8B9AA61D48151A009DB76B /* FontSettingButton.swift */,
 				DC6ED9871D40386100AEFECB /* RootNavigationBar.swift */,
+				DC8B9AA81D481F64009DB76B /* NewNoteButton.swift */,
+				DC8B9AAA1D48266D009DB76B /* NewReminderView.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -297,13 +309,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				DC6ED9861D402C6F00AEFECB /* RootButton.swift in Sources */,
+				DC8B9AAB1D48266D009DB76B /* NewReminderView.swift in Sources */,
 				DC6ED9881D40386100AEFECB /* RootNavigationBar.swift in Sources */,
 				DCF94C071D41795A00CCDE42 /* NewNoteViewController.swift in Sources */,
 				DC6ED9521D401FFD00AEFECB /* DailyNotes.xcdatamodeld in Sources */,
+				DC8B9AA71D48151A009DB76B /* FontSettingButton.swift in Sources */,
 				DC9F2CAC1D41991E006E8675 /* ZZPopOver.swift in Sources */,
+				DC8B9AA51D4803A3009DB76B /* Extensions.swift in Sources */,
 				DCF94C091D41885900CCDE42 /* KeyboardButton.swift in Sources */,
 				DC6ED94A1D401FFD00AEFECB /* AppDelegate.swift in Sources */,
 				DC6ED9841D4029E500AEFECB /* RootViewController.swift in Sources */,
+				DC8B9AA91D481F64009DB76B /* NewNoteButton.swift in Sources */,
 				DC6ED9811D40296C00AEFECB /* Constant.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

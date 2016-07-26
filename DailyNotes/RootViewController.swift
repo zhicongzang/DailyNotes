@@ -8,7 +8,6 @@
 
 import UIKit
 
-
 class RootViewController: UIViewController {
     
     @IBOutlet weak var noteButton: RootButton!
@@ -20,7 +19,6 @@ class RootViewController: UIViewController {
     @IBOutlet weak var searchingButton: UIButton!
     @IBOutlet weak var settingsButton: UIButton!
     
-    @IBOutlet weak var testLabel: UILabel!
     
     @IBOutlet var buttonPaddings: [NSLayoutConstraint]!
     @IBOutlet weak var buttonsToTopLayoutConstraint: NSLayoutConstraint!
@@ -28,11 +26,6 @@ class RootViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupButtons()
-        let p1 = ZZPopOver(sender: testLabel, size: CGSize(width: 100, height: 100), direction: ZZPopOverDirection.FromTop(padding: 10))
-        let p2 = ZZPopOver(sender: testLabel, size: CGSize(width: 100, height: 100), direction: ZZPopOverDirection.FromButtom(padding: 10))
-        let p3 = ZZPopOver(sender: testLabel, size: CGSize(width: 100, height: 100), direction: ZZPopOverDirection.FromLeft(padding: 10))
-        let p4 = ZZPopOver(sender: testLabel, size: CGSize(width: 100, height: 100), direction: ZZPopOverDirection.FromRight(padding: 10))
-        
     }
     
     override func didReceiveMemoryWarning() {
@@ -48,5 +41,12 @@ class RootViewController: UIViewController {
         settingsButton.frame.size = CGSize(width: rootButtonWidth / 2, height: rootButtonWidth / 2)
     }
     
+    @IBAction func reminderButtonPressed(sender: AnyObject) {
+        let newReminderView = NewReminderView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height))
+        self.view.addSubview(newReminderView)
+    }
     
 }
+
+
+

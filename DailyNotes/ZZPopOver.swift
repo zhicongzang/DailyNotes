@@ -15,14 +15,37 @@ enum ZZPopOverDirection {
     case FromRight(padding: CGFloat)
 }
 
+enum ZZPopOverTriangleAlignStyle {
+    case AlignCenter
+    case AlignUpOrLeft
+    case AlignDownOrRight
+    case AlignCustom(factor: CGFloat)
+}
+
+enum ZZPopOverSpecialStyle {
+    case AlignHorizontalCenter(padding: CGFloat, fromTop: Bool, height: CGFloat)
+    case AlignVerticalCenter(padding: CGFloat, fromLeft: Bool, width: CGFloat)
+}
+
+enum ZZPopOverContentsStyle {
+    case None
+    case ResizeToSameSize
+}
+
 class ZZPopOver: UIView {
     
-    let DefaultTriangleHeight: CGFloat = 8.0
-    let DefaultTriangleWidth: CGFloat = 10.0
-    let DefaultPopOverCornerRadius: CGFloat = 5.0
+    static let DefaultTriangleHeight: CGFloat = 8.0
+    static let DefaultTriangleWidth: CGFloat = 10.0
+    static let DefaultPopOverCornerRadius: CGFloat = 5.0
+    static let DefaultPopOverShowAnimationDuration = 0.3
+    static let DefaultPopOverDismissAnimationDuration = 0.3
     
     let popOverLayer: CAShapeLayer = CAShapeLayer()
+    let contentView: UIView = UIView()
     
+    var triangleHeight: CGFloat = DefaultTriangleHeight
+    var triangleWidth: CGFloat = DefaultTriangleWidth
+    var popOverCornerRadius: CGFloat = DefaultPopOverCornerRadius
     var direction: ZZPopOverDirection = .FromTop(padding: 10)
     var vertexOfTriangle: CGFloat = 0.0
     var popOverLayerBackgroundColor: UIColor = UIColor.grayColor() {
@@ -32,123 +55,210 @@ class ZZPopOver: UIView {
             }
         }
     }
+    var contentLayerFrame: CGRect {
+        get {
+            switch self.direction {
+            case .FromTop(_):
+                return CGRect(x: 0, y: triangleHeight, width: contentView.frame.width, height: contentView.frame.height)
+            case .FromButtom(_):
+                return CGRect(x: 0, y: 0, width: contentView.frame.width, height: contentView.frame.height - triangleHeight)
+            case .FromLeft(_):
+                return CGRect(x: triangleHeight, y: 0, width: contentView.frame.width, height: contentView.frame.height)
+            case .FromRight(_):
+                return CGRect(x: 0, y: 0, width: contentView.frame.width - triangleHeight, height: contentView.frame.height)
+            }
+        }
+        
+    }
     
-    
-    override init(frame: CGRect) {
-        vertexOfTriangle = frame.width / 2
-        super.init(frame: frame)
+    init(holder: UIViewController, frame: CGRect, direction: ZZPopOverDirection, vertexOfTriangle: CGFloat) {
+        super.init(frame: holder.view.frame)
+        contentView.frame = frame
+        self.addSubview(contentView)
+        self.vertexOfTriangle = vertexOfTriangle
+        self.direction = direction
         self.backgroundColor = UIColor.clearColor()
-        setupPopLayer()
+        holder.view.addSubview(self)
+    }
+    
+    convenience init(sender: UIView, holder: UIViewController, size: CGSize, direction: ZZPopOverDirection, triangleAlignStyle: ZZPopOverTriangleAlignStyle) {
+        let vertexOfTriangleFactor: CGFloat
+        switch triangleAlignStyle {
+        case .AlignCenter:
+            vertexOfTriangleFactor = 0.5
+        case .AlignUpOrLeft:
+            vertexOfTriangleFactor = 0.25
+        case .AlignDownOrRight:
+            vertexOfTriangleFactor = 0.75
+        case let .AlignCustom(factor):
+            vertexOfTriangleFactor = min(max(factor, 0), 1)
+        }
+        let frame: CGRect
+        let vertexOfTriangle: CGFloat
+        let senderFrame = sender.superview!.convertRect(sender.frame, toView: holder.view)
+        switch direction {
+        case let .FromTop(padding):
+            vertexOfTriangle = size.width * vertexOfTriangleFactor
+            frame = CGRect(x: senderFrame.origin.x + senderFrame.width / 2 - vertexOfTriangle , y: senderFrame.maxY + padding, width: size.width, height: size.height)
+        case let .FromButtom(padding):
+            vertexOfTriangle = size.width * vertexOfTriangleFactor
+            frame = CGRect(x: senderFrame.origin.x + senderFrame.width  / 2 - vertexOfTriangle , y: senderFrame.minY - padding - size.height, width: size.width, height: size.height)
+        case let .FromLeft(padding):
+            vertexOfTriangle = size.height * vertexOfTriangleFactor
+            frame = CGRect(x: senderFrame.maxX + padding, y: senderFrame.origin.y + senderFrame.height / 2 - vertexOfTriangle , width: size.width, height: size.height)
+        case let .FromRight(padding):
+            vertexOfTriangle = size.height * vertexOfTriangleFactor
+            frame = CGRect(x: senderFrame.minX - padding - size.width, y: senderFrame.origin.y + senderFrame.height / 2 - vertexOfTriangle , width: size.width, height: size.height)
+        }
+        self.init(holder: holder, frame: frame, direction: direction, vertexOfTriangle: vertexOfTriangle)
+        
+    }
+    
+    convenience init(sender: UIView, holder:UIViewController, paddingFromSender: CGFloat, style: ZZPopOverSpecialStyle) {
+        switch style {
+        case let .AlignHorizontalCenter(padding: padding, fromTop: fromTop, height: height):
+            let size = CGSize(width: holder.view.frame.width - 2 * padding, height: height)
+            let senderFrame = sender.superview!.convertRect(sender.frame, toView: holder.view)
+            let vertexOfTriangleFactor: CGFloat = (senderFrame.origin.x + senderFrame.width / 2 - padding) / size.width
+            if fromTop {
+                self.init(sender: sender, holder: holder, size: size, direction: ZZPopOverDirection.FromTop(padding: paddingFromSender), triangleAlignStyle: ZZPopOverTriangleAlignStyle.AlignCustom(factor: vertexOfTriangleFactor))
+            } else {
+                self.init(sender: sender, holder: holder, size: size, direction: ZZPopOverDirection.FromButtom(padding: paddingFromSender), triangleAlignStyle: ZZPopOverTriangleAlignStyle.AlignCustom(factor: vertexOfTriangleFactor))
+            }
+        case let .AlignVerticalCenter(padding: padding, fromLeft: fromLeft, width: width):
+            let size = CGSize(width: width, height: holder.view.frame.height - 2 * padding)
+            let vertexOfTriangleFactor: CGFloat = (sender.frame.origin.y + sender.frame.height / 2 - padding) / size.height
+            if fromLeft {
+                self.init(sender: sender, holder: holder, size: size, direction: ZZPopOverDirection.FromLeft(padding: paddingFromSender), triangleAlignStyle: ZZPopOverTriangleAlignStyle.AlignCustom(factor: vertexOfTriangleFactor))
+            } else {
+                self.init(sender: sender, holder: holder, size: size, direction: ZZPopOverDirection.FromRight(padding: paddingFromSender), triangleAlignStyle: ZZPopOverTriangleAlignStyle.AlignCustom(factor: vertexOfTriangleFactor))
+            }
+        }
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    init(sender: UIView, size: CGSize, direction: ZZPopOverDirection) {
-        
-        let frame: CGRect
-        switch direction {
-        case let .FromTop(padding):
-            frame = CGRect(x: sender.frame.origin.x + (sender.frame.width - size.width) / 2, y: sender.frame.maxY + padding, width: size.width, height: size.height)
-        case let .FromButtom(padding):
-            frame = CGRect(x: sender.frame.origin.x + (sender.frame.width - size.width) / 2, y: sender.frame.minY - padding - size.height, width: size.width, height: size.height)
-        case let .FromLeft(padding):
-            frame = CGRect(x: sender.frame.maxX + padding, y: sender.frame.origin.y + (sender.frame.height - size.height) / 2, width: size.width, height: size.height)
-        case let .FromRight(padding):
-            frame = CGRect(x: sender.frame.minX - padding - size.width, y: sender.frame.origin.y + (sender.frame.height - size.height) / 2, width: size.width, height: size.height)
-        }
-        super.init(frame: frame)
-        self.vertexOfTriangle = frame.width / 2
-        self.direction = direction
-        self.backgroundColor = UIColor.clearColor()
-        setupPopLayer()
-        sender.superview?.addSubview(self)
-    }
-    
-//    func setupPopLayer() {
-//        let point0 = CGPoint(x: vertexOfTriangle, y: 0)
-//        let point1 = CGPoint(x: vertexOfTriangle - 0.5 * DefaultTriangleWidth, y: DefaultTriangleHeight)
-//        let point2 = CGPoint(x: DefaultPopOverCornerRadius, y: DefaultTriangleHeight)
-//        let point2_center = CGPoint(x: DefaultPopOverCornerRadius, y: DefaultTriangleHeight + DefaultPopOverCornerRadius)
-//        let point3 = CGPoint(x: 0, y: frame.height - DefaultPopOverCornerRadius)
-//        let point3_center = CGPoint(x: DefaultPopOverCornerRadius, y: frame.height - DefaultPopOverCornerRadius)
-//        let point4 = CGPoint(x: frame.width - DefaultPopOverCornerRadius, y: frame.height)
-//        let point4_center = CGPoint(x: frame.width - DefaultPopOverCornerRadius, y: frame.height - DefaultPopOverCornerRadius)
-//        let point5 = CGPoint(x: frame.width, y: DefaultTriangleHeight + DefaultPopOverCornerRadius)
-//        let point5_center = CGPoint(x: frame.width - DefaultPopOverCornerRadius, y: DefaultTriangleHeight + DefaultPopOverCornerRadius)
-//        let point6 = CGPoint(x: vertexOfTriangle + 0.5 * DefaultTriangleWidth, y: DefaultTriangleHeight)
-//        
-//        let path = UIBezierPath()
-//        path.moveToPoint(point0)
-//        path.addLineToPoint(point1)
-//        path.addLineToPoint(point2)
-//        path.addArcWithCenter(point2_center, radius: DefaultPopOverCornerRadius, startAngle: 3 * CGFloat(M_PI_2), endAngle: CGFloat(M_PI), clockwise: false)
-//        path.addLineToPoint(point3)
-//        path.addArcWithCenter(point3_center, radius: DefaultPopOverCornerRadius, startAngle: CGFloat(M_PI), endAngle: CGFloat(M_PI_2), clockwise: false)
-//        path.addLineToPoint(point4)
-//        path.addArcWithCenter(point4_center, radius: DefaultPopOverCornerRadius, startAngle: CGFloat(M_PI_2), endAngle: 0, clockwise: false)
-//        path.addLineToPoint(point5)
-//        path.addArcWithCenter(point5_center, radius: DefaultPopOverCornerRadius, startAngle: 0, endAngle: 3 * CGFloat(M_PI_2), clockwise: false)
-//        path.addLineToPoint(point6)
-//        
-//        popOverLayer.path = path.CGPath
-//        popOverLayer.fillColor = popOverLayerBackgroundColor.CGColor
-//        
-//        self.layer.addSublayer(popOverLayer)
-//    }
-    
     func setupPopLayer() {
         let path: UIBezierPath
         switch direction {
         case .FromTop(_):
-            path = UIBezierPath(roundedRect: CGRect(x: 0, y: DefaultTriangleHeight, width: frame.width, height: frame.height), cornerRadius: DefaultPopOverCornerRadius)
+            path = UIBezierPath(roundedRect: contentLayerFrame, cornerRadius: popOverCornerRadius)
+            let pathTriangle = UIBezierPath()
+            let point0 = CGPoint(x: vertexOfTriangle - triangleWidth / 2, y: triangleHeight)
+            let point1 = CGPoint(x: vertexOfTriangle, y: 0)
+            let point2 = CGPoint(x: vertexOfTriangle + triangleWidth / 2, y: triangleHeight)
+            pathTriangle.moveToPoint(point0)
+            pathTriangle.addLineToPoint(point1)
+            pathTriangle.addLineToPoint(point2)
+            path.appendPath(pathTriangle)
         case .FromButtom(_):
-            path = UIBezierPath(roundedRect: CGRect(x: 0, y: 0 , width: frame.width, height: frame.height - DefaultTriangleHeight), cornerRadius: DefaultPopOverCornerRadius)
+            path = UIBezierPath(roundedRect: contentLayerFrame, cornerRadius: popOverCornerRadius)
+            let pathTriangle = UIBezierPath()
+            let point0 = CGPoint(x: vertexOfTriangle - triangleWidth / 2, y: contentView.frame.height - triangleHeight)
+            let point1 = CGPoint(x: vertexOfTriangle, y: contentView.frame.height)
+            let point2 = CGPoint(x: vertexOfTriangle + triangleWidth / 2, y: contentView.frame.height - triangleHeight)
+            pathTriangle.moveToPoint(point0)
+            pathTriangle.addLineToPoint(point1)
+            pathTriangle.addLineToPoint(point2)
+            path.appendPath(pathTriangle)
         case .FromLeft(_):
-            path = UIBezierPath(roundedRect: CGRect(x: DefaultTriangleHeight, y: 0, width: frame.width, height: frame.height), cornerRadius: DefaultPopOverCornerRadius)
+            path = UIBezierPath(roundedRect: contentLayerFrame, cornerRadius: popOverCornerRadius)
+            let pathTriangle = UIBezierPath()
+            let point0 = CGPoint(x: triangleHeight, y: vertexOfTriangle - triangleWidth / 2)
+            let point1 = CGPoint(x: 0, y: vertexOfTriangle)
+            let point2 = CGPoint(x: triangleHeight, y: vertexOfTriangle + triangleWidth / 2)
+            pathTriangle.moveToPoint(point0)
+            pathTriangle.addLineToPoint(point1)
+            pathTriangle.addLineToPoint(point2)
+            path.appendPath(pathTriangle)
         case .FromRight(_):
-            path = UIBezierPath(roundedRect: CGRect(x: 0, y: 0, width: frame.width - DefaultTriangleHeight, height: frame.height), cornerRadius: DefaultPopOverCornerRadius)
+            path = UIBezierPath(roundedRect: contentLayerFrame, cornerRadius: popOverCornerRadius)
+            let pathTriangle = UIBezierPath()
+            let point0 = CGPoint(x: contentView.frame.width - triangleHeight, y: vertexOfTriangle - triangleWidth / 2)
+            let point1 = CGPoint(x: contentView.frame.width, y: vertexOfTriangle)
+            let point2 = CGPoint(x: contentView.frame.width - triangleHeight, y: vertexOfTriangle + triangleWidth / 2)
+            pathTriangle.moveToPoint(point0)
+            pathTriangle.addLineToPoint(point1)
+            pathTriangle.addLineToPoint(point2)
+            path.appendPath(pathTriangle)
         }
         popOverLayer.path = path.CGPath
         popOverLayer.fillColor = popOverLayerBackgroundColor.CGColor
-        
-        self.layer.addSublayer(popOverLayer)
+        popOverLayer.strokeColor = popOverLayerBackgroundColor.CGColor
+        self.contentView.layer.addSublayer(popOverLayer)
     }
-
     
+    func showPopOver(animated animated: Bool, contents: [UIView]?, contentsStyle: ZZPopOverContentsStyle?) {
+        setupPopLayer()
+        setContents(contents, contentsStyle: contentsStyle)
+        if animated {
+            self.contentView.transform = CGAffineTransformMakeScale(1.1, 1.1)
+            
+            self.contentView.alpha = 0
+            UIView.animateWithDuration(ZZPopOver.DefaultPopOverDismissAnimationDuration, delay: 0, options: .BeginFromCurrentState, animations: {
+                self.contentView.transform = CGAffineTransformIdentity
+                self.contentView.alpha = 1
+                }, completion: nil)
+        }
+    }
     
+    func dismiss() {
+        UIView.animateWithDuration(ZZPopOver.DefaultPopOverDismissAnimationDuration, delay: 0, options: .BeginFromCurrentState, animations: {
+            self.contentView.transform = CGAffineTransformMakeScale(0.9, 0.9)
+            self.contentView.alpha = 0
+            }, completion: { (finished) in
+                self.removeFromSuperview()
+        })
+    }
     
+    func setContents(contents: [UIView]?, contentsStyle: ZZPopOverContentsStyle?) {
+        let style: ZZPopOverContentsStyle = contentsStyle ?? .None
+        if let contents = contents where contents.count > 0{
+            switch style {
+            case .ResizeToSameSize:
+                let frames = contentLayerFrame.splitToEqualSquaresByRow(count: contents.count, yGap: popOverCornerRadius / 2)
+                (0..<contents.count).forEach({ (i) in
+                    contents[i].frame = frames[i]
+                })
+            default:
+                break
+            }
+            contents.forEach({ (content) in
+                contentView.addSubview(content)
+            })
+        }
+    }
     
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        super.touchesBegan(touches, withEvent: event)
+        touches.forEach { (touch) in
+            let point = touch.locationInView(self)
+            if !CGRectContainsPoint(contentView.frame, point) {
+                dismiss()
+            }
+        }
+        
+    }
     
 
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+extension CGRect {
+    func splitToEqualSquaresByRow(count count: Int, yGap: CGFloat) -> [CGRect] {
+        let squareWidth = min(self.height - 2 * yGap, self.width/CGFloat(count * 2 + 1))
+        var frames = [CGRect]()
+        let y = (self.height - squareWidth) / 2
+        let xGap = (self.width - CGFloat(count) * squareWidth) / CGFloat(count + 1)
+        (0..<count).forEach { (i) in
+            let frame = CGRect(x: self.origin.x + xGap * (CGFloat(i) + 1) + CGFloat(i) * squareWidth, y: self.origin.y + y, width: squareWidth, height: squareWidth)
+            frames.append(frame)
+        }
+        return frames
+    }
+}
 
 
 
