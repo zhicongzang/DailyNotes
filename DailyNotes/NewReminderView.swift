@@ -32,10 +32,16 @@ class NewReminderView: UIView {
         contentView.layer.cornerRadius = 10
         contentView.layer.masksToBounds = true
         
+        
     }
     
     func dismiss() {
-        self.removeFromSuperview()
+        UIView.animateWithDuration(ZZPopOver.DefaultPopOverDismissAnimationDuration, delay: 0, options: .BeginFromCurrentState, animations: {
+            self.contentView.transform = CGAffineTransformMakeScale(0.9, 0.9)
+            self.contentView.alpha = 0
+            }, completion: { (finished) in
+                self.removeFromSuperview()
+        })
     }
     
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
@@ -46,6 +52,19 @@ class NewReminderView: UIView {
                 dismiss()
             }
         }
+    }
+    
+    func show(holder holder: UIViewController, animated: Bool) {
+        holder.view.addSubview(self)
+        if animated {
+            self.contentView.transform = CGAffineTransformMakeScale(1.1, 1.1)
+            self.contentView.alpha = 0
+            UIView.animateWithDuration(ZZPopOver.DefaultPopOverDismissAnimationDuration, delay: 0, options: .BeginFromCurrentState, animations: {
+                self.contentView.transform = CGAffineTransformIdentity
+                self.contentView.alpha = 1
+                }, completion: nil)
+        }
+        
     }
 
 }

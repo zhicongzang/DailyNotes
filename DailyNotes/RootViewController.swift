@@ -42,8 +42,13 @@ class RootViewController: UIViewController {
     }
     
     @IBAction func reminderButtonPressed(sender: AnyObject) {
-        let newReminderView = NewReminderView(frame: CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height))
-        self.view.addSubview(newReminderView)
+        let baseView = UIView(frame: CGRect(x: 0, y: -44, width: self.view.frame.width, height: self.view.frame.height))
+        baseView.backgroundColor = UIColor(white: 0.6, alpha: 0.3)
+        self.view.addSubview(baseView)
+        let width = view.frame.width
+        let height = view.frame.height
+        let newReminderNC = storyboard?.instantiateViewControllerWithIdentifier("NewReminderNC") as! NewReminderNC
+        self.configureChildViewController(childController: newReminderNC, onView: baseView, constraints: .Constraints(top: height / 3, buttom: height / 3, left: width / 8, right: width / 8))
     }
     
 }
