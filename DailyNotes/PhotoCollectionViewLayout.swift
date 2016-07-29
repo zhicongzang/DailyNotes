@@ -25,7 +25,7 @@ class PhotoCollectionViewLayout: UICollectionViewFlowLayout {
     
     override func prepareLayout() {
         let photosCollectionView = collectionView!
-        itemSize = CGSize(width: photosCollectionView.frame.height - 10, height: photosCollectionView.frame.height - 10)
+        itemSize = CGSize(width: (photosCollectionView.frame.height - 10) / 4 * 3, height: photosCollectionView.frame.height - 10)
         sectionInset = UIEdgeInsetsMake(5, 5, 5, 5)
     }
     

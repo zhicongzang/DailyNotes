@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="ARR-tz-eD8">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="ARR-tz-eD8">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -21,11 +21,11 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RnA-ty-scI">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="368"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="552"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ce7-5M-d27">
-                                <rect key="frame" x="20" y="686" width="48" height="30"/>
+                                <rect key="frame" x="20" y="682" width="48" height="30"/>
                                 <state key="normal" title="Cancel">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -34,7 +34,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IlP-sA-Ym7">
-                                <rect key="frame" x="360" y="686" width="34" height="30"/>
+                                <rect key="frame" x="360" y="682" width="34" height="30"/>
                                 <state key="normal" title="Save">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -43,7 +43,7 @@
                                 </connections>
                             </button>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="tYh-Lf-mSu">
-                                <rect key="frame" x="0.0" y="368" width="414" height="184"/>
+                                <rect key="frame" x="0.0" y="552" width="414" height="110"/>
                                 <collectionViewLayout key="collectionViewLayout" id="pkO-oK-ypC" customClass="PhotoCollectionViewLayout" customModule="DailyNotes" customModuleProvider="target"/>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="PhotoCell" id="Ze8-7i-LTZ">
@@ -61,6 +61,13 @@
                                     <outlet property="delegate" destination="IW1-VS-7G3" id="2SW-1b-kEj"/>
                                 </connections>
                             </collectionView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jKp-Ya-hM6">
+                                <rect key="frame" x="178" y="667" width="59" height="59"/>
+                                <state key="normal" image="ShutterRelease"/>
+                                <connections>
+                                    <action selector="shutterButtonPressed:" destination="IW1-VS-7G3" eventType="touchUpInside" id="3Kb-RH-sJI"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
@@ -68,14 +75,18 @@
                             <constraint firstItem="IlP-sA-Ym7" firstAttribute="trailing" secondItem="miU-0E-AzD" secondAttribute="trailingMargin" id="5eN-yB-10P"/>
                             <constraint firstItem="RnA-ty-scI" firstAttribute="leading" secondItem="miU-0E-AzD" secondAttribute="leadingMargin" constant="-20" id="9h0-z4-lX2"/>
                             <constraint firstItem="Ce7-5M-d27" firstAttribute="leading" secondItem="miU-0E-AzD" secondAttribute="leadingMargin" id="APa-UJ-8Wv"/>
+                            <constraint firstItem="jKp-Ya-hM6" firstAttribute="width" secondItem="miU-0E-AzD" secondAttribute="width" multiplier="32/225" id="Dbs-BG-eqf"/>
                             <constraint firstAttribute="trailingMargin" secondItem="tYh-Lf-mSu" secondAttribute="trailing" constant="-20" id="Eny-tk-vhz"/>
-                            <constraint firstItem="mDU-FE-g5W" firstAttribute="top" secondItem="Ce7-5M-d27" secondAttribute="bottom" constant="20" id="Gal-x8-JzH"/>
                             <constraint firstAttribute="trailingMargin" secondItem="RnA-ty-scI" secondAttribute="trailing" constant="-20" id="Ja2-d4-kXs"/>
+                            <constraint firstItem="jKp-Ya-hM6" firstAttribute="height" secondItem="miU-0E-AzD" secondAttribute="height" multiplier="0.08" id="PYi-Nq-kLz"/>
+                            <constraint firstItem="Ce7-5M-d27" firstAttribute="centerY" secondItem="jKp-Ya-hM6" secondAttribute="centerY" id="Rnk-kF-IA2"/>
+                            <constraint firstItem="IlP-sA-Ym7" firstAttribute="centerY" secondItem="jKp-Ya-hM6" secondAttribute="centerY" id="VDM-tD-Rld"/>
                             <constraint firstItem="tYh-Lf-mSu" firstAttribute="top" secondItem="RnA-ty-scI" secondAttribute="bottom" id="WQd-Tg-UFn"/>
-                            <constraint firstItem="RnA-ty-scI" firstAttribute="height" secondItem="miU-0E-AzD" secondAttribute="height" multiplier="0.5" id="Xqf-EH-JqI"/>
+                            <constraint firstItem="RnA-ty-scI" firstAttribute="height" secondItem="miU-0E-AzD" secondAttribute="height" multiplier="0.75" id="Xqf-EH-JqI"/>
                             <constraint firstItem="tYh-Lf-mSu" firstAttribute="leading" secondItem="miU-0E-AzD" secondAttribute="leadingMargin" constant="-20" id="g3z-Qv-mAd"/>
-                            <constraint firstItem="tYh-Lf-mSu" firstAttribute="height" secondItem="miU-0E-AzD" secondAttribute="height" multiplier="0.25" id="mbD-oT-2d7"/>
-                            <constraint firstItem="mDU-FE-g5W" firstAttribute="top" secondItem="IlP-sA-Ym7" secondAttribute="bottom" constant="20" id="vWm-XS-KEm"/>
+                            <constraint firstItem="jKp-Ya-hM6" firstAttribute="centerX" secondItem="miU-0E-AzD" secondAttribute="centerX" id="mYr-Ui-jBS"/>
+                            <constraint firstItem="tYh-Lf-mSu" firstAttribute="height" secondItem="miU-0E-AzD" secondAttribute="height" multiplier="0.15" id="mbD-oT-2d7"/>
+                            <constraint firstItem="mDU-FE-g5W" firstAttribute="top" secondItem="jKp-Ya-hM6" secondAttribute="bottom" constant="10" id="wq1-Rn-NUK"/>
                         </constraints>
                     </view>
                     <nil key="simulatedStatusBarMetrics"/>
@@ -84,6 +95,7 @@
                         <outlet property="cameraRealTimeView" destination="RnA-ty-scI" id="AIp-Vd-uWL"/>
                         <outlet property="photosCollectionView" destination="tYh-Lf-mSu" id="fYv-9R-AJM"/>
                         <outlet property="saveButton" destination="IlP-sA-Ym7" id="1cB-HQ-OwI"/>
+                        <outlet property="shutterButtonLC" destination="wq1-Rn-NUK" id="wiW-3j-b0h"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hxm-gf-I8X" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -597,5 +609,6 @@
         <image name="Reminder" width="33" height="33"/>
         <image name="Search" width="33" height="33"/>
         <image name="Settings" width="33" height="33"/>
+        <image name="ShutterRelease" width="300" height="300"/>
     </resources>
 </document>
