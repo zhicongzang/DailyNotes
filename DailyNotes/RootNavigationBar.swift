@@ -28,7 +28,10 @@ class RootNavigationBar: UINavigationBar {
         logoImageView.image = UIImage(named: "Logo")
         logoImageView.alpha = logoImageAlpha
         self.addSubview(logoImageView)
+        translucent = false
         
     }
+    
+    
 
 }

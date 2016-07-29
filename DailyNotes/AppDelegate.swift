@@ -17,6 +17,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
+        
+        Utils.getPhotoLibraryAuthorization(handler: Utils.createAssetCollection(title: AssetCollectionTitle))
         return true
     }
 

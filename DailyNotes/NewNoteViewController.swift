@@ -13,6 +13,7 @@ class NewNoteViewController: UIViewController {
     @IBOutlet weak var keyboardButton: KeyboardButton!
     @IBOutlet weak var subjectTextField: UITextField!
     @IBOutlet weak var textView: UITextView!
+    @IBOutlet weak var toolBarView: UIView!
     
     @IBOutlet weak var toolBarLayoutConstraint: NSLayoutConstraint!
     
@@ -44,6 +45,9 @@ class NewNoteViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        toolBarView.setupButtomDividingLine(lineWidth: 0.5, lineColor: UIColor(white: 0.6, alpha: 1).CGColor)
+        toolBarView.setupTopDividingLine(lineWidth: 0.5, lineColor: UIColor(white: 0.6, alpha: 1).CGColor)
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(NewNoteViewController.keyboardWillChangeFrame(_:)), name: UIKeyboardWillChangeFrameNotification, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(NewNoteViewController.keyboardWillShow(_:)), name: UIKeyboardWillShowNotification, object: nil)
@@ -108,7 +112,7 @@ class NewNoteViewController: UIViewController {
         let actionSaveDraft = UIAlertAction(title: "Save Draft", style: UIAlertActionStyle.Default) { (_) in
             self.dismissViewControllerAnimated(true, completion: nil)
         }
-        let actionCancel = UIAlertAction(title: "Cancel Draft", style: UIAlertActionStyle.Cancel) { (_) in
+        let actionCancel = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel) { (_) in
             return
         }
         alert.addAction(actionDeleteDraft)

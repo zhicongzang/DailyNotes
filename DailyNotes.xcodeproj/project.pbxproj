@@ -21,11 +21,14 @@
 		DC8B9AA51D4803A3009DB76B /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC8B9AA41D4803A3009DB76B /* Extensions.swift */; };
 		DC8B9AA71D48151A009DB76B /* FontSettingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC8B9AA61D48151A009DB76B /* FontSettingButton.swift */; };
 		DC8B9AA91D481F64009DB76B /* NewNoteButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC8B9AA81D481F64009DB76B /* NewNoteButton.swift */; };
-		DC8B9AAB1D48266D009DB76B /* NewReminderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC8B9AAA1D48266D009DB76B /* NewReminderView.swift */; };
 		DC9F2CAC1D41991E006E8675 /* ZZPopOver.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC9F2CAB1D41991E006E8675 /* ZZPopOver.swift */; };
 		DCF949731D4927BB004B3ACE /* NewReminderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCF949711D4927BB004B3ACE /* NewReminderViewController.swift */; };
-		DCF949781D4950E6004B3ACE /* NewReminderNC.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCF949771D4950E6004B3ACE /* NewReminderNC.swift */; };
-		DCF9497A1D495690004B3ACE /* SetTimerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCF949791D495690004B3ACE /* SetTimerViewController.swift */; };
+		DCF9497C1D4A900B004B3ACE /* PickDateButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCF9497B1D4A900B004B3ACE /* PickDateButton.swift */; };
+		DCF9497E1D4AA6AC004B3ACE /* Photos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCF9497D1D4AA6AC004B3ACE /* Photos.framework */; };
+		DCF949801D4AB357004B3ACE /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCF9497F1D4AB357004B3ACE /* Utils.swift */; };
+		DCF949821D4ABA47004B3ACE /* NewPhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCF949811D4ABA47004B3ACE /* NewPhotoViewController.swift */; };
+		DCF949841D4ABB9E004B3ACE /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCF949831D4ABB9E004B3ACE /* AVFoundation.framework */; };
+		DCF949861D4AD7B8004B3ACE /* PhotoCollectionViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCF949851D4AD7B8004B3ACE /* PhotoCollectionViewLayout.swift */; };
 		DCF94C071D41795A00CCDE42 /* NewNoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCF94C061D41795A00CCDE42 /* NewNoteViewController.swift */; };
 		DCF94C091D41885900CCDE42 /* KeyboardButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCF94C081D41885900CCDE42 /* KeyboardButton.swift */; };
 /* End PBXBuildFile section */
@@ -68,11 +71,14 @@
 		DC8B9AA41D4803A3009DB76B /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		DC8B9AA61D48151A009DB76B /* FontSettingButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FontSettingButton.swift; sourceTree = "<group>"; };
 		DC8B9AA81D481F64009DB76B /* NewNoteButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewNoteButton.swift; sourceTree = "<group>"; };
-		DC8B9AAA1D48266D009DB76B /* NewReminderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewReminderView.swift; sourceTree = "<group>"; };
 		DC9F2CAB1D41991E006E8675 /* ZZPopOver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZZPopOver.swift; sourceTree = "<group>"; };
 		DCF949711D4927BB004B3ACE /* NewReminderViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewReminderViewController.swift; sourceTree = "<group>"; };
-		DCF949771D4950E6004B3ACE /* NewReminderNC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewReminderNC.swift; sourceTree = "<group>"; };
-		DCF949791D495690004B3ACE /* SetTimerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetTimerViewController.swift; sourceTree = "<group>"; };
+		DCF9497B1D4A900B004B3ACE /* PickDateButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PickDateButton.swift; sourceTree = "<group>"; };
+		DCF9497D1D4AA6AC004B3ACE /* Photos.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Photos.framework; path = System/Library/Frameworks/Photos.framework; sourceTree = SDKROOT; };
+		DCF9497F1D4AB357004B3ACE /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
+		DCF949811D4ABA47004B3ACE /* NewPhotoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewPhotoViewController.swift; sourceTree = "<group>"; };
+		DCF949831D4ABB9E004B3ACE /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		DCF949851D4AD7B8004B3ACE /* PhotoCollectionViewLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoCollectionViewLayout.swift; sourceTree = "<group>"; };
 		DCF94C061D41795A00CCDE42 /* NewNoteViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewNoteViewController.swift; sourceTree = "<group>"; };
 		DCF94C081D41885900CCDE42 /* KeyboardButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -82,6 +88,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DCF949841D4ABB9E004B3ACE /* AVFoundation.framework in Frameworks */,
+				DCF9497E1D4AA6AC004B3ACE /* Photos.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -105,6 +113,8 @@
 		DC6ED93D1D401FFC00AEFECB = {
 			isa = PBXGroup;
 			children = (
+				DCF949831D4ABB9E004B3ACE /* AVFoundation.framework */,
+				DCF9497D1D4AA6AC004B3ACE /* Photos.framework */,
 				DC6ED9481D401FFD00AEFECB /* DailyNotes */,
 				DC6ED9601D401FFD00AEFECB /* DailyNotesTests */,
 				DC6ED96B1D401FFD00AEFECB /* DailyNotesUITests */,
@@ -129,7 +139,7 @@
 				DC6ED9831D4029E500AEFECB /* RootViewController.swift */,
 				DCF94C061D41795A00CCDE42 /* NewNoteViewController.swift */,
 				DCF949711D4927BB004B3ACE /* NewReminderViewController.swift */,
-				DCF949771D4950E6004B3ACE /* NewReminderNC.swift */,
+				DCF949811D4ABA47004B3ACE /* NewPhotoViewController.swift */,
 				DC6ED94D1D401FFD00AEFECB /* Main.storyboard */,
 				DC6ED9531D401FFD00AEFECB /* Assets.xcassets */,
 				DC6ED9551D401FFD00AEFECB /* LaunchScreen.storyboard */,
@@ -137,7 +147,6 @@
 				DC6ED9501D401FFD00AEFECB /* DailyNotes.xcdatamodeld */,
 				DC6ED9891D403A0900AEFECB /* Views */,
 				DC6ED9821D40297400AEFECB /* Utils */,
-				DCF949791D495690004B3ACE /* SetTimerViewController.swift */,
 			);
 			path = DailyNotes;
 			sourceTree = "<group>";
@@ -165,6 +174,7 @@
 			children = (
 				DC6ED9801D40296C00AEFECB /* Constant.swift */,
 				DC8B9AA41D4803A3009DB76B /* Extensions.swift */,
+				DCF9497F1D4AB357004B3ACE /* Utils.swift */,
 			);
 			name = Utils;
 			sourceTree = "<group>";
@@ -178,7 +188,8 @@
 				DC8B9AA61D48151A009DB76B /* FontSettingButton.swift */,
 				DC6ED9871D40386100AEFECB /* RootNavigationBar.swift */,
 				DC8B9AA81D481F64009DB76B /* NewNoteButton.swift */,
-				DC8B9AAA1D48266D009DB76B /* NewReminderView.swift */,
+				DCF9497B1D4A900B004B3ACE /* PickDateButton.swift */,
+				DCF949851D4AD7B8004B3ACE /* PhotoCollectionViewLayout.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -318,18 +329,19 @@
 			buildActionMask = 2147483647;
 			files = (
 				DC6ED9861D402C6F00AEFECB /* RootButton.swift in Sources */,
-				DC8B9AAB1D48266D009DB76B /* NewReminderView.swift in Sources */,
 				DC6ED9881D40386100AEFECB /* RootNavigationBar.swift in Sources */,
-				DCF9497A1D495690004B3ACE /* SetTimerViewController.swift in Sources */,
 				DCF94C071D41795A00CCDE42 /* NewNoteViewController.swift in Sources */,
 				DC6ED9521D401FFD00AEFECB /* DailyNotes.xcdatamodeld in Sources */,
 				DC8B9AA71D48151A009DB76B /* FontSettingButton.swift in Sources */,
+				DCF949801D4AB357004B3ACE /* Utils.swift in Sources */,
 				DC9F2CAC1D41991E006E8675 /* ZZPopOver.swift in Sources */,
 				DC8B9AA51D4803A3009DB76B /* Extensions.swift in Sources */,
 				DCF94C091D41885900CCDE42 /* KeyboardButton.swift in Sources */,
 				DC6ED94A1D401FFD00AEFECB /* AppDelegate.swift in Sources */,
+				DCF949821D4ABA47004B3ACE /* NewPhotoViewController.swift in Sources */,
+				DCF949861D4AD7B8004B3ACE /* PhotoCollectionViewLayout.swift in Sources */,
 				DC6ED9841D4029E500AEFECB /* RootViewController.swift in Sources */,
-				DCF949781D4950E6004B3ACE /* NewReminderNC.swift in Sources */,
+				DCF9497C1D4A900B004B3ACE /* PickDateButton.swift in Sources */,
 				DC8B9AA91D481F64009DB76B /* NewNoteButton.swift in Sources */,
 				DC6ED9811D40296C00AEFECB /* Constant.swift in Sources */,
 				DCF949731D4927BB004B3ACE /* NewReminderViewController.swift in Sources */,

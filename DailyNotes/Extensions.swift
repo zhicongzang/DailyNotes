@@ -58,3 +58,27 @@ extension UIViewController {
         holderView.addConstraints([pinTop, pinBottom, pinLeft, pinRight])
     }
 }
+
+extension UIView {
+    func setupButtomDividingLine(lineWidth lineWidth: CGFloat, lineColor: CGColor) {
+        let dividingLineLayer = CAShapeLayer()
+        dividingLineLayer.frame = CGRect(x: 0, y: self.frame.height - lineWidth, width: self.frame.width, height: lineWidth)
+        dividingLineLayer.backgroundColor = lineColor
+        self.layer.addSublayer(dividingLineLayer)
+    }
+    
+    func setupTopDividingLine(lineWidth lineWidth: CGFloat, lineColor: CGColor) {
+        let dividingLineLayer = CAShapeLayer()
+        dividingLineLayer.frame = CGRect(x: 0, y: 0, width: self.frame.width, height: lineWidth)
+        dividingLineLayer.backgroundColor = lineColor
+        self.layer.addSublayer(dividingLineLayer)
+    }
+}
+
+extension NSDate {
+    func toReminderDateString() -> String {
+        let dateFormatter = NSDateFormatter()
+        dateFormatter.dateFormat = "MMM dd, yyy  hh:mm"
+        return dateFormatter.stringFromDate(self)
+    }
+}
