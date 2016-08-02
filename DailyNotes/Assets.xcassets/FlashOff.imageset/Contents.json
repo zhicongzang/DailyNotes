@@ -3,16 +3,16 @@
     {
       "idiom" : "universal",
       "scale" : "1x",
-      "filename" : "ShutterPush.png"
+      "filename" : "FlashOff.png"
     },
     {
       "idiom" : "universal",
       "scale" : "2x",
-      "filename" : "ShutterPush@2x.png"
+      "filename" : "FlashOff@2x.png"
     },
     {
       "idiom" : "universal",
-      "filename" : "ShutterPush@3x.png",
+      "filename" : "FlashOff@3x.png",
       "scale" : "3x"
     }
   ],

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="ARR-tz-eD8">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="ARR-tz-eD8">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -20,10 +20,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RnA-ty-scI">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="552"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ce7-5M-d27">
                                 <rect key="frame" x="20" y="682" width="48" height="30"/>
                                 <state key="normal" title="Cancel">
@@ -62,37 +58,72 @@
                                 </connections>
                             </collectionView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jKp-Ya-hM6">
-                                <rect key="frame" x="178" y="667" width="59" height="59"/>
+                                <rect key="frame" x="178" y="667" width="58" height="59"/>
                                 <state key="normal" image="ShutterRelease"/>
                                 <connections>
                                     <action selector="shutterButtonPressed:" destination="IW1-VS-7G3" eventType="touchUpInside" id="3Kb-RH-sJI"/>
                                 </connections>
                             </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RnA-ty-scI">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="552"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="krh-XC-z8w" customClass="FlashButton" customModule="DailyNotes" customModuleProvider="target">
+                                        <rect key="frame" x="8" y="8" width="66" height="35"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="35" id="9nH-dH-Wt6"/>
+                                            <constraint firstAttribute="width" constant="66" id="CA9-Vu-bwO"/>
+                                        </constraints>
+                                        <state key="normal" image="FlashAuto"/>
+                                        <connections>
+                                            <action selector="flashButtonPressed:" destination="IW1-VS-7G3" eventType="touchUpInside" id="9Mu-gD-ZGH"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oEi-sS-9yP">
+                                        <rect key="frame" x="340" y="8" width="66" height="35"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="66" id="1ox-oW-Vxj"/>
+                                            <constraint firstAttribute="height" constant="35" id="UFP-6H-pYE"/>
+                                        </constraints>
+                                        <state key="normal" image="ChangeCamera"/>
+                                        <connections>
+                                            <action selector="changeCameraButtonPressed:" destination="IW1-VS-7G3" eventType="touchUpInside" id="eVb-2a-3XT"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="oEi-sS-9yP" firstAttribute="top" secondItem="RnA-ty-scI" secondAttribute="top" constant="8" id="2go-vF-iJT"/>
+                                    <constraint firstItem="krh-XC-z8w" firstAttribute="top" secondItem="RnA-ty-scI" secondAttribute="top" constant="8" id="9VV-C3-n2e"/>
+                                    <constraint firstItem="krh-XC-z8w" firstAttribute="leading" secondItem="RnA-ty-scI" secondAttribute="leading" constant="8" id="Epc-Rf-zGY"/>
+                                    <constraint firstAttribute="trailing" secondItem="oEi-sS-9yP" secondAttribute="trailing" constant="8" id="MCi-HL-h1d"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="RnA-ty-scI" firstAttribute="top" secondItem="bai-WW-eaN" secondAttribute="bottom" id="1hn-KG-JMU"/>
+                            <constraint firstItem="tYh-Lf-mSu" firstAttribute="width" secondItem="miU-0E-AzD" secondAttribute="width" id="3h2-6U-ahB"/>
                             <constraint firstItem="IlP-sA-Ym7" firstAttribute="trailing" secondItem="miU-0E-AzD" secondAttribute="trailingMargin" id="5eN-yB-10P"/>
-                            <constraint firstItem="RnA-ty-scI" firstAttribute="leading" secondItem="miU-0E-AzD" secondAttribute="leadingMargin" constant="-20" id="9h0-z4-lX2"/>
                             <constraint firstItem="Ce7-5M-d27" firstAttribute="leading" secondItem="miU-0E-AzD" secondAttribute="leadingMargin" id="APa-UJ-8Wv"/>
                             <constraint firstItem="jKp-Ya-hM6" firstAttribute="width" secondItem="miU-0E-AzD" secondAttribute="width" multiplier="32/225" id="Dbs-BG-eqf"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="tYh-Lf-mSu" secondAttribute="trailing" constant="-20" id="Eny-tk-vhz"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="RnA-ty-scI" secondAttribute="trailing" constant="-20" id="Ja2-d4-kXs"/>
                             <constraint firstItem="jKp-Ya-hM6" firstAttribute="height" secondItem="miU-0E-AzD" secondAttribute="height" multiplier="0.08" id="PYi-Nq-kLz"/>
                             <constraint firstItem="Ce7-5M-d27" firstAttribute="centerY" secondItem="jKp-Ya-hM6" secondAttribute="centerY" id="Rnk-kF-IA2"/>
+                            <constraint firstItem="RnA-ty-scI" firstAttribute="width" secondItem="miU-0E-AzD" secondAttribute="width" id="SBO-dP-TcL"/>
                             <constraint firstItem="IlP-sA-Ym7" firstAttribute="centerY" secondItem="jKp-Ya-hM6" secondAttribute="centerY" id="VDM-tD-Rld"/>
                             <constraint firstItem="tYh-Lf-mSu" firstAttribute="top" secondItem="RnA-ty-scI" secondAttribute="bottom" id="WQd-Tg-UFn"/>
+                            <constraint firstItem="tYh-Lf-mSu" firstAttribute="centerX" secondItem="miU-0E-AzD" secondAttribute="centerX" id="XRh-jf-jOz"/>
                             <constraint firstItem="RnA-ty-scI" firstAttribute="height" secondItem="miU-0E-AzD" secondAttribute="height" multiplier="0.75" id="Xqf-EH-JqI"/>
-                            <constraint firstItem="tYh-Lf-mSu" firstAttribute="leading" secondItem="miU-0E-AzD" secondAttribute="leadingMargin" constant="-20" id="g3z-Qv-mAd"/>
                             <constraint firstItem="jKp-Ya-hM6" firstAttribute="centerX" secondItem="miU-0E-AzD" secondAttribute="centerX" id="mYr-Ui-jBS"/>
                             <constraint firstItem="tYh-Lf-mSu" firstAttribute="height" secondItem="miU-0E-AzD" secondAttribute="height" multiplier="0.15" id="mbD-oT-2d7"/>
                             <constraint firstItem="mDU-FE-g5W" firstAttribute="top" secondItem="jKp-Ya-hM6" secondAttribute="bottom" constant="10" id="wq1-Rn-NUK"/>
+                            <constraint firstItem="RnA-ty-scI" firstAttribute="centerX" secondItem="miU-0E-AzD" secondAttribute="centerX" id="wzH-8r-BY9"/>
                         </constraints>
                     </view>
                     <nil key="simulatedStatusBarMetrics"/>
-                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina55"/>
                     <connections>
                         <outlet property="cameraRealTimeView" destination="RnA-ty-scI" id="AIp-Vd-uWL"/>
+                        <outlet property="changeCameraButton" destination="oEi-sS-9yP" id="a09-MH-GgP"/>
+                        <outlet property="flashButton" destination="krh-XC-z8w" id="2mf-48-mHA"/>
                         <outlet property="photosCollectionView" destination="tYh-Lf-mSu" id="fYv-9R-AJM"/>
                         <outlet property="saveButton" destination="IlP-sA-Ym7" id="1cB-HQ-OwI"/>
                         <outlet property="shutterButtonLC" destination="wq1-Rn-NUK" id="wiW-3j-b0h"/>
@@ -100,7 +131,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hxm-gf-I8X" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1149" y="142"/>
+            <point key="canvasLocation" x="419" y="168"/>
         </scene>
         <!--Root-->
         <scene sceneID="KCg-cL-7uL">
@@ -115,14 +146,14 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YYv-kO-TO8" customClass="RootButton" customModule="DailyNotes" customModuleProvider="target">
-                                <rect key="frame" x="111" y="84" width="38" height="38"/>
+                                <rect key="frame" x="110" y="84" width="38" height="38"/>
                                 <state key="normal" image="Photo"/>
                                 <connections>
                                     <segue destination="IW1-VS-7G3" kind="showDetail" id="s5x-OY-NAE"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2z7-M6-38V" customClass="RootButton" customModule="DailyNotes" customModuleProvider="target">
-                                <rect key="frame" x="343" y="84" width="38" height="38"/>
+                                <rect key="frame" x="343" y="84" width="37" height="38"/>
                                 <state key="normal" image="Audio"/>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PFN-zG-Bsz" customClass="RootButton" customModule="DailyNotes" customModuleProvider="target">
@@ -130,7 +161,7 @@
                                 <state key="normal" image="List"/>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="izn-f7-G1H" customClass="RootButton" customModule="DailyNotes" customModuleProvider="target">
-                                <rect key="frame" x="44" y="84" width="38" height="38"/>
+                                <rect key="frame" x="43" y="84" width="38" height="38"/>
                                 <state key="normal" image="Note"/>
                                 <connections>
                                     <segue destination="NZt-zW-e1V" kind="presentation" id="cXL-MY-sz1"/>
@@ -161,7 +192,7 @@
                                 </items>
                             </navigationBar>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5fg-Kw-weq" customClass="RootButton" customModule="DailyNotes" customModuleProvider="target">
-                                <rect key="frame" x="189" y="84" width="37" height="38"/>
+                                <rect key="frame" x="188" y="84" width="38" height="38"/>
                                 <state key="normal" image="Reminder"/>
                                 <connections>
                                     <action selector="reminderButtonPressed:" destination="ARR-tz-eD8" eventType="touchUpInside" id="3LT-m6-RsZ"/>
@@ -230,7 +261,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9Gg-gB-cvt" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1671" y="142"/>
+            <point key="canvasLocation" x="1045" y="168"/>
         </scene>
         <!--New Reminder View Controller-->
         <scene sceneID="2u8-6A-dh7">
@@ -244,34 +275,18 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NkU-Rg-YNi">
-                                <rect key="frame" x="41" y="270" width="332" height="248"/>
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NkU-Rg-YNi">
+                                <rect key="frame" x="37" y="270" width="301" height="248"/>
                                 <subviews>
-                                    <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lj0-IY-CY9">
-                                        <rect key="frame" x="0.0" y="0.0" width="332" height="44"/>
-                                        <items>
-                                            <navigationItem title="Reminder" id="qeH-cx-4s0">
-                                                <barButtonItem key="leftBarButtonItem" style="plain" systemItem="cancel" id="7pD-cl-jsw">
-                                                    <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <connections>
-                                                        <action selector="cancelButtonPressed:" destination="jxg-dU-Do9" id="2ph-69-CNY"/>
-                                                    </connections>
-                                                </barButtonItem>
-                                                <barButtonItem key="rightBarButtonItem" style="plain" systemItem="save" id="foG-RY-uYu">
-                                                    <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                </barButtonItem>
-                                            </navigationItem>
-                                        </items>
-                                    </navigationBar>
-                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Amh-KL-4Np">
-                                        <rect key="frame" x="0.0" y="45" width="332" height="163"/>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Amh-KL-4Np">
+                                        <rect key="frame" x="0.0" y="45" width="301" height="163"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                     </textView>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="c25-Q1-2Y7">
-                                        <rect key="frame" x="0.0" y="208" width="332" height="40"/>
+                                    <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="c25-Q1-2Y7">
+                                        <rect key="frame" x="0.0" y="208" width="301" height="40"/>
                                         <subviews>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Reminder" translatesAutoresizingMaskIntoConstraints="NO" id="Ltg-0y-i3p">
                                                 <rect key="frame" x="20" y="8" width="25" height="25"/>
@@ -286,8 +301,8 @@
                                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bec-ux-3GG" customClass="PickDateButton" customModule="DailyNotes" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="0.0" width="332" height="40"/>
+                                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bec-ux-3GG" customClass="PickDateButton" customModule="DailyNotes" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="0.0" width="301" height="40"/>
                                                 <connections>
                                                     <action selector="pickDateButtonPressed:" destination="jxg-dU-Do9" eventType="touchUpInside" id="p5W-zs-Czi"/>
                                                 </connections>
@@ -319,6 +334,22 @@
                                             <constraint firstAttribute="bottom" secondItem="bec-ux-3GG" secondAttribute="bottom" id="ugu-pw-EZL"/>
                                         </constraints>
                                     </view>
+                                    <navigationBar contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lj0-IY-CY9">
+                                        <rect key="frame" x="0.0" y="0.0" width="301" height="44"/>
+                                        <items>
+                                            <navigationItem title="Reminder" id="qeH-cx-4s0">
+                                                <barButtonItem key="leftBarButtonItem" style="plain" systemItem="cancel" id="7pD-cl-jsw">
+                                                    <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <connections>
+                                                        <action selector="cancelButtonPressed:" destination="jxg-dU-Do9" id="2ph-69-CNY"/>
+                                                    </connections>
+                                                </barButtonItem>
+                                                <barButtonItem key="rightBarButtonItem" style="plain" systemItem="save" id="foG-RY-uYu">
+                                                    <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                </barButtonItem>
+                                            </navigationItem>
+                                        </items>
+                                    </navigationBar>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -334,8 +365,8 @@
                                     <constraint firstAttribute="bottom" secondItem="c25-Q1-2Y7" secondAttribute="bottom" id="zBi-m8-io8"/>
                                 </constraints>
                             </view>
-                            <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="btA-VB-oPU">
-                                <rect key="frame" x="41" y="518" width="332" height="216"/>
+                            <datePicker contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="btA-VB-oPU">
+                                <rect key="frame" x="37" y="518" width="301" height="216"/>
                                 <date key="date" timeIntervalSinceReferenceDate="491424037.46898699">
                                     <!--2016-07-28 18:40:37 +0000-->
                                 </date>
@@ -371,7 +402,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="92x-fU-9Tx" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2140" y="142"/>
+            <point key="canvasLocation" x="1567" y="188"/>
         </scene>
         <!--New Note-->
         <scene sceneID="f1t-FX-cIR">
@@ -572,7 +603,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="efh-QN-nIe" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2140" y="948"/>
+            <point key="canvasLocation" x="1594" y="1068"/>
         </scene>
         <!--New Note Navigation Controller-->
         <scene sceneID="VDm-nQ-O8e">
@@ -591,13 +622,15 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3C4-Me-73q" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1671" y="948"/>
+            <point key="canvasLocation" x="1117" y="1068"/>
         </scene>
     </scenes>
     <resources>
         <image name="Audio" width="33" height="33"/>
+        <image name="ChangeCamera" width="33" height="33"/>
         <image name="Delete" width="33" height="33"/>
         <image name="Drawing" width="33" height="33"/>
+        <image name="FlashAuto" width="33" height="33"/>
         <image name="Font" width="33" height="33"/>
         <image name="Keyboard" width="33" height="33"/>
         <image name="List" width="33" height="33"/>
@@ -609,6 +642,6 @@
         <image name="Reminder" width="33" height="33"/>
         <image name="Search" width="33" height="33"/>
         <image name="Settings" width="33" height="33"/>
-        <image name="ShutterRelease" width="300" height="300"/>
+        <image name="ShutterRelease" width="100" height="100"/>
     </resources>
 </document>

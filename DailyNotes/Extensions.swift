@@ -19,6 +19,13 @@ extension UIButton {
         self.init(frame: CGRectZero)
         self.setImage(image, forState: UIControlState.Normal)
     }
+    
+    func setBorder() {
+        self.layer.borderColor = UIColor.blackColor().CGColor
+        self.layer.borderWidth = 2
+        self.layer.cornerRadius = self.frame.height / 2
+        self.layer.masksToBounds = true
+    }
 }
 
 extension UIViewController {

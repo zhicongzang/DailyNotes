@@ -29,6 +29,7 @@ class NewReminderViewController: UIViewController {
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(NewReminderViewController.keyboardWillChangeFrame(_:)), name: UIKeyboardWillChangeFrameNotification, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(NewReminderViewController.keyboardWillShow(_:)), name: UIKeyboardWillShowNotification, object: nil)
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -47,17 +48,19 @@ class NewReminderViewController: UIViewController {
     override func didMoveToParentViewController(parent: UIViewController?) {
         contentView.transform = CGAffineTransformMakeScale(1.1, 1.1)
         view.alpha = 0
-        UIView.animateWithDuration(0.3, delay: 0, options: .BeginFromCurrentState, animations: {
+        UIView.animateWithDuration(0.3, delay: 0, options: .CurveLinear, animations: {
             self.contentView.transform = CGAffineTransformIdentity
             self.view.alpha = 1
             }, completion: nil)
     }
     
     @IBAction func cancelButtonPressed(sender: AnyObject) {
+        textView.resignFirstResponder()
         UIView.animateWithDuration(0.3, delay: 0, options: .BeginFromCurrentState, animations: {
             self.contentView.transform = CGAffineTransformMakeScale(0.9, 0.9)
             self.view.alpha = 0
         }) { (finished) in
+            NSNotificationCenter.defaultCenter().removeObserver(self)
             self.dismissViewControllerAnimated(true, completion: nil)
         }
         
@@ -74,7 +77,6 @@ class NewReminderViewController: UIViewController {
             
             
             self.contentViewToTopLC.constant = (view.frame.height - contentView.frame.height - CGRectGetHeight(intersection)) / 2
-            
             UIView.animateWithDuration(duration, delay: 0.0,
                                        options: UIViewAnimationOptions(rawValue: curve), animations: {
                                         _ in

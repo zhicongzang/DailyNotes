@@ -107,9 +107,12 @@ class NewNoteViewController: UIViewController {
         textView.resignFirstResponder()
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: UIAlertControllerStyle.ActionSheet)
         let actionDeleteDraft = UIAlertAction(title: "Delete Draft", style: UIAlertActionStyle.Destructive) { (_) in
-            self.dismissViewControllerAnimated(true, completion: nil)
+            self.dismissViewControllerAnimated(true, completion: {
+                NSNotificationCenter.defaultCenter().removeObserver(self)
+            })
         }
         let actionSaveDraft = UIAlertAction(title: "Save Draft", style: UIAlertActionStyle.Default) { (_) in
+            NSNotificationCenter.defaultCenter().removeObserver(self)
             self.dismissViewControllerAnimated(true, completion: nil)
         }
         let actionCancel = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel) { (_) in
@@ -125,6 +128,7 @@ class NewNoteViewController: UIViewController {
     @IBAction func saveButtonPressed(sender: AnyObject) {
         subjectTextField.resignFirstResponder()
         textView.resignFirstResponder()
+        NSNotificationCenter.defaultCenter().removeObserver(self)
         self.dismissViewControllerAnimated(true, completion: nil)
     }
     

@@ -16,6 +16,8 @@ class NewPhotoViewController: UIViewController {
     @IBOutlet weak var cameraRealTimeView: UIView!
     @IBOutlet weak var photosCollectionView: UICollectionView!
     @IBOutlet weak var saveButton: UIButton!
+    @IBOutlet weak var flashButton: FlashButton!
+    @IBOutlet weak var changeCameraButton: UIButton!
     
     private var _assetCollection:PHAssetCollection?
     
@@ -43,6 +45,9 @@ class NewPhotoViewController: UIViewController {
     let stillImageOutput = AVCaptureStillImageOutput()
     let realTimeLayer = AVCaptureVideoPreviewLayer()
     var deviceInput = AVCaptureDeviceInput()
+    
+    var beginGestureScale: CGFloat = 1.0
+    var effectiveScale: CGFloat = 1.0
     
     private var _focusSquare: UIView?
     var focusSquare: UIView {
@@ -90,81 +95,39 @@ class NewPhotoViewController: UIViewController {
                     captureSession.addOutput(stillImageOutput)
                 }
                 realTimeLayer.session = captureSession
-                realTimeLayer.frame = CGRect(x: 0, y: 0, width: cameraRealTimeView.frame.width, height: cameraRealTimeView.frame.height)
+                realTimeLayer.frame = CGRect(x: 0, y: 0, width: screenWidth, height: screenHeight * 0.75)
                 realTimeLayer.videoGravity = AVLayerVideoGravityResizeAspectFill
                 cameraRealTimeView.layer.addSublayer(realTimeLayer)
                 let singleTapGesture = UITapGestureRecognizer(target: self, action: #selector(NewPhotoViewController.singleTap(_:)))
                 singleTapGesture.numberOfTapsRequired = 1
                 singleTapGesture.delaysTouchesBegan = true
                 self.cameraRealTimeView.addGestureRecognizer(singleTapGesture)
-                
+                let pinchGesture = UIPinchGestureRecognizer(target: self, action: #selector(NewPhotoViewController.pinchGesture(_:)))
+                self.cameraRealTimeView.addGestureRecognizer(pinchGesture)
                 
             } catch {}
             
         }
-    }
-    
-    func changeDevicePropertySafety(propertyChange: (AVCaptureDevice) -> Void) {
-        let device = deviceInput.device
-        do {
-            try device.lockForConfiguration()
-            captureSession.beginConfiguration()
-            propertyChange(device)
-            device.unlockForConfiguration()
-            captureSession.commitConfiguration()
-        } catch {}
-    }
-    
-    func setFocusCursorAnimationWithPoint(point: CGPoint) {
-        self.cameraRealTimeView.bringSubviewToFront(focusSquare)
-        self.focusSquare.center = point
-        self.focusSquare.transform = CGAffineTransformIdentity
-        self.focusSquare.alpha = 1.0
-        UIView.animateWithDuration(0.8, delay: 0, options: UIViewAnimationOptions.CurveEaseIn, animations: {
-            self.focusSquare.transform=CGAffineTransformMakeScale(0.8, 0.8)
-            self.focusSquare.alpha = 0.0
-            }, completion: nil)
+        
+        self.cameraRealTimeView.bringSubviewToFront(flashButton)
+        self.changeCameraButton.setBorder()
+        self.cameraRealTimeView.bringSubviewToFront(changeCameraButton)
     }
     
     @objc func singleTap(tapGesture: UITapGestureRecognizer) {
         let point = tapGesture.locationInView(self.cameraRealTimeView)
         let cameraPoint = realTimeLayer.captureDevicePointOfInterestForPoint(point)
         setFocusCursorAnimationWithPoint(point)
-        
-        changeDevicePropertySafety({ (device) in
-            if device.isFocusModeSupported(AVCaptureFocusMode.AutoFocus) {
-                device.focusMode = .AutoFocus
-            }
-            if device.focusPointOfInterestSupported {
-                device.focusPointOfInterest = cameraPoint
-            }
-            if device.isExposureModeSupported(AVCaptureExposureMode.AutoExpose) {
-                device.exposureMode = .AutoExpose
-                
-            }
-            if device.exposurePointOfInterestSupported {
-                device.exposurePointOfInterest = cameraPoint
-            }
-            if device.isFocusModeSupported(AVCaptureFocusMode.ContinuousAutoFocus) {
-                device.focusMode = .ContinuousAutoFocus
-            }
-            if device.isExposureModeSupported(AVCaptureExposureMode.ContinuousAutoExposure) {
-                device.exposureMode = .ContinuousAutoExposure
-            }
-        })
-        
+        setFocusAndExposurePoint(cameraPoint)
+    }
+    
+    @objc func pinchGesture(pinchGesture: UIPinchGestureRecognizer) {
+        self.effectiveScale = min(max(self.beginGestureScale * pinchGesture.scale, 1.0), self.stillImageOutput.connectionWithMediaType(AVMediaTypeVideo).videoMaxScaleAndCropFactor)
+        changeZoom(effectiveScale)
     }
     
     @IBAction func shutterButtonPressed(sender: AnyObject) {
-        if let videoConnection = stillImageOutput.connectionWithMediaType(AVMediaTypeVideo) {
-            stillImageOutput.captureStillImageAsynchronouslyFromConnection(videoConnection) {
-                (imageDataSampleBuffer, error) -> Void in
-                let imageData = AVCaptureStillImageOutput.jpegStillImageNSDataRepresentation(imageDataSampleBuffer)
-                if let image = UIImage(data: imageData) {
-                    self.photos.append(image)
-                }
-            }
-        }
+        takePhoto()
     }
     
     @IBAction func saveButtonPressed(sender: AnyObject) {
@@ -192,9 +155,162 @@ class NewPhotoViewController: UIViewController {
         self.presentViewController(alert, animated: true, completion: nil)
     }
     
-    
-    
+    @IBAction func flashButtonPressed(sender: AnyObject) {
+        let s = sender as! FlashButton
+        s.changeFlashMode()
+        self.setFlashMode(s.flashMode)
+    }
 
+    @IBAction func changeCameraButtonPressed(sender: AnyObject) {
+        self.changeCamera()
+    }
+}
+
+extension NewPhotoViewController {
+    private func changeDevicePropertySafety(propertyChange: (AVCaptureDevice) -> Void) {
+        let device = deviceInput.device
+        do {
+            try device.lockForConfiguration()
+            captureSession.beginConfiguration()
+            propertyChange(device)
+            device.unlockForConfiguration()
+            captureSession.commitConfiguration()
+        } catch {}
+    }
+    
+    private func setFocusCursorAnimationWithPoint(point: CGPoint) {
+        self.cameraRealTimeView.bringSubviewToFront(focusSquare)
+        self.focusSquare.center = point
+        self.focusSquare.transform = CGAffineTransformIdentity
+        self.focusSquare.alpha = 1.0
+        UIView.animateWithDuration(0.8, delay: 0, options: UIViewAnimationOptions.CurveEaseIn, animations: {
+            self.focusSquare.transform=CGAffineTransformMakeScale(0.8, 0.8)
+            self.focusSquare.alpha = 0.0
+            }, completion: nil)
+    }
+    
+    private func takePhoto() {
+        if let videoConnection = stillImageOutput.connectionWithMediaType(AVMediaTypeVideo) {
+            videoConnection.videoScaleAndCropFactor = self.effectiveScale
+            stillImageOutput.captureStillImageAsynchronouslyFromConnection(videoConnection) {
+                (imageDataSampleBuffer, error) -> Void in
+                let imageData = AVCaptureStillImageOutput.jpegStillImageNSDataRepresentation(imageDataSampleBuffer)
+                if let image = UIImage(data: imageData) {
+                    self.photos.append(image)
+                }
+            }
+        }
+    }
+    
+    private func setFocusPoint(device: AVCaptureDevice, cameraPoint: CGPoint) {
+        if device.isFocusModeSupported(AVCaptureFocusMode.AutoFocus) {
+            device.focusMode = .AutoFocus
+        }
+        if device.focusPointOfInterestSupported {
+            device.focusPointOfInterest = cameraPoint
+        }
+        if device.isFocusModeSupported(AVCaptureFocusMode.ContinuousAutoFocus) {
+            device.focusMode = .ContinuousAutoFocus
+        }
+    }
+    
+    private func setExposurePoint(device: AVCaptureDevice, cameraPoint: CGPoint) {
+        if device.isExposureModeSupported(AVCaptureExposureMode.AutoExpose) {
+            device.exposureMode = .AutoExpose
+        }
+        if device.exposurePointOfInterestSupported {
+            device.exposurePointOfInterest = cameraPoint
+        }
+        if device.isExposureModeSupported(AVCaptureExposureMode.ContinuousAutoExposure) {
+            device.exposureMode = .ContinuousAutoExposure
+        }
+    }
+    
+    private func setFocusAndExposurePoint(cameraPoint: CGPoint) {
+        changeDevicePropertySafety({ (device) in
+            self.setFocusPoint(device, cameraPoint: cameraPoint)
+            self.setExposurePoint(device, cameraPoint: cameraPoint)
+            
+        })
+    }
+    
+    private func setFlashMode(flashMode: FlashMode) {
+        changeDevicePropertySafety { (device) in
+            if device.hasFlash {
+                switch flashMode {
+                case .Auto:
+                    if device.isFlashModeSupported(AVCaptureFlashMode.Auto) {
+                        device.flashMode = .Auto
+                    }
+                    if device.hasTorch && device.torchMode == .On{
+                        device.torchMode = .Off
+                    }
+                case .On:
+                    if device.isFlashModeSupported(AVCaptureFlashMode.On) {
+                        device.flashMode = .On
+                    }
+                    if device.hasTorch && device.torchMode != .On{
+                        device.torchMode = .On
+                    }
+                case .Off:
+                    if device.isFlashModeSupported(AVCaptureFlashMode.Off) {
+                        device.flashMode = .Off
+                    }
+                    if device.hasTorch && device.torchMode == .On{
+                        device.torchMode = .Off
+                    }
+                }
+            }
+        }
+    }
+    
+    private func deviceWithType(preferringPosition preferringPosition: AVCaptureDevicePosition) -> AVCaptureDevice {
+        let devices = AVCaptureDevice.devices().filter { $0.hasMediaType(AVMediaTypeVideo) } as! [AVCaptureDevice]
+        var device = devices.first!
+        for d in devices {
+            if d.position == preferringPosition {
+                device = d
+                break
+            }
+        }
+        return device
+        
+    }
+    
+    private func changeCamera() {
+        changeDevicePropertySafety { (device) in
+            switch device.position {
+            case .Back:
+                do {
+                    let newDevice = self.deviceWithType(preferringPosition: AVCaptureDevicePosition.Front)
+                    let newDeviceInput = try AVCaptureDeviceInput(device: newDevice)
+                    self.captureSession.removeInput(self.deviceInput)
+                    if self.captureSession.canAddInput(newDeviceInput) {
+                        self.deviceInput = newDeviceInput
+                    }
+                    self.captureSession.addInput(self.deviceInput)
+                } catch {}
+            case .Front:
+                do {
+                    let newDevice = self.deviceWithType(preferringPosition: AVCaptureDevicePosition.Back)
+                    let newDeviceInput = try AVCaptureDeviceInput(device: newDevice)
+                    self.captureSession.removeInput(self.deviceInput)
+                    if self.captureSession.canAddInput(newDeviceInput) {
+                        self.deviceInput = newDeviceInput
+                    }
+                    self.captureSession.addInput(self.deviceInput)
+                } catch {}
+            default:
+                return
+            }
+        }
+    }
+    
+    private func changeZoom(scale: CGFloat) {
+        changeDevicePropertySafety { (device) in
+            device.rampToVideoZoomFactor(scale, withRate: 20)
+        }
+    }
 }
 
 
@@ -216,6 +332,23 @@ extension NewPhotoViewController: UICollectionViewDelegate, UICollectionViewData
         return cell
     }
     
+    
+}
+
+extension NewPhotoViewController: UIGestureRecognizerDelegate {
+    func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldReceiveTouch touch: UITouch) -> Bool {
+        if let sender = touch.view where sender.isKindOfClass(UIButton) {
+            return false
+        }
+        return true
+    }
+    
+    func gestureRecognizerShouldBegin(gestureRecognizer: UIGestureRecognizer) -> Bool {
+        if gestureRecognizer.isKindOfClass(UIPinchGestureRecognizer) {
+            self.beginGestureScale = self.effectiveScale
+        }
+        return true
+    }
     
 }
 
