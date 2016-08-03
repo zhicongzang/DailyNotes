@@ -14,3 +14,5 @@ let screenHeight = UIScreen.mainScreen().bounds.height
 let rootButtonWidth = screenWidth / 11
 let newNoteTableViewCellHeight: CGFloat = 30
 let AssetCollectionTitle = "Daily Note"
+let DetailCellWidth = screenWidth
+let DetailCellHeight = screenHeight

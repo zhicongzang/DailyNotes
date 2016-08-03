@@ -26,21 +26,10 @@ class RootViewController: UIViewController {
     
     let imagePickerController = UIImagePickerController()
     
-//    private var _assetCollection:PHAssetCollection?
-//    
-//    private var assetCollection:PHAssetCollection {
-//        get {
-//            if _assetCollection == nil {
-//                _assetCollection = Utils.getAssetCollection(title: AssetCollectionTitle)
-//            }
-//            return _assetCollection!
-//        }
-//    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupButtons()
-//        setupImagePickerController()
         
     }
     

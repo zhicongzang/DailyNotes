@@ -30,7 +30,7 @@ class NewPhotoViewController: UIViewController {
         }
     }
     
-    var photos = [UIImage]() {
+    var photos = [UIImage(named: "TestImage2")!] {
         didSet {
             if photos.count > 0 {
                 saveButton.enabled = true
@@ -48,6 +48,10 @@ class NewPhotoViewController: UIViewController {
     
     var beginGestureScale: CGFloat = 1.0
     var effectiveScale: CGFloat = 1.0
+    
+    lazy var imageContext: CIContext = {
+        return CIContext(options: nil)
+    }()
     
     private var _focusSquare: UIView?
     var focusSquare: UIView {
@@ -195,7 +199,7 @@ extension NewPhotoViewController {
             stillImageOutput.captureStillImageAsynchronouslyFromConnection(videoConnection) {
                 (imageDataSampleBuffer, error) -> Void in
                 let imageData = AVCaptureStillImageOutput.jpegStillImageNSDataRepresentation(imageDataSampleBuffer)
-                if let image = UIImage(data: imageData) {
+                if let image = self.getImageWithAutoAdjest(imageData) {
                     self.photos.append(image)
                 }
             }
@@ -308,13 +312,27 @@ extension NewPhotoViewController {
     
     private func changeZoom(scale: CGFloat) {
         changeDevicePropertySafety { (device) in
-            device.rampToVideoZoomFactor(scale, withRate: 20)
+            device.rampToVideoZoomFactor(scale, withRate: 50)
         }
+    }
+    
+    private func getImageWithAutoAdjest(data: NSData) -> UIImage? {
+        var inputImage = CIImage(data: data)
+        guard inputImage != nil else {
+            return nil
+        }
+        let filters = inputImage!.autoAdjustmentFiltersWithOptions(nil) as [CIFilter]
+        for filter in filters {
+            filter.setValue(inputImage, forKey: kCIInputImageKey)
+            inputImage = filter.outputImage!
+        }
+        let cgImage = imageContext.createCGImage(inputImage!, fromRect: inputImage!.extent)
+        return UIImage(CGImage: cgImage, scale: 1.0, orientation: UIImageOrientation.Right)
     }
 }
 
 
-extension NewPhotoViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+extension NewPhotoViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
         return 1
@@ -330,6 +348,23 @@ extension NewPhotoViewController: UICollectionViewDelegate, UICollectionViewData
         cell.contentView.layer.contents = photo.CGImage
         cell.contentView.layer.transform = CATransform3DMakeAffineTransform(CGAffineTransformMakeRotation(CGFloat(M_PI_2)))
         return cell
+    }
+    
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
+        let height = self.photosCollectionView.frame.height - 10
+        let photoSize = photos[indexPath.row].size
+        let width = height * photoSize.width / photoSize.height
+        return CGSize(width: width, height: height)
+    }
+    
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAtIndex section: Int) -> CGFloat {
+        return 5
+    }
+    
+    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        let detailPhotosVC = storyboard?.instantiateViewControllerWithIdentifier("DetailPhotos") as! DetailPhotosViewController
+        detailPhotosVC.photos = self.photos
+        self.configureChildViewController(childController: detailPhotosVC, onView: self.view, constraints: .Constraints(top: 0, buttom: 0, left: 0, right: 0))
     }
     
     

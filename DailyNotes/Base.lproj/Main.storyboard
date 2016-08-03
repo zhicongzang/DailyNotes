@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="ARR-tz-eD8">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="ARR-tz-eD8">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -8,6 +8,72 @@
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
+        <!--Detail Photos-->
+        <scene sceneID="VfX-1H-kyl">
+            <objects>
+                <viewController storyboardIdentifier="DetailPhotos" useStoryboardIdentifierAsRestorationIdentifier="YES" id="DMV-dg-ElZ" userLabel="Detail Photos" customClass="DetailPhotosViewController" customModule="DailyNotes" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="WeQ-tJ-fto"/>
+                        <viewControllerLayoutGuide type="bottom" id="iOn-il-ioN"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="v3e-ev-UbZ">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Yey-2k-9cN">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                                <collectionViewLayout key="collectionViewLayout" id="UK3-r6-GqM" customClass="DetailPhotosCollectionLayout" customModule="DailyNotes" customModuleProvider="target"/>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="DetailCell" id="wFn-tM-a04">
+                                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </view>
+                                    </collectionViewCell>
+                                </cells>
+                                <connections>
+                                    <outlet property="dataSource" destination="DMV-dg-ElZ" id="d2M-ca-ii5"/>
+                                    <outlet property="delegate" destination="DMV-dg-ElZ" id="gG6-yg-925"/>
+                                </connections>
+                            </collectionView>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Y5q-rj-IyI">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                                <items>
+                                    <navigationItem title="x of x" id="aFP-8G-PwH">
+                                        <barButtonItem key="leftBarButtonItem" title="Camera" id="yFs-YW-aFf">
+                                            <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <connections>
+                                                <action selector="cameraButtonPressed:" destination="DMV-dg-ElZ" id="d71-yM-Awp"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Yey-2k-9cN" firstAttribute="height" secondItem="v3e-ev-UbZ" secondAttribute="height" id="7MR-5W-ojB"/>
+                            <constraint firstItem="Y5q-rj-IyI" firstAttribute="top" secondItem="WeQ-tJ-fto" secondAttribute="bottom" id="CYg-9L-6zQ"/>
+                            <constraint firstItem="Yey-2k-9cN" firstAttribute="width" secondItem="v3e-ev-UbZ" secondAttribute="width" id="FXH-nf-LFl"/>
+                            <constraint firstItem="Yey-2k-9cN" firstAttribute="centerY" secondItem="v3e-ev-UbZ" secondAttribute="centerY" id="N2a-bT-chQ"/>
+                            <constraint firstItem="Y5q-rj-IyI" firstAttribute="width" secondItem="v3e-ev-UbZ" secondAttribute="width" id="QzE-Ee-1Vi"/>
+                            <constraint firstItem="Y5q-rj-IyI" firstAttribute="centerX" secondItem="v3e-ev-UbZ" secondAttribute="centerX" id="n3N-GU-XrB"/>
+                            <constraint firstItem="Yey-2k-9cN" firstAttribute="centerX" secondItem="v3e-ev-UbZ" secondAttribute="centerX" id="oKT-FR-Eht"/>
+                        </constraints>
+                    </view>
+                    <nil key="simulatedStatusBarMetrics"/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina55"/>
+                    <connections>
+                        <outlet property="photosCollectionView" destination="Yey-2k-9cN" id="4XW-Lz-JnA"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fme-IF-XVA" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-51" y="168"/>
+        </scene>
         <!--New Photo View Controller-->
         <scene sceneID="FvJ-c1-WRz">
             <objects>
@@ -40,7 +106,12 @@
                             </button>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="tYh-Lf-mSu">
                                 <rect key="frame" x="0.0" y="552" width="414" height="110"/>
-                                <collectionViewLayout key="collectionViewLayout" id="pkO-oK-ypC" customClass="PhotoCollectionViewLayout" customModule="DailyNotes" customModuleProvider="target"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="8Zr-U2-A0Q">
+                                    <size key="itemSize" width="50" height="50"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="PhotoCell" id="Ze8-7i-LTZ">
                                         <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>

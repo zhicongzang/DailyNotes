@@ -18,6 +18,9 @@
 		DC6ED9841D4029E500AEFECB /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC6ED9831D4029E500AEFECB /* RootViewController.swift */; };
 		DC6ED9861D402C6F00AEFECB /* RootButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC6ED9851D402C6F00AEFECB /* RootButton.swift */; };
 		DC6ED9881D40386100AEFECB /* RootNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC6ED9871D40386100AEFECB /* RootNavigationBar.swift */; };
+		DC8220B31D5145D100FF1FC4 /* DetailPhotosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC8220B21D5145D100FF1FC4 /* DetailPhotosViewController.swift */; };
+		DC8220B51D514D3300FF1FC4 /* DetailPhotosCollectionLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC8220B41D514D3300FF1FC4 /* DetailPhotosCollectionLayout.swift */; };
+		DC8220B71D5156EF00FF1FC4 /* DetailPhotosCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC8220B61D5156EF00FF1FC4 /* DetailPhotosCollectionViewCell.swift */; };
 		DC8B9AA51D4803A3009DB76B /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC8B9AA41D4803A3009DB76B /* Extensions.swift */; };
 		DC8B9AA71D48151A009DB76B /* FontSettingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC8B9AA61D48151A009DB76B /* FontSettingButton.swift */; };
 		DC8B9AA91D481F64009DB76B /* NewNoteButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC8B9AA81D481F64009DB76B /* NewNoteButton.swift */; };
@@ -28,7 +31,6 @@
 		DCF949801D4AB357004B3ACE /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCF9497F1D4AB357004B3ACE /* Utils.swift */; };
 		DCF949821D4ABA47004B3ACE /* NewPhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCF949811D4ABA47004B3ACE /* NewPhotoViewController.swift */; };
 		DCF949841D4ABB9E004B3ACE /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCF949831D4ABB9E004B3ACE /* AVFoundation.framework */; };
-		DCF949861D4AD7B8004B3ACE /* PhotoCollectionViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCF949851D4AD7B8004B3ACE /* PhotoCollectionViewLayout.swift */; };
 		DCF949891D4FEA80004B3ACE /* FlashButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCF949881D4FEA80004B3ACE /* FlashButton.swift */; };
 		DCF94C071D41795A00CCDE42 /* NewNoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCF94C061D41795A00CCDE42 /* NewNoteViewController.swift */; };
 		DCF94C091D41885900CCDE42 /* KeyboardButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCF94C081D41885900CCDE42 /* KeyboardButton.swift */; };
@@ -69,6 +71,9 @@
 		DC6ED9831D4029E500AEFECB /* RootViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootViewController.swift; sourceTree = "<group>"; };
 		DC6ED9851D402C6F00AEFECB /* RootButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootButton.swift; sourceTree = "<group>"; };
 		DC6ED9871D40386100AEFECB /* RootNavigationBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootNavigationBar.swift; sourceTree = "<group>"; };
+		DC8220B21D5145D100FF1FC4 /* DetailPhotosViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailPhotosViewController.swift; sourceTree = "<group>"; };
+		DC8220B41D514D3300FF1FC4 /* DetailPhotosCollectionLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailPhotosCollectionLayout.swift; sourceTree = "<group>"; };
+		DC8220B61D5156EF00FF1FC4 /* DetailPhotosCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailPhotosCollectionViewCell.swift; sourceTree = "<group>"; };
 		DC8B9AA41D4803A3009DB76B /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		DC8B9AA61D48151A009DB76B /* FontSettingButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FontSettingButton.swift; sourceTree = "<group>"; };
 		DC8B9AA81D481F64009DB76B /* NewNoteButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewNoteButton.swift; sourceTree = "<group>"; };
@@ -79,7 +84,6 @@
 		DCF9497F1D4AB357004B3ACE /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		DCF949811D4ABA47004B3ACE /* NewPhotoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewPhotoViewController.swift; sourceTree = "<group>"; };
 		DCF949831D4ABB9E004B3ACE /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
-		DCF949851D4AD7B8004B3ACE /* PhotoCollectionViewLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoCollectionViewLayout.swift; sourceTree = "<group>"; };
 		DCF949881D4FEA80004B3ACE /* FlashButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlashButton.swift; sourceTree = "<group>"; };
 		DCF94C061D41795A00CCDE42 /* NewNoteViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewNoteViewController.swift; sourceTree = "<group>"; };
 		DCF94C081D41885900CCDE42 /* KeyboardButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeyboardButton.swift; sourceTree = "<group>"; };
@@ -142,6 +146,7 @@
 				DCF94C061D41795A00CCDE42 /* NewNoteViewController.swift */,
 				DCF949711D4927BB004B3ACE /* NewReminderViewController.swift */,
 				DCF949811D4ABA47004B3ACE /* NewPhotoViewController.swift */,
+				DC8220B21D5145D100FF1FC4 /* DetailPhotosViewController.swift */,
 				DC6ED94D1D401FFD00AEFECB /* Main.storyboard */,
 				DC6ED9531D401FFD00AEFECB /* Assets.xcassets */,
 				DC6ED9551D401FFD00AEFECB /* LaunchScreen.storyboard */,
@@ -191,8 +196,9 @@
 				DC6ED9871D40386100AEFECB /* RootNavigationBar.swift */,
 				DC8B9AA81D481F64009DB76B /* NewNoteButton.swift */,
 				DCF9497B1D4A900B004B3ACE /* PickDateButton.swift */,
-				DCF949851D4AD7B8004B3ACE /* PhotoCollectionViewLayout.swift */,
 				DCF949881D4FEA80004B3ACE /* FlashButton.swift */,
+				DC8220B41D514D3300FF1FC4 /* DetailPhotosCollectionLayout.swift */,
+				DC8220B61D5156EF00FF1FC4 /* DetailPhotosCollectionViewCell.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -337,13 +343,15 @@
 				DCF94C071D41795A00CCDE42 /* NewNoteViewController.swift in Sources */,
 				DC6ED9521D401FFD00AEFECB /* DailyNotes.xcdatamodeld in Sources */,
 				DC8B9AA71D48151A009DB76B /* FontSettingButton.swift in Sources */,
+				DC8220B71D5156EF00FF1FC4 /* DetailPhotosCollectionViewCell.swift in Sources */,
 				DCF949801D4AB357004B3ACE /* Utils.swift in Sources */,
 				DC9F2CAC1D41991E006E8675 /* ZZPopOver.swift in Sources */,
 				DC8B9AA51D4803A3009DB76B /* Extensions.swift in Sources */,
+				DC8220B51D514D3300FF1FC4 /* DetailPhotosCollectionLayout.swift in Sources */,
 				DCF94C091D41885900CCDE42 /* KeyboardButton.swift in Sources */,
+				DC8220B31D5145D100FF1FC4 /* DetailPhotosViewController.swift in Sources */,
 				DC6ED94A1D401FFD00AEFECB /* AppDelegate.swift in Sources */,
 				DCF949821D4ABA47004B3ACE /* NewPhotoViewController.swift in Sources */,
-				DCF949861D4AD7B8004B3ACE /* PhotoCollectionViewLayout.swift in Sources */,
 				DC6ED9841D4029E500AEFECB /* RootViewController.swift in Sources */,
 				DCF9497C1D4A900B004B3ACE /* PickDateButton.swift in Sources */,
 				DC8B9AA91D481F64009DB76B /* NewNoteButton.swift in Sources */,
