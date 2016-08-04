@@ -23,6 +23,7 @@ class DetailPhotosCollectionLayoutAttributes: UICollectionViewLayoutAttributes {
                 }
                 self.transform = CGAffineTransformTranslate(transformScale, translate, 0)
             } else {
+                self.alpha = max((ratio - 0.9) * 10, 0)
                 self.transform = transformScale
             }
         }
@@ -51,11 +52,18 @@ class DetailPhotosCollectionLayoutAttributes: UICollectionViewLayoutAttributes {
 }
 
 class DetailPhotosCollectionLayout: UICollectionViewFlowLayout {
-    let pageDistance = ceil(screenWidth * 1.1)
+    let pageDistance = DetailCellPageDistance
     let cardWidth = DetailCellWidth
     let cardHeight = DetailCellHeight
     private var attributesList : [UICollectionViewLayoutAttributes] = []
-    private var targetOffsetX: CGFloat = 0.0
+    private var targetOffsetX: CGFloat = 0.0 {
+        didSet {
+            index = Int(targetOffsetX / pageDistance)
+        }
+    }
+    
+    dynamic var index = 0
+    
     override init() {
         super.init()
         self.scrollDirection = .Horizontal
@@ -68,7 +76,7 @@ class DetailPhotosCollectionLayout: UICollectionViewFlowLayout {
     
     override func collectionViewContentSize() -> CGSize {
         let numberOfItems = self.collectionView!.numberOfItemsInSection(0)
-        return CGSizeMake(self.pageDistance * CGFloat(numberOfItems) + self.collectionView!.bounds.width, self.collectionView!.bounds.width)
+        return CGSizeMake(self.pageDistance * CGFloat(numberOfItems), self.collectionView!.bounds.width)
     }
     
     override func prepareLayout() {
@@ -81,7 +89,7 @@ class DetailPhotosCollectionLayout: UICollectionViewFlowLayout {
         let center = CGPointMake(centerX, centerY)
         let bounds = CGRectMake(0.0, 0.0, self.cardWidth, self.cardHeight)
         for index in 0..<numberOfItems {
-            let ratio = 1.0 - (CGFloat(index) * 0.2) + (offsetX / pageDistance) * 0.2
+            let ratio = 1.0 - (CGFloat(index) * 0.1) + (offsetX / pageDistance) * 0.1
             let indexPath = NSIndexPath(forItem: index, inSection: 0)
             let attributes = DetailPhotosCollectionLayoutAttributes.attribuatesForIndexPath(indexPath, pageDistance: pageDistance, cardWidth: cardWidth, cardHeight: cardHeight)
             attributes.center = center
@@ -118,10 +126,15 @@ class DetailPhotosCollectionLayout: UICollectionViewFlowLayout {
                 self.targetOffsetX -= self.pageDistance
             }
             self.targetOffsetX = max(self.targetOffsetX, 0.0)
-            self.targetOffsetX = min(self.collectionView!.contentSize.width - self.collectionView!.bounds.width, self.targetOffsetX)
+            self.targetOffsetX = min(self.collectionView!.contentSize.width - pageDistance, self.targetOffsetX)
         }
         targetContentOffset.x = self.targetOffsetX
         return targetContentOffset
+    }
+    
+    func setIndex(index idx: Int) {
+        self.targetOffsetX = CGFloat(idx) * pageDistance
+        self.collectionView!.contentOffset.x = CGFloat(idx) * pageDistance
     }
     
     

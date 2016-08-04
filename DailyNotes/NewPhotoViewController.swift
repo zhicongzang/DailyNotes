@@ -30,7 +30,7 @@ class NewPhotoViewController: UIViewController {
         }
     }
     
-    var photos = [UIImage(named: "TestImage2")!] {
+    var photos = [UIImage(named: "TestImage")!, UIImage(named: "TestImage2")!, UIImage(named: "TestImage2")!, UIImage(named: "TestImage")!, UIImage(named: "TestImage2")!, UIImage(named: "TestImage")!, UIImage(named: "TestImage2")!, UIImage(named: "TestImage2")!, UIImage(named: "TestImage")!, UIImage(named: "TestImage2")!] {
         didSet {
             if photos.count > 0 {
                 saveButton.enabled = true
@@ -73,14 +73,22 @@ class NewPhotoViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
         setup()
     }
+    
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
     
     func setup() {
+        
+        //self.photosCollectionView.registerClass(NewPhotoCollectionViewCell.self, forCellWithReuseIdentifier: "PhotoCell")
         
         shutterButtonLC.constant = self.view.frame.height * 0.01
         
@@ -329,6 +337,15 @@ extension NewPhotoViewController {
         let cgImage = imageContext.createCGImage(inputImage!, fromRect: inputImage!.extent)
         return UIImage(CGImage: cgImage, scale: 1.0, orientation: UIImageOrientation.Right)
     }
+    
+    func startCaptureSession() {
+        captureSession.startRunning()
+        setFlashMode(flashButton.flashMode)
+    }
+    
+    func stopCaptureSession() {
+        captureSession.stopRunning()
+    }
 }
 
 
@@ -343,10 +360,9 @@ extension NewPhotoViewController: UICollectionViewDelegate, UICollectionViewData
     }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("PhotoCell", forIndexPath: indexPath)
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("PhotoCell", forIndexPath: indexPath) as! PhotoCollectionViewCell
         let photo = photos[indexPath.row]
-        cell.contentView.layer.contents = photo.CGImage
-        cell.contentView.layer.transform = CATransform3DMakeAffineTransform(CGAffineTransformMakeRotation(CGFloat(M_PI_2)))
+        cell.imgView.image = photo
         return cell
     }
     
@@ -363,7 +379,8 @@ extension NewPhotoViewController: UICollectionViewDelegate, UICollectionViewData
     
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         let detailPhotosVC = storyboard?.instantiateViewControllerWithIdentifier("DetailPhotos") as! DetailPhotosViewController
-        detailPhotosVC.photos = self.photos
+        detailPhotosVC.index = indexPath.row
+        stopCaptureSession()
         self.configureChildViewController(childController: detailPhotosVC, onView: self.view, constraints: .Constraints(top: 0, buttom: 0, left: 0, right: 0))
     }
     
@@ -386,6 +403,7 @@ extension NewPhotoViewController: UIGestureRecognizerDelegate {
     }
     
 }
+
 
 
 

@@ -1,22 +1,26 @@
 //
-//  DetailPhotosCollectionViewCell.swift
+//  DetailCollectionViewCell.swift
 //  DailyNotes
 //
-//  Created by Zhicong Zang on 8/2/16.
+//  Created by Zhicong Zang on 8/3/16.
 //  Copyright © 2016 Zhicong Zang. All rights reserved.
 //
 
 import UIKit
 
-@objc protocol DetailPhotosCollectionViewCellDelegate {
-    func moveBegin(cell: DetailPhotosCollectionViewCell)
-    func cell(cell: DetailPhotosCollectionViewCell, completedWithRemove remove: Bool)
-    func cell(cell: DetailPhotosCollectionViewCell, translated translation: CGPoint)
+@objc protocol DetailCollectionViewCellDelegate {
+    func moveBegin(cell: DetailCollectionViewCell)
+    func cell(cell: DetailCollectionViewCell, completedWithRemove remove: Bool)
+    func cell(cell: DetailCollectionViewCell, translated translation: CGPoint)
 }
 
-class DetailPhotosCollectionViewCell: UICollectionViewCell {
-    var cellImageView: UIImageView = UIImageView()
-    weak var delegate: DetailPhotosCollectionViewCellDelegate?
+class DetailCollectionViewCell: UICollectionViewCell {
+
+    @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet weak var topLC: NSLayoutConstraint!
+    @IBOutlet weak var leftLC: NSLayoutConstraint!
+    
+    weak var delegate: DetailCollectionViewCellDelegate?
     override init(frame: CGRect) {
         super.init(frame: frame)
         setup()
@@ -27,40 +31,25 @@ class DetailPhotosCollectionViewCell: UICollectionViewCell {
         setup()
     }
     
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        // Initialization code
+    }
+    
     func setup() {
-        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(DetailPhotosCollectionViewCell.onPanGesture(_:)))
+        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(DetailCollectionViewCell.onPanGesture(_:)))
         panGesture.delegate = self
         self.contentView.addGestureRecognizer(panGesture)
     }
     
-    func setupImage(image: UIImage) {
-        cellImageView.translatesAutoresizingMaskIntoConstraints = false
-        self.contentView.addSubview(cellImageView)
-        let cellImageView_constraintsH: [NSLayoutConstraint]
-        let cellImageView_constraintsV: [NSLayoutConstraint]
-        let layout_cellImageView = ["cellImageView":cellImageView]
-        let wH = image.size.width / image.size.height
-        if wH >= DetailCellWidth / DetailCellHeight {
-            let gap = (DetailCellHeight - DetailCellWidth / wH) / 2
-            cellImageView_constraintsH = NSLayoutConstraint.constraintsWithVisualFormat("H:|-(0.0)-[cellImageView]-(0.0)-|", options: NSLayoutFormatOptions.AlignAllCenterX, metrics: nil, views: layout_cellImageView)
-            cellImageView_constraintsV = NSLayoutConstraint.constraintsWithVisualFormat("V:|-(\(gap))-[cellImageView]-(\(gap))-|", options: NSLayoutFormatOptions.AlignAllCenterY, metrics: nil, views: layout_cellImageView)
-        } else {
-            let gap = (DetailCellWidth - DetailCellHeight * wH) / 2
-            cellImageView_constraintsH = NSLayoutConstraint.constraintsWithVisualFormat("H:|-(\(gap))-[cellImageView]-(\(gap))-|", options: NSLayoutFormatOptions.AlignAllCenterX, metrics: nil, views: layout_cellImageView)
-            cellImageView_constraintsV = NSLayoutConstraint.constraintsWithVisualFormat("V:|-(0.0)-[cellImageView]-(0.0)-|", options: NSLayoutFormatOptions.AlignAllCenterY, metrics: nil, views: layout_cellImageView)
-            
-        }
-        
-        self.contentView.addConstraints(cellImageView_constraintsH)
-        self.contentView.addConstraints(cellImageView_constraintsV)
-        cellImageView.image = image
+    func setImage(image: UIImage) {
+        imageView.contentMode = .ScaleAspectFit
+        imageView.image = image
     }
-    
-    
+
 }
 
-
-extension DetailPhotosCollectionViewCell: UIGestureRecognizerDelegate {
+extension DetailCollectionViewCell: UIGestureRecognizerDelegate {
     @objc func onPanGesture(gesture:UIPanGestureRecognizer){
         func _angleForTranslate(translate:CGPoint) -> CGFloat {
             var angle : CGFloat = 0.0
@@ -76,7 +65,7 @@ extension DetailPhotosCollectionViewCell: UIGestureRecognizerDelegate {
             self.delegate?.moveBegin(self)
         } else if gesture.state == .Ended || gesture.state == .Cancelled {
             let translate = gesture.translationInView(self.contentView)
-            if translate.y > -0.5 * self.bounds.size.height {
+            if translate.y > -0.3 * self.bounds.size.height {
                 UIView.animateWithDuration(0.3, animations: {
                     self.transform = CGAffineTransformIdentity
                     }, completion: { (finished) in
@@ -85,7 +74,7 @@ extension DetailPhotosCollectionViewCell: UIGestureRecognizerDelegate {
                         }
                 })
             } else {
-                UIView.animateWithDuration(0.3, animations: { 
+                UIView.animateWithDuration(0.3, animations: {
                     let targetOffsetX : CGFloat = translate.x > 0 ? self.bounds.size.width : -1 * self.bounds.size.width
                     let targetOffsetY : CGFloat = -1 * self.bounds.size.height
                     let translate_transform = CGAffineTransformMakeTranslation(targetOffsetX, targetOffsetY)
@@ -119,27 +108,3 @@ extension DetailPhotosCollectionViewCell: UIGestureRecognizerDelegate {
         return abs(translate.y) > abs(translate.x)
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

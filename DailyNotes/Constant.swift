@@ -16,3 +16,4 @@ let newNoteTableViewCellHeight: CGFloat = 30
 let AssetCollectionTitle = "Daily Note"
 let DetailCellWidth = screenWidth
 let DetailCellHeight = screenHeight
+let DetailCellPageDistance = ceil(screenWidth * 1.1)

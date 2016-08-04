@@ -21,14 +21,13 @@ class NewReminderViewController: UIViewController {
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         setup()
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(NewReminderViewController.keyboardWillChangeFrame(_:)), name: UIKeyboardWillChangeFrameNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(NewReminderViewController.keyboardWillShow(_:)), name: UIKeyboardWillShowNotification, object: nil)
     }
     
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(NewReminderViewController.keyboardWillChangeFrame(_:)), name: UIKeyboardWillChangeFrameNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(NewReminderViewController.keyboardWillShow(_:)), name: UIKeyboardWillShowNotification, object: nil)
         
     }
 
@@ -61,7 +60,9 @@ class NewReminderViewController: UIViewController {
             self.view.alpha = 0
         }) { (finished) in
             NSNotificationCenter.defaultCenter().removeObserver(self)
-            self.dismissViewControllerAnimated(true, completion: nil)
+            self.removeFromParentViewController()
+            self.view.removeFromSuperview()
+            
         }
         
     }

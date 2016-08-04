@@ -24,8 +24,6 @@ class RootViewController: UIViewController {
     @IBOutlet var buttonPaddings: [NSLayoutConstraint]!
     @IBOutlet weak var buttonsToTopLayoutConstraint: NSLayoutConstraint!
     
-    let imagePickerController = UIImagePickerController()
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -52,7 +50,8 @@ class RootViewController: UIViewController {
     }
     
     @IBAction func photoButtonPressed(sender: AnyObject) {
-        self.presentViewController(imagePickerController, animated: true, completion: nil)
+        let newPhotoVC = storyboard?.instantiateViewControllerWithIdentifier("NewPhoto") as! NewPhotoViewController
+        self.presentViewController(newPhotoVC, animated: true, completion: nil)
     }
     
 }
