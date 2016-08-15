@@ -30,7 +30,7 @@ class NewPhotoViewController: UIViewController {
         }
     }
     
-    var photos = [UIImage(named: "TestImage")!, UIImage(named: "TestImage2")!, UIImage(named: "TestImage2")!, UIImage(named: "TestImage")!, UIImage(named: "TestImage2")!, UIImage(named: "TestImage")!, UIImage(named: "TestImage2")!, UIImage(named: "TestImage2")!, UIImage(named: "TestImage")!, UIImage(named: "TestImage2")!] {
+    var photos = [UIImage]() {
         didSet {
             if photos.count > 0 {
                 saveButton.enabled = true

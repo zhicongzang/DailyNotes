@@ -23,6 +23,14 @@
 		DC8220C11D527CA900FF1FC4 /* PhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC8220C01D527CA900FF1FC4 /* PhotoCollectionViewCell.swift */; };
 		DC8220C41D528B0F00FF1FC4 /* DetailCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC8220C21D528B0F00FF1FC4 /* DetailCollectionViewCell.swift */; };
 		DC8220C51D528B0F00FF1FC4 /* DetailCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = DC8220C31D528B0F00FF1FC4 /* DetailCollectionViewCell.xib */; };
+		DC8220C81D53E19900FF1FC4 /* ZZPlaceholderTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC8220C71D53E19900FF1FC4 /* ZZPlaceholderTextView.swift */; };
+		DC82211F1D62486200FF1FC4 /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC8220CF1D53F6F300FF1FC4 /* NotificationCenter.framework */; };
+		DC8221221D62486200FF1FC4 /* TodayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC8221211D62486200FF1FC4 /* TodayViewController.swift */; };
+		DC8221251D62486200FF1FC4 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DC8221231D62486200FF1FC4 /* MainInterface.storyboard */; };
+		DC8221291D62486200FF1FC4 /* DailyNotesExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = DC82211E1D62486200FF1FC4 /* DailyNotesExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		DC8221321D625F9100FF1FC4 /* ReminderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC8221301D625F9100FF1FC4 /* ReminderTableViewCell.swift */; };
+		DC8221331D625F9100FF1FC4 /* ReminderTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = DC8221311D625F9100FF1FC4 /* ReminderTableViewCell.xib */; };
+		DC8221351D62668800FF1FC4 /* SelectedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC8221341D62668800FF1FC4 /* SelectedButton.swift */; };
 		DC8B9AA51D4803A3009DB76B /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC8B9AA41D4803A3009DB76B /* Extensions.swift */; };
 		DC8B9AA71D48151A009DB76B /* FontSettingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC8B9AA61D48151A009DB76B /* FontSettingButton.swift */; };
 		DC8B9AA91D481F64009DB76B /* NewNoteButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC8B9AA81D481F64009DB76B /* NewNoteButton.swift */; };
@@ -53,7 +61,28 @@
 			remoteGlobalIDString = DC6ED9451D401FFC00AEFECB;
 			remoteInfo = DailyNotes;
 		};
+		DC8221271D62486200FF1FC4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DC6ED93E1D401FFC00AEFECB /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DC82211D1D62486200FF1FC4;
+			remoteInfo = DailyNotesExtension;
+		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		DC82212D1D62486200FF1FC4 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				DC8221291D62486200FF1FC4 /* DailyNotesExtension.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		DC6ED9461D401FFD00AEFECB /* DailyNotes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DailyNotes.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -78,6 +107,15 @@
 		DC8220C01D527CA900FF1FC4 /* PhotoCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoCollectionViewCell.swift; sourceTree = "<group>"; };
 		DC8220C21D528B0F00FF1FC4 /* DetailCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailCollectionViewCell.swift; sourceTree = "<group>"; };
 		DC8220C31D528B0F00FF1FC4 /* DetailCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DetailCollectionViewCell.xib; sourceTree = "<group>"; };
+		DC8220C71D53E19900FF1FC4 /* ZZPlaceholderTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZZPlaceholderTextView.swift; sourceTree = "<group>"; };
+		DC8220CF1D53F6F300FF1FC4 /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
+		DC82211E1D62486200FF1FC4 /* DailyNotesExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = DailyNotesExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		DC8221211D62486200FF1FC4 /* TodayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayViewController.swift; sourceTree = "<group>"; };
+		DC8221241D62486200FF1FC4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
+		DC8221261D62486200FF1FC4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DC8221301D625F9100FF1FC4 /* ReminderTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReminderTableViewCell.swift; sourceTree = "<group>"; };
+		DC8221311D625F9100FF1FC4 /* ReminderTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ReminderTableViewCell.xib; sourceTree = "<group>"; };
+		DC8221341D62668800FF1FC4 /* SelectedButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectedButton.swift; sourceTree = "<group>"; };
 		DC8B9AA41D4803A3009DB76B /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		DC8B9AA61D48151A009DB76B /* FontSettingButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FontSettingButton.swift; sourceTree = "<group>"; };
 		DC8B9AA81D481F64009DB76B /* NewNoteButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewNoteButton.swift; sourceTree = "<group>"; };
@@ -117,6 +155,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		DC82211B1D62486200FF1FC4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DC82211F1D62486200FF1FC4 /* NotificationCenter.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -128,6 +174,8 @@
 				DC6ED9481D401FFD00AEFECB /* DailyNotes */,
 				DC6ED9601D401FFD00AEFECB /* DailyNotesTests */,
 				DC6ED96B1D401FFD00AEFECB /* DailyNotesUITests */,
+				DC8221201D62486200FF1FC4 /* DailyNotesExtension */,
+				DC8220CE1D53F6F300FF1FC4 /* Frameworks */,
 				DC6ED9471D401FFD00AEFECB /* Products */,
 			);
 			sourceTree = "<group>";
@@ -138,6 +186,7 @@
 				DC6ED9461D401FFD00AEFECB /* DailyNotes.app */,
 				DC6ED95D1D401FFD00AEFECB /* DailyNotesTests.xctest */,
 				DC6ED9681D401FFD00AEFECB /* DailyNotesUITests.xctest */,
+				DC82211E1D62486200FF1FC4 /* DailyNotesExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -193,7 +242,7 @@
 		DC6ED9891D403A0900AEFECB /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				DC9F2CAB1D41991E006E8675 /* ZZPopOver.swift */,
+				DC8220C61D53E16A00FF1FC4 /* ZZControls */,
 				DC6ED9851D402C6F00AEFECB /* RootButton.swift */,
 				DCF94C081D41885900CCDE42 /* KeyboardButton.swift */,
 				DC8B9AA61D48151A009DB76B /* FontSettingButton.swift */,
@@ -201,12 +250,42 @@
 				DC8B9AA81D481F64009DB76B /* NewNoteButton.swift */,
 				DCF9497B1D4A900B004B3ACE /* PickDateButton.swift */,
 				DCF949881D4FEA80004B3ACE /* FlashButton.swift */,
+				DC8221341D62668800FF1FC4 /* SelectedButton.swift */,
 				DC8220C01D527CA900FF1FC4 /* PhotoCollectionViewCell.swift */,
 				DC8220B41D514D3300FF1FC4 /* DetailPhotosCollectionLayout.swift */,
 				DC8220C21D528B0F00FF1FC4 /* DetailCollectionViewCell.swift */,
 				DC8220C31D528B0F00FF1FC4 /* DetailCollectionViewCell.xib */,
+				DC8221301D625F9100FF1FC4 /* ReminderTableViewCell.swift */,
+				DC8221311D625F9100FF1FC4 /* ReminderTableViewCell.xib */,
 			);
 			name = Views;
+			sourceTree = "<group>";
+		};
+		DC8220C61D53E16A00FF1FC4 /* ZZControls */ = {
+			isa = PBXGroup;
+			children = (
+				DC9F2CAB1D41991E006E8675 /* ZZPopOver.swift */,
+				DC8220C71D53E19900FF1FC4 /* ZZPlaceholderTextView.swift */,
+			);
+			name = ZZControls;
+			sourceTree = "<group>";
+		};
+		DC8220CE1D53F6F300FF1FC4 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				DC8220CF1D53F6F300FF1FC4 /* NotificationCenter.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		DC8221201D62486200FF1FC4 /* DailyNotesExtension */ = {
+			isa = PBXGroup;
+			children = (
+				DC8221211D62486200FF1FC4 /* TodayViewController.swift */,
+				DC8221231D62486200FF1FC4 /* MainInterface.storyboard */,
+				DC8221261D62486200FF1FC4 /* Info.plist */,
+			);
+			path = DailyNotesExtension;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -219,10 +298,12 @@
 				DC6ED9421D401FFC00AEFECB /* Sources */,
 				DC6ED9431D401FFC00AEFECB /* Frameworks */,
 				DC6ED9441D401FFC00AEFECB /* Resources */,
+				DC82212D1D62486200FF1FC4 /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				DC8221281D62486200FF1FC4 /* PBXTargetDependency */,
 			);
 			name = DailyNotes;
 			productName = DailyNotes;
@@ -265,6 +346,23 @@
 			productReference = DC6ED9681D401FFD00AEFECB /* DailyNotesUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
+		DC82211D1D62486200FF1FC4 /* DailyNotesExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DC82212A1D62486200FF1FC4 /* Build configuration list for PBXNativeTarget "DailyNotesExtension" */;
+			buildPhases = (
+				DC82211A1D62486200FF1FC4 /* Sources */,
+				DC82211B1D62486200FF1FC4 /* Frameworks */,
+				DC82211C1D62486200FF1FC4 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = DailyNotesExtension;
+			productName = DailyNotesExtension;
+			productReference = DC82211E1D62486200FF1FC4 /* DailyNotesExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -289,6 +387,10 @@
 						DevelopmentTeam = 3YN8TBBFZ4;
 						TestTargetID = DC6ED9451D401FFC00AEFECB;
 					};
+					DC82211D1D62486200FF1FC4 = {
+						CreatedOnToolsVersion = 7.3.1;
+						DevelopmentTeam = 3YN8TBBFZ4;
+					};
 				};
 			};
 			buildConfigurationList = DC6ED9411D401FFC00AEFECB /* Build configuration list for PBXProject "DailyNotes" */;
@@ -307,6 +409,7 @@
 				DC6ED9451D401FFC00AEFECB /* DailyNotes */,
 				DC6ED95C1D401FFD00AEFECB /* DailyNotesTests */,
 				DC6ED9671D401FFD00AEFECB /* DailyNotesUITests */,
+				DC82211D1D62486200FF1FC4 /* DailyNotesExtension */,
 			);
 		};
 /* End PBXProject section */
@@ -320,6 +423,7 @@
 				DC6ED9541D401FFD00AEFECB /* Assets.xcassets in Resources */,
 				DC6ED94F1D401FFD00AEFECB /* Main.storyboard in Resources */,
 				DC8220C51D528B0F00FF1FC4 /* DetailCollectionViewCell.xib in Resources */,
+				DC8221331D625F9100FF1FC4 /* ReminderTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -337,6 +441,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		DC82211C1D62486200FF1FC4 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DC8221251D62486200FF1FC4 /* MainInterface.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -348,6 +460,7 @@
 				DC6ED9881D40386100AEFECB /* RootNavigationBar.swift in Sources */,
 				DCF949891D4FEA80004B3ACE /* FlashButton.swift in Sources */,
 				DCF94C071D41795A00CCDE42 /* NewNoteViewController.swift in Sources */,
+				DC8221351D62668800FF1FC4 /* SelectedButton.swift in Sources */,
 				DC6ED9521D401FFD00AEFECB /* DailyNotes.xcdatamodeld in Sources */,
 				DC8B9AA71D48151A009DB76B /* FontSettingButton.swift in Sources */,
 				DCF949801D4AB357004B3ACE /* Utils.swift in Sources */,
@@ -359,8 +472,10 @@
 				DCF94C091D41885900CCDE42 /* KeyboardButton.swift in Sources */,
 				DC8220B31D5145D100FF1FC4 /* DetailPhotosViewController.swift in Sources */,
 				DC6ED94A1D401FFD00AEFECB /* AppDelegate.swift in Sources */,
+				DC8221321D625F9100FF1FC4 /* ReminderTableViewCell.swift in Sources */,
 				DCF949821D4ABA47004B3ACE /* NewPhotoViewController.swift in Sources */,
 				DC6ED9841D4029E500AEFECB /* RootViewController.swift in Sources */,
+				DC8220C81D53E19900FF1FC4 /* ZZPlaceholderTextView.swift in Sources */,
 				DCF9497C1D4A900B004B3ACE /* PickDateButton.swift in Sources */,
 				DC8B9AA91D481F64009DB76B /* NewNoteButton.swift in Sources */,
 				DC6ED9811D40296C00AEFECB /* Constant.swift in Sources */,
@@ -384,6 +499,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		DC82211A1D62486200FF1FC4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DC8221221D62486200FF1FC4 /* TodayViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -396,6 +519,11 @@
 			isa = PBXTargetDependency;
 			target = DC6ED9451D401FFC00AEFECB /* DailyNotes */;
 			targetProxy = DC6ED9691D401FFD00AEFECB /* PBXContainerItemProxy */;
+		};
+		DC8221281D62486200FF1FC4 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DC82211D1D62486200FF1FC4 /* DailyNotesExtension */;
+			targetProxy = DC8221271D62486200FF1FC4 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -414,6 +542,14 @@
 				DC6ED9561D401FFD00AEFECB /* Base */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		DC8221231D62486200FF1FC4 /* MainInterface.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DC8221241D62486200FF1FC4 /* Base */,
+			);
+			name = MainInterface.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -508,6 +644,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				INFOPLIST_FILE = DailyNotes/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = Jesse.DailyNotes;
@@ -522,6 +659,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				INFOPLIST_FILE = DailyNotes/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = Jesse.DailyNotes;
@@ -576,6 +714,32 @@
 			};
 			name = Release;
 		};
+		DC82212B1D62486200FF1FC4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				INFOPLIST_FILE = DailyNotesExtension/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = Jesse.DailyNotes.DailyNotesExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		DC82212C1D62486200FF1FC4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				INFOPLIST_FILE = DailyNotesExtension/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = Jesse.DailyNotes.DailyNotesExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -611,6 +775,15 @@
 			buildConfigurations = (
 				DC6ED9781D401FFD00AEFECB /* Debug */,
 				DC6ED9791D401FFD00AEFECB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DC82212A1D62486200FF1FC4 /* Build configuration list for PBXNativeTarget "DailyNotesExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DC82212B1D62486200FF1FC4 /* Debug */,
+				DC82212C1D62486200FF1FC4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

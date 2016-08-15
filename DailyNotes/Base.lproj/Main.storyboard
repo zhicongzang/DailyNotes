@@ -46,7 +46,7 @@
                                 </textAttributes>
                                 <items>
                                     <navigationItem title="x of x" id="aFP-8G-PwH">
-                                        <barButtonItem key="leftBarButtonItem" title="Camera" id="yFs-YW-aFf">
+                                        <barButtonItem key="leftBarButtonItem" title="Back" id="yFs-YW-aFf">
                                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <connections>
                                                 <action selector="cameraButtonPressed:" destination="DMV-dg-ElZ" id="d71-yM-Awp"/>
@@ -288,6 +288,27 @@
                                     <action selector="reminderButtonPressed:" destination="ARR-tz-eD8" eventType="touchUpInside" id="3LT-m6-RsZ"/>
                                 </connections>
                             </button>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="8eB-Qr-l3S">
+                                <rect key="frame" x="20" y="154" width="374" height="200"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="200" id="1wL-ze-4PI"/>
+                                </constraints>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ReminderTableViewCell" id="oA3-Co-7LC" customClass="ReminderTableViewCell" customModule="DailyNotes" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="374" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="oA3-Co-7LC" id="ViE-Nv-Pmc">
+                                            <rect key="frame" x="0.0" y="0.0" width="374" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="ARR-tz-eD8" id="uup-Ad-HeW"/>
+                                    <outlet property="delegate" destination="ARR-tz-eD8" id="TM9-YY-VHO"/>
+                                </connections>
+                            </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -297,6 +318,7 @@
                             <constraint firstItem="PFN-zG-Bsz" firstAttribute="width" secondItem="RuS-de-UFx" secondAttribute="width" multiplier="1/11" id="7zw-cE-Ca3"/>
                             <constraint firstItem="PFN-zG-Bsz" firstAttribute="height" secondItem="RuS-de-UFx" secondAttribute="width" multiplier="1/11" id="8vD-Se-Xms"/>
                             <constraint firstItem="PFN-zG-Bsz" firstAttribute="centerY" secondItem="5fg-Kw-weq" secondAttribute="centerY" id="AYr-H6-lA5"/>
+                            <constraint firstItem="8eB-Qr-l3S" firstAttribute="top" secondItem="5fg-Kw-weq" secondAttribute="bottom" constant="32" id="AoS-bZ-ysz"/>
                             <constraint firstItem="izn-f7-G1H" firstAttribute="centerY" secondItem="5fg-Kw-weq" secondAttribute="centerY" id="E4Y-cM-5R0"/>
                             <constraint firstItem="izn-f7-G1H" firstAttribute="width" secondItem="RuS-de-UFx" secondAttribute="width" multiplier="1/11" id="FcY-B2-WVJ"/>
                             <constraint firstItem="izn-f7-G1H" firstAttribute="height" secondItem="RuS-de-UFx" secondAttribute="width" multiplier="1/11" id="KL4-z0-tJi"/>
@@ -307,6 +329,7 @@
                             <constraint firstItem="5fg-Kw-weq" firstAttribute="height" secondItem="RuS-de-UFx" secondAttribute="width" multiplier="1/11" id="bnR-N0-dJD"/>
                             <constraint firstItem="5fg-Kw-weq" firstAttribute="top" secondItem="fOc-Md-r6M" secondAttribute="bottom" constant="20" id="ecA-x4-E71"/>
                             <constraint firstItem="YYv-kO-TO8" firstAttribute="width" secondItem="RuS-de-UFx" secondAttribute="width" multiplier="1/11" id="jvc-OQ-R5j"/>
+                            <constraint firstItem="8eB-Qr-l3S" firstAttribute="trailing" secondItem="RuS-de-UFx" secondAttribute="trailingMargin" id="kmh-pX-Pbz"/>
                             <constraint firstItem="fOc-Md-r6M" firstAttribute="leading" secondItem="RuS-de-UFx" secondAttribute="leadingMargin" constant="-20" id="m6h-QA-c2f"/>
                             <constraint firstItem="5fg-Kw-weq" firstAttribute="leading" secondItem="YYv-kO-TO8" secondAttribute="trailing" constant="40" id="p9f-dn-74n"/>
                             <constraint firstItem="YYv-kO-TO8" firstAttribute="height" secondItem="RuS-de-UFx" secondAttribute="width" multiplier="1/11" id="qPu-kp-CXl"/>
@@ -314,6 +337,7 @@
                             <constraint firstItem="5fg-Kw-weq" firstAttribute="width" secondItem="RuS-de-UFx" secondAttribute="width" multiplier="1/11" id="sWE-Ew-JrY"/>
                             <constraint firstItem="YYv-kO-TO8" firstAttribute="centerY" secondItem="5fg-Kw-weq" secondAttribute="centerY" id="wjk-bI-nLm"/>
                             <constraint firstItem="fOc-Md-r6M" firstAttribute="top" secondItem="6hi-6y-IRe" secondAttribute="bottom" id="yvw-iv-mk6"/>
+                            <constraint firstItem="8eB-Qr-l3S" firstAttribute="leading" secondItem="RuS-de-UFx" secondAttribute="leadingMargin" id="z9f-Yb-TUa"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="E3Z-Jr-9ae">
@@ -341,6 +365,7 @@
                         <outlet property="noteButton" destination="izn-f7-G1H" id="bS3-cQ-Xyp"/>
                         <outlet property="photoButton" destination="YYv-kO-TO8" id="9T0-7v-xcE"/>
                         <outlet property="reminderButton" destination="5fg-Kw-weq" id="zCu-Q1-aNL"/>
+                        <outlet property="reminderTableView" destination="8eB-Qr-l3S" id="HAU-Ym-T4p"/>
                         <outlet property="searchingButton" destination="1yY-Nw-rxA" id="AYP-nc-hbH"/>
                         <outlet property="settingsButton" destination="Pn8-s8-7ap" id="5aa-oj-NuL"/>
                         <outletCollection property="buttonPaddings" destination="ZbQ-DW-Zo7" collectionClass="NSMutableArray" id="nFy-gg-Knr"/>
@@ -368,13 +393,6 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NkU-Rg-YNi">
                                 <rect key="frame" x="41" y="270" width="332" height="248"/>
                                 <subviews>
-                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Amh-KL-4Np">
-                                        <rect key="frame" x="0.0" y="45" width="332" height="163"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                                    </textView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="c25-Q1-2Y7">
                                         <rect key="frame" x="0.0" y="208" width="332" height="40"/>
                                         <subviews>
@@ -436,10 +454,22 @@
                                                 </barButtonItem>
                                                 <barButtonItem key="rightBarButtonItem" style="plain" systemItem="save" id="foG-RY-uYu">
                                                     <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <connections>
+                                                        <action selector="saveButtonPressed:" destination="jxg-dU-Do9" id="vOF-En-54k"/>
+                                                    </connections>
                                                 </barButtonItem>
                                             </navigationItem>
                                         </items>
                                     </navigationBar>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Amh-KL-4Np" customClass="ZZPlaceholderTextView" customModule="DailyNotes" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="45" width="332" height="163"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="string" keyPath="placeholder" value="Content"/>
+                                        </userDefinedRuntimeAttributes>
+                                    </textView>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -487,12 +517,13 @@
                         <outlet property="datePicker" destination="btA-VB-oPU" id="kXy-7V-qRi"/>
                         <outlet property="deleteButton" destination="hXK-XM-Ihj" id="dQc-mH-0fT"/>
                         <outlet property="reminderLabel" destination="dWh-xO-OBr" id="v3g-3R-PXC"/>
-                        <outlet property="textView" destination="Amh-KL-4Np" id="Xp8-EY-ab7"/>
+                        <outlet property="saveButton" destination="foG-RY-uYu" id="sww-N3-yRq"/>
+                        <outlet property="textView" destination="Amh-KL-4Np" id="cUJ-Zb-hmX"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="92x-fU-9Tx" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1567" y="188"/>
+            <point key="canvasLocation" x="1533" y="168"/>
         </scene>
         <!--New Note-->
         <scene sceneID="f1t-FX-cIR">
@@ -509,7 +540,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qXY-jz-MAO">
                                 <rect key="frame" x="0.0" y="64" width="414" height="60"/>
                                 <subviews>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Subject" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="h4o-Df-n3E">
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Subject" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="h4o-Df-n3E">
                                         <rect key="frame" x="8" y="15" width="398" height="30"/>
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="25"/>
@@ -519,7 +550,6 @@
                                         </connections>
                                     </textField>
                                 </subviews>
-                                <color key="backgroundColor" red="0.66666666666666663" green="0.66666666666666663" blue="0.66666666666666663" alpha="0.28410560344827585" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstItem="h4o-Df-n3E" firstAttribute="leading" secondItem="qXY-jz-MAO" secondAttribute="leading" constant="8" id="bsx-de-tMg"/>
                                     <constraint firstAttribute="trailing" secondItem="h4o-Df-n3E" secondAttribute="trailing" constant="8" id="fSx-dc-f7D"/>
@@ -536,13 +566,6 @@
                                     <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                             </button>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="gAK-56-c7Y">
-                                <rect key="frame" x="7" y="160" width="397" height="536"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque cive velit ess</string>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                            </textView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7tx-hX-yA1">
                                 <rect key="frame" x="0.0" y="696" width="414" height="40"/>
                                 <subviews>
@@ -649,6 +672,12 @@
                                 </constraints>
                                 <state key="normal" image="Location"/>
                             </button>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="gAK-56-c7Y" customClass="ZZPlaceholderTextView" customModule="DailyNotes" customModuleProvider="target">
+                                <rect key="frame" x="7" y="160" width="397" height="536"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -686,6 +715,7 @@
                     <connections>
                         <outlet property="keyboardButton" destination="LM7-AU-y2s" id="mmA-Ar-FQk"/>
                         <outlet property="subjectTextField" destination="h4o-Df-n3E" id="O09-s8-ifm"/>
+                        <outlet property="subjectTextFieldView" destination="qXY-jz-MAO" id="KW6-55-Nfc"/>
                         <outlet property="textView" destination="gAK-56-c7Y" id="i3g-Nc-yRx"/>
                         <outlet property="toolBarLayoutConstraint" destination="5Ng-0h-9Xc" id="I97-tb-8aV"/>
                         <outlet property="toolBarView" destination="7tx-hX-yA1" id="hls-OL-qOg"/>

@@ -14,6 +14,7 @@ class NewNoteViewController: UIViewController {
     @IBOutlet weak var subjectTextField: UITextField!
     @IBOutlet weak var textView: UITextView!
     @IBOutlet weak var toolBarView: UIView!
+    @IBOutlet weak var subjectTextFieldView: UIView!
     
     @IBOutlet weak var toolBarLayoutConstraint: NSLayoutConstraint!
     
@@ -49,6 +50,7 @@ class NewNoteViewController: UIViewController {
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
+        subjectTextFieldView.setupButtomDividingLine(lineWidth: 0.5, lineColor: UIColor(white: 0.6, alpha: 1).CGColor)
         toolBarView.setupButtomDividingLine(lineWidth: 0.5, lineColor: UIColor(white: 0.6, alpha: 1).CGColor)
         toolBarView.setupTopDividingLine(lineWidth: 0.5, lineColor: UIColor(white: 0.6, alpha: 1).CGColor)
         

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import EventKit
 
 class NewReminderViewController: UIViewController {
     
@@ -16,7 +17,31 @@ class NewReminderViewController: UIViewController {
     @IBOutlet weak var buttonView: UIView!
     @IBOutlet weak var reminderLabel: UILabel!
     @IBOutlet weak var deleteButton: UIButton!
-    @IBOutlet weak var textView: UITextView!
+    @IBOutlet weak var textView: ZZPlaceholderTextView!
+    @IBOutlet weak var saveButton: UIBarButtonItem!
+    
+    lazy var eventStore: EKEventStore = {
+        let delegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        return delegate.eventStore
+    }()
+    
+    var date: NSDate? {
+        didSet {
+            if date != nil {
+                if !saveButton.enabled {
+                    saveButton.enabled = true
+                }
+                reminderLabel.text = date?.toReminderDateString()
+                deleteButton.hidden = false
+            } else {
+                if saveButton.enabled {
+                    saveButton.enabled = false
+                }
+                reminderLabel.text = "Notify me"
+                deleteButton.hidden = true
+            }
+        }
+    }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
@@ -42,6 +67,13 @@ class NewReminderViewController: UIViewController {
         contentView.layer.masksToBounds = true
         datePicker.hidden = true
         buttonView.setupTopDividingLine(lineWidth: 0.5, lineColor: UIColor(white: 0.6, alpha: 1).CGColor)
+        saveButton.enabled = false
+    }
+    
+    func dateComponentFromNSDate(date: NSDate)-> NSDateComponents{
+        let calendarUnit: NSCalendarUnit = [.Minute, .Hour, .Day, .Month, .Year]
+        let dateComponents = NSCalendar.currentCalendar().components(calendarUnit, fromDate: date)
+        return dateComponents
     }
     
     override func didMoveToParentViewController(parent: UIViewController?) {
@@ -54,18 +86,25 @@ class NewReminderViewController: UIViewController {
     }
     
     @IBAction func cancelButtonPressed(sender: AnyObject) {
-        textView.resignFirstResponder()
-        UIView.animateWithDuration(0.3, delay: 0, options: .BeginFromCurrentState, animations: {
-            self.contentView.transform = CGAffineTransformMakeScale(0.9, 0.9)
-            self.view.alpha = 0
-        }) { (finished) in
-            NSNotificationCenter.defaultCenter().removeObserver(self)
-            self.removeFromParentViewController()
-            self.view.removeFromSuperview()
-            
-        }
+        viewControllerDismiss()
         
     }
+    
+    @IBAction func saveButtonPressed(sender: AnyObject) {
+        let reminder = EKReminder(eventStore: eventStore)
+        reminder.title = textView.text.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet()) != "" ? textView.text : "Reminder at \(reminderLabel.text!)"
+        reminder.calendar = eventStore.defaultCalendarForNewReminders()
+        let dueDateComponents = dateComponentFromNSDate(date!)
+        reminder.dueDateComponents = dueDateComponents
+        let alerm = EKAlarm(absoluteDate: date!)
+        reminder.addAlarm(alerm)
+        do {
+            try eventStore.saveReminder(reminder, commit: true)
+            (UIApplication.sharedApplication().delegate as! AppDelegate).getAllReminders()
+        } catch {}
+        viewControllerDismiss()
+    }
+    
     
     @objc func keyboardWillChangeFrame(notification: NSNotification) {
         if let userInfo = notification.userInfo,
@@ -103,6 +142,9 @@ class NewReminderViewController: UIViewController {
         textView.resignFirstResponder()
         
         if datePicker.hidden {
+            if date == nil {
+                date = datePicker.date
+            }
             showDatePickerWithAnimation()
         }
         else {
@@ -111,16 +153,25 @@ class NewReminderViewController: UIViewController {
         
     }
     
-    @IBAction func datePickerValueChanged(sender: UIDatePicker) {
-        reminderLabel.text = sender.date.toReminderDateString()
-        if deleteButton.hidden == true {
-            deleteButton.hidden = false
+    func viewControllerDismiss() {
+        textView.resignFirstResponder()
+        UIView.animateWithDuration(0.3, delay: 0, options: .BeginFromCurrentState, animations: {
+            self.contentView.transform = CGAffineTransformMakeScale(0.9, 0.9)
+            self.view.alpha = 0
+        }) { (finished) in
+            NSNotificationCenter.defaultCenter().removeObserver(self)
+            self.removeFromParentViewController()
+            self.view.removeFromSuperview()
+            
         }
     }
     
+    @IBAction func datePickerValueChanged(sender: UIDatePicker) {
+        date = sender.date
+    }
+    
     @IBAction func deleteButtonPressed(sender: AnyObject) {
-        reminderLabel.text = "Notify me"
-        deleteButton.hidden = true
+        date = nil
         datePicker.setDate(NSDate(), animated: true)
     }
     

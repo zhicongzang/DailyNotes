@@ -8,17 +8,47 @@
 
 import UIKit
 import CoreData
+import EventKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
+    let eventStore:EKEventStore = EKEventStore()
+    var reminders = [EKReminder]() {
+        didSet {
+            completedReminders = reminders.filter({ $0.completed == true })
+            uncompletedReminders = reminders.filter({ $0.completed == false })
+        }
+    }
+    var completedReminders = [EKReminder]()
+    var uncompletedReminders = [EKReminder]()
+    
+    func getAllReminders() {
+        let predicate = self.eventStore.predicateForRemindersInCalendars(nil)
+        self.eventStore.fetchRemindersMatchingPredicate(predicate, completion: { (reminders) in
+            self.reminders = reminders?.sort({ (first, second) -> Bool in
+                first.dueDateComponents?.date?.timeIntervalSince1970 ?? 0 < second.dueDateComponents?.date?.timeIntervalSince1970 ?? 0
+            }) ?? []
+        })
+    }
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
         
         Utils.getPhotoLibraryAuthorization(handler: Utils.createAssetCollection(title: AssetCollectionTitle))
+        eventStore.requestAccessToEntityType(.Reminder) { (isAuthorized, error) in
+            if isAuthorized && error == nil  {
+                self.getAllReminders()
+            } else {
+                if let e = error {
+                    print(e)
+                } else {
+                    print("Wrong")
+                }
+            }
+            
+        }
         return true
     }
 
