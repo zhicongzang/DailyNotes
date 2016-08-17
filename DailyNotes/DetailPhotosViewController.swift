@@ -91,6 +91,11 @@ class DetailPhotosViewController: UIViewController {
             navigationBarDismiss(animated: true)
         }
     }
+    
+    deinit {
+        let layout = photosCollectionView.collectionViewLayout as! DetailPhotosCollectionLayout
+        layout.removeObserver(self, forKeyPath: "index")
+    }
 
 }
 

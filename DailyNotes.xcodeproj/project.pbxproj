@@ -30,11 +30,12 @@
 		DC8221291D62486200FF1FC4 /* DailyNotesExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = DC82211E1D62486200FF1FC4 /* DailyNotesExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		DC8221321D625F9100FF1FC4 /* ReminderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC8221301D625F9100FF1FC4 /* ReminderTableViewCell.swift */; };
 		DC8221331D625F9100FF1FC4 /* ReminderTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = DC8221311D625F9100FF1FC4 /* ReminderTableViewCell.xib */; };
-		DC8221351D62668800FF1FC4 /* SelectedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC8221341D62668800FF1FC4 /* SelectedButton.swift */; };
+		DC8221351D62668800FF1FC4 /* ReminderButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC8221341D62668800FF1FC4 /* ReminderButton.swift */; };
 		DC8B9AA51D4803A3009DB76B /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC8B9AA41D4803A3009DB76B /* Extensions.swift */; };
 		DC8B9AA71D48151A009DB76B /* FontSettingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC8B9AA61D48151A009DB76B /* FontSettingButton.swift */; };
 		DC8B9AA91D481F64009DB76B /* NewNoteButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC8B9AA81D481F64009DB76B /* NewNoteButton.swift */; };
 		DC9F2CAC1D41991E006E8675 /* ZZPopOver.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC9F2CAB1D41991E006E8675 /* ZZPopOver.swift */; };
+		DCA786961D63CA8800702E87 /* RemindTableViewTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCA786951D63CA8800702E87 /* RemindTableViewTitle.swift */; };
 		DCF949731D4927BB004B3ACE /* NewReminderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCF949711D4927BB004B3ACE /* NewReminderViewController.swift */; };
 		DCF9497C1D4A900B004B3ACE /* PickDateButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCF9497B1D4A900B004B3ACE /* PickDateButton.swift */; };
 		DCF9497E1D4AA6AC004B3ACE /* Photos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCF9497D1D4AA6AC004B3ACE /* Photos.framework */; };
@@ -115,11 +116,12 @@
 		DC8221261D62486200FF1FC4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DC8221301D625F9100FF1FC4 /* ReminderTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReminderTableViewCell.swift; sourceTree = "<group>"; };
 		DC8221311D625F9100FF1FC4 /* ReminderTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ReminderTableViewCell.xib; sourceTree = "<group>"; };
-		DC8221341D62668800FF1FC4 /* SelectedButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectedButton.swift; sourceTree = "<group>"; };
+		DC8221341D62668800FF1FC4 /* ReminderButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReminderButton.swift; sourceTree = "<group>"; };
 		DC8B9AA41D4803A3009DB76B /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		DC8B9AA61D48151A009DB76B /* FontSettingButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FontSettingButton.swift; sourceTree = "<group>"; };
 		DC8B9AA81D481F64009DB76B /* NewNoteButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewNoteButton.swift; sourceTree = "<group>"; };
 		DC9F2CAB1D41991E006E8675 /* ZZPopOver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZZPopOver.swift; sourceTree = "<group>"; };
+		DCA786951D63CA8800702E87 /* RemindTableViewTitle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RemindTableViewTitle.swift; sourceTree = "<group>"; };
 		DCF949711D4927BB004B3ACE /* NewReminderViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewReminderViewController.swift; sourceTree = "<group>"; };
 		DCF9497B1D4A900B004B3ACE /* PickDateButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PickDateButton.swift; sourceTree = "<group>"; };
 		DCF9497D1D4AA6AC004B3ACE /* Photos.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Photos.framework; path = System/Library/Frameworks/Photos.framework; sourceTree = SDKROOT; };
@@ -250,13 +252,14 @@
 				DC8B9AA81D481F64009DB76B /* NewNoteButton.swift */,
 				DCF9497B1D4A900B004B3ACE /* PickDateButton.swift */,
 				DCF949881D4FEA80004B3ACE /* FlashButton.swift */,
-				DC8221341D62668800FF1FC4 /* SelectedButton.swift */,
+				DC8221341D62668800FF1FC4 /* ReminderButton.swift */,
 				DC8220C01D527CA900FF1FC4 /* PhotoCollectionViewCell.swift */,
 				DC8220B41D514D3300FF1FC4 /* DetailPhotosCollectionLayout.swift */,
 				DC8220C21D528B0F00FF1FC4 /* DetailCollectionViewCell.swift */,
 				DC8220C31D528B0F00FF1FC4 /* DetailCollectionViewCell.xib */,
 				DC8221301D625F9100FF1FC4 /* ReminderTableViewCell.swift */,
 				DC8221311D625F9100FF1FC4 /* ReminderTableViewCell.xib */,
+				DCA786951D63CA8800702E87 /* RemindTableViewTitle.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -460,7 +463,7 @@
 				DC6ED9881D40386100AEFECB /* RootNavigationBar.swift in Sources */,
 				DCF949891D4FEA80004B3ACE /* FlashButton.swift in Sources */,
 				DCF94C071D41795A00CCDE42 /* NewNoteViewController.swift in Sources */,
-				DC8221351D62668800FF1FC4 /* SelectedButton.swift in Sources */,
+				DC8221351D62668800FF1FC4 /* ReminderButton.swift in Sources */,
 				DC6ED9521D401FFD00AEFECB /* DailyNotes.xcdatamodeld in Sources */,
 				DC8B9AA71D48151A009DB76B /* FontSettingButton.swift in Sources */,
 				DCF949801D4AB357004B3ACE /* Utils.swift in Sources */,
@@ -480,6 +483,7 @@
 				DC8B9AA91D481F64009DB76B /* NewNoteButton.swift in Sources */,
 				DC6ED9811D40296C00AEFECB /* Constant.swift in Sources */,
 				DCF949731D4927BB004B3ACE /* NewReminderViewController.swift in Sources */,
+				DCA786961D63CA8800702E87 /* RemindTableViewTitle.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

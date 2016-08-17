@@ -12,7 +12,8 @@ import EventKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
+    
+    
     var window: UIWindow?
     let eventStore:EKEventStore = EKEventStore()
     var reminders = [EKReminder]() {
@@ -22,7 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
     var completedReminders = [EKReminder]()
-    var uncompletedReminders = [EKReminder]()
+    dynamic var uncompletedReminders = [EKReminder]()
     
     func getAllReminders() {
         let predicate = self.eventStore.predicateForRemindersInCalendars(nil)
@@ -31,6 +32,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 first.dueDateComponents?.date?.timeIntervalSince1970 ?? 0 < second.dueDateComponents?.date?.timeIntervalSince1970 ?? 0
             }) ?? []
         })
+    }
+    
+    func changedCompletionOfReminderByIndex(index: Int, completed: Bool) {
+        if index < uncompletedReminders.count {
+            uncompletedReminders[index].completed = completed
+            do {
+                try eventStore.saveReminder(uncompletedReminders[index], commit: true)
+            } catch {}
+            getAllReminders()
+        }
     }
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {

@@ -8,7 +8,13 @@
 
 import UIKit
 
-class SelectedButton: UIButton {
+class ReminderButton: UIButton {
+    
+    dynamic var completed = false {
+        didSet {
+            setNeedsDisplay()
+        }
+    }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -16,17 +22,16 @@ class SelectedButton: UIButton {
         self.layer.masksToBounds = true
         self.layer.borderColor = UIColor(white: 0.8, alpha: 1).CGColor
         self.layer.borderWidth = 1
-        self.addTarget(self, action: #selector(SelectedButton.didSelected(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+        self.addTarget(self, action: #selector(ReminderButton.didSelected(_:)), forControlEvents: UIControlEvents.TouchUpInside)
     }
     
     @objc func didSelected(sender: FontSettingButton) {
-        selected = !selected
-        setNeedsDisplay()
+        completed = !completed
     }
     
     override func drawRect(rect: CGRect) {
         let path = UIBezierPath(roundedRect: CGRect(x: 5, y: 5, width: rect.width - 10, height: rect.height - 10), cornerRadius: (rect.width - 10) / 2)
-        if selected {
+        if completed {
             UIColor(white: 0.8, alpha: 1).set()
         }
         else {

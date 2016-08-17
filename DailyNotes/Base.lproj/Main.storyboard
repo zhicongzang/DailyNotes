@@ -289,16 +289,16 @@
                                 </connections>
                             </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="8eB-Qr-l3S">
-                                <rect key="frame" x="20" y="154" width="374" height="200"/>
+                                <rect key="frame" x="20" y="164" width="374" height="100"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="200" id="1wL-ze-4PI"/>
+                                    <constraint firstAttribute="height" constant="100" id="eDb-gQ-Lxb"/>
                                 </constraints>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ReminderTableViewCell" id="oA3-Co-7LC" customClass="ReminderTableViewCell" customModule="DailyNotes" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ReminderTableViewCell" id="kjl-DI-ZDz" customClass="ReminderTableViewCell" customModule="DailyNotes" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="374" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="oA3-Co-7LC" id="ViE-Nv-Pmc">
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="kjl-DI-ZDz" id="ZcM-CT-YGa">
                                             <rect key="frame" x="0.0" y="0.0" width="374" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
@@ -318,7 +318,6 @@
                             <constraint firstItem="PFN-zG-Bsz" firstAttribute="width" secondItem="RuS-de-UFx" secondAttribute="width" multiplier="1/11" id="7zw-cE-Ca3"/>
                             <constraint firstItem="PFN-zG-Bsz" firstAttribute="height" secondItem="RuS-de-UFx" secondAttribute="width" multiplier="1/11" id="8vD-Se-Xms"/>
                             <constraint firstItem="PFN-zG-Bsz" firstAttribute="centerY" secondItem="5fg-Kw-weq" secondAttribute="centerY" id="AYr-H6-lA5"/>
-                            <constraint firstItem="8eB-Qr-l3S" firstAttribute="top" secondItem="5fg-Kw-weq" secondAttribute="bottom" constant="32" id="AoS-bZ-ysz"/>
                             <constraint firstItem="izn-f7-G1H" firstAttribute="centerY" secondItem="5fg-Kw-weq" secondAttribute="centerY" id="E4Y-cM-5R0"/>
                             <constraint firstItem="izn-f7-G1H" firstAttribute="width" secondItem="RuS-de-UFx" secondAttribute="width" multiplier="1/11" id="FcY-B2-WVJ"/>
                             <constraint firstItem="izn-f7-G1H" firstAttribute="height" secondItem="RuS-de-UFx" secondAttribute="width" multiplier="1/11" id="KL4-z0-tJi"/>
@@ -331,6 +330,7 @@
                             <constraint firstItem="YYv-kO-TO8" firstAttribute="width" secondItem="RuS-de-UFx" secondAttribute="width" multiplier="1/11" id="jvc-OQ-R5j"/>
                             <constraint firstItem="8eB-Qr-l3S" firstAttribute="trailing" secondItem="RuS-de-UFx" secondAttribute="trailingMargin" id="kmh-pX-Pbz"/>
                             <constraint firstItem="fOc-Md-r6M" firstAttribute="leading" secondItem="RuS-de-UFx" secondAttribute="leadingMargin" constant="-20" id="m6h-QA-c2f"/>
+                            <constraint firstItem="8eB-Qr-l3S" firstAttribute="top" secondItem="fOc-Md-r6M" secondAttribute="bottom" constant="100" id="mnV-5g-oKl"/>
                             <constraint firstItem="5fg-Kw-weq" firstAttribute="leading" secondItem="YYv-kO-TO8" secondAttribute="trailing" constant="40" id="p9f-dn-74n"/>
                             <constraint firstItem="YYv-kO-TO8" firstAttribute="height" secondItem="RuS-de-UFx" secondAttribute="width" multiplier="1/11" id="qPu-kp-CXl"/>
                             <constraint firstItem="2z7-M6-38V" firstAttribute="height" secondItem="RuS-de-UFx" secondAttribute="width" multiplier="1/11" id="sBp-iN-qdO"/>
@@ -365,7 +365,9 @@
                         <outlet property="noteButton" destination="izn-f7-G1H" id="bS3-cQ-Xyp"/>
                         <outlet property="photoButton" destination="YYv-kO-TO8" id="9T0-7v-xcE"/>
                         <outlet property="reminderButton" destination="5fg-Kw-weq" id="zCu-Q1-aNL"/>
+                        <outlet property="reminderTabelViewHeightLC" destination="eDb-gQ-Lxb" id="gbo-5u-GYI"/>
                         <outlet property="reminderTableView" destination="8eB-Qr-l3S" id="HAU-Ym-T4p"/>
+                        <outlet property="reminderTableViewToTopLC" destination="mnV-5g-oKl" id="6kP-Q3-SPm"/>
                         <outlet property="searchingButton" destination="1yY-Nw-rxA" id="AYP-nc-hbH"/>
                         <outlet property="settingsButton" destination="Pn8-s8-7ap" id="5aa-oj-NuL"/>
                         <outletCollection property="buttonPaddings" destination="ZbQ-DW-Zo7" collectionClass="NSMutableArray" id="nFy-gg-Knr"/>
