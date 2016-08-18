@@ -36,6 +36,7 @@
 		DC8B9AA91D481F64009DB76B /* NewNoteButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC8B9AA81D481F64009DB76B /* NewNoteButton.swift */; };
 		DC9F2CAC1D41991E006E8675 /* ZZPopOver.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC9F2CAB1D41991E006E8675 /* ZZPopOver.swift */; };
 		DCA786961D63CA8800702E87 /* RemindTableViewTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCA786951D63CA8800702E87 /* RemindTableViewTitle.swift */; };
+		DCA7869F1D64E0AE00702E87 /* NewNoteDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCA7869E1D64E0AE00702E87 /* NewNoteDetailsViewController.swift */; };
 		DCF949731D4927BB004B3ACE /* NewReminderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCF949711D4927BB004B3ACE /* NewReminderViewController.swift */; };
 		DCF9497C1D4A900B004B3ACE /* PickDateButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCF9497B1D4A900B004B3ACE /* PickDateButton.swift */; };
 		DCF9497E1D4AA6AC004B3ACE /* Photos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCF9497D1D4AA6AC004B3ACE /* Photos.framework */; };
@@ -122,6 +123,7 @@
 		DC8B9AA81D481F64009DB76B /* NewNoteButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewNoteButton.swift; sourceTree = "<group>"; };
 		DC9F2CAB1D41991E006E8675 /* ZZPopOver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZZPopOver.swift; sourceTree = "<group>"; };
 		DCA786951D63CA8800702E87 /* RemindTableViewTitle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RemindTableViewTitle.swift; sourceTree = "<group>"; };
+		DCA7869E1D64E0AE00702E87 /* NewNoteDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewNoteDetailsViewController.swift; sourceTree = "<group>"; };
 		DCF949711D4927BB004B3ACE /* NewReminderViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewReminderViewController.swift; sourceTree = "<group>"; };
 		DCF9497B1D4A900B004B3ACE /* PickDateButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PickDateButton.swift; sourceTree = "<group>"; };
 		DCF9497D1D4AA6AC004B3ACE /* Photos.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Photos.framework; path = System/Library/Frameworks/Photos.framework; sourceTree = SDKROOT; };
@@ -199,6 +201,7 @@
 				DC6ED9491D401FFD00AEFECB /* AppDelegate.swift */,
 				DC6ED9831D4029E500AEFECB /* RootViewController.swift */,
 				DCF94C061D41795A00CCDE42 /* NewNoteViewController.swift */,
+				DCA7869E1D64E0AE00702E87 /* NewNoteDetailsViewController.swift */,
 				DCF949711D4927BB004B3ACE /* NewReminderViewController.swift */,
 				DCF949811D4ABA47004B3ACE /* NewPhotoViewController.swift */,
 				DC8220B21D5145D100FF1FC4 /* DetailPhotosViewController.swift */,
@@ -207,6 +210,7 @@
 				DC6ED9551D401FFD00AEFECB /* LaunchScreen.storyboard */,
 				DC6ED9581D401FFD00AEFECB /* Info.plist */,
 				DC6ED9501D401FFD00AEFECB /* DailyNotes.xcdatamodeld */,
+				DCA7869D1D64DC9800702E87 /* Models */,
 				DC6ED9891D403A0900AEFECB /* Views */,
 				DC6ED9821D40297400AEFECB /* Utils */,
 			);
@@ -289,6 +293,13 @@
 				DC8221261D62486200FF1FC4 /* Info.plist */,
 			);
 			path = DailyNotesExtension;
+			sourceTree = "<group>";
+		};
+		DCA7869D1D64DC9800702E87 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -471,6 +482,7 @@
 				DC8B9AA51D4803A3009DB76B /* Extensions.swift in Sources */,
 				DC8220B51D514D3300FF1FC4 /* DetailPhotosCollectionLayout.swift in Sources */,
 				DC8220C41D528B0F00FF1FC4 /* DetailCollectionViewCell.swift in Sources */,
+				DCA7869F1D64E0AE00702E87 /* NewNoteDetailsViewController.swift in Sources */,
 				DC8220C11D527CA900FF1FC4 /* PhotoCollectionViewCell.swift in Sources */,
 				DCF94C091D41885900CCDE42 /* KeyboardButton.swift in Sources */,
 				DC8220B31D5145D100FF1FC4 /* DetailPhotosViewController.swift in Sources */,

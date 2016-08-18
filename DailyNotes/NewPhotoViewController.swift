@@ -88,7 +88,6 @@ class NewPhotoViewController: UIViewController {
     
     func setup() {
         
-        //self.photosCollectionView.registerClass(NewPhotoCollectionViewCell.self, forCellWithReuseIdentifier: "PhotoCell")
         
         shutterButtonLC.constant = self.view.frame.height * 0.01
         

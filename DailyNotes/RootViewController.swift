@@ -103,6 +103,30 @@ class RootViewController: UIViewController {
         appDelegate.removeObserver(self, forKeyPath: "uncompletedReminders")
     }
     
+    func touchBack(sender: AnyObject) {
+        reminderTableViewToTopLC.constant = rootButtonWidth * 2
+        reminderTabelViewHeightLC.constant = CGFloat(min(appDelegate.uncompletedReminders.count + 1, 4)) * ReminderTableViewCellHeight
+        UIView.animateWithDuration(0.3, delay: 0, options: UIViewAnimationOptions.BeginFromCurrentState, animations: {
+            self.view.layoutIfNeeded()
+            }, completion: {(complete) in
+                if complete {
+                    self.removeTarget()
+                }
+        })
+        reminderTableViewTitle.isOpen = !reminderTableViewTitle.isOpen
+        reminderTableView.scrollEnabled = reminderTableViewTitle.isOpen
+    }
+    
+    func addTarget() {
+        let control = self.view as! UIControl
+        control.addTarget(self, action: #selector(RootViewController.touchBack(_:)), forControlEvents: UIControlEvents.TouchDown)
+    }
+    
+    func removeTarget() {
+        let control = self.view as! UIControl
+        control.removeTarget(self, action: #selector(RootViewController.touchBack(_:)), forControlEvents: UIControlEvents.TouchDown)
+    }
+    
     
 }
 
@@ -144,13 +168,21 @@ extension RootViewController: UITableViewDelegate, UITableViewDataSource {
             reminderTabelViewHeightLC.constant = CGFloat(min(appDelegate.uncompletedReminders.count + 1, 4)) * ReminderTableViewCellHeight
             UIView.animateWithDuration(0.3, delay: 0, options: UIViewAnimationOptions.BeginFromCurrentState, animations: {
                 self.view.layoutIfNeeded()
-                }, completion: nil )
+                }, completion: {(complete) in
+                    if complete {
+                        self.removeTarget()
+                    }
+                })
         } else {
             reminderTableViewToTopLC.constant = rootButtonWidth / 2
             reminderTabelViewHeightLC.constant = CGFloat(min(appDelegate.uncompletedReminders.count + 1, 9)) * ReminderTableViewCellHeight
             UIView.animateWithDuration(0.3, delay: 0, options: UIViewAnimationOptions.BeginFromCurrentState, animations: {
                 self.view.layoutIfNeeded()
-                }, completion: nil )
+                }, completion: {(complete) in
+                    if complete {
+                        self.addTarget()
+                    }
+            })
         }
         reminderTableViewTitle.isOpen = !reminderTableViewTitle.isOpen
         reminderTableView.scrollEnabled = reminderTableViewTitle.isOpen

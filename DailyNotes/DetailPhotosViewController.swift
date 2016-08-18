@@ -53,7 +53,7 @@ class DetailPhotosViewController: UIViewController {
         super.didReceiveMemoryWarning()
     }
     
-    @IBAction func cameraButtonPressed(sender: AnyObject) {
+    @IBAction func backButtonPressed(sender: AnyObject) {
         (photosCollectionView.collectionViewLayout as! DetailPhotosCollectionLayout).removeObserver(self, forKeyPath: "index")
         parentVC.startCaptureSession()
         self.removeFromParentViewController()
@@ -90,11 +90,6 @@ class DetailPhotosViewController: UIViewController {
         } else {
             navigationBarDismiss(animated: true)
         }
-    }
-    
-    deinit {
-        let layout = photosCollectionView.collectionViewLayout as! DetailPhotosCollectionLayout
-        layout.removeObserver(self, forKeyPath: "index")
     }
 
 }
