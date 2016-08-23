@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="163" id="KGk-i7-Jjw" customClass="AddNewNotebookTableViewCell" customModule="DailyNotes" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="636" height="163"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="636" height="162"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="AddNotebook" translatesAutoresizingMaskIntoConstraints="NO" id="CpR-VW-aqi">
+                        <rect key="frame" x="34" y="66" width="25" height="25"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="25" id="E8s-jW-oks"/>
+                            <constraint firstAttribute="height" constant="25" id="Y2L-dr-dAr"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="New Notebook" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wZY-Ev-TJv">
+                        <rect key="frame" x="67" y="68" width="114" height="21"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="New Notebook" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="EvW-lY-Pto">
+                        <rect key="frame" x="34" y="104" width="248" height="30"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <textInputTraits key="textInputTraits" returnKeyType="done"/>
+                    </textField>
+                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ikm-SL-unf">
+                        <rect key="frame" x="290" y="104" width="38" height="30"/>
+                        <state key="normal" title="Creat">
+                            <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        </state>
+                        <connections>
+                            <action selector="creatButtonPressed:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="S7U-L5-1ej"/>
+                        </connections>
+                    </button>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="CpR-VW-aqi" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="26" id="5sE-qJ-AHJ"/>
+                    <constraint firstItem="CpR-VW-aqi" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="7mk-p3-Vv1"/>
+                    <constraint firstItem="Ikm-SL-unf" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="LOR-h4-ulB"/>
+                    <constraint firstItem="EvW-lY-Pto" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="Rwa-9w-qVW"/>
+                    <constraint firstItem="wZY-Ev-TJv" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="UH0-kI-sVV"/>
+                    <constraint firstItem="EvW-lY-Pto" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="25" id="kys-Bt-8TP"/>
+                    <constraint firstItem="EvW-lY-Pto" firstAttribute="width" secondItem="H2p-sc-9uM" secondAttribute="width" multiplier="0.6" constant="1" id="muv-Lt-3HB"/>
+                    <constraint firstItem="Ikm-SL-unf" firstAttribute="leading" secondItem="EvW-lY-Pto" secondAttribute="trailing" constant="8" id="mvB-c5-WNR"/>
+                    <constraint firstItem="wZY-Ev-TJv" firstAttribute="leading" secondItem="CpR-VW-aqi" secondAttribute="trailing" constant="8" id="rQp-rd-uzl"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="imageViewLeftLC" destination="5sE-qJ-AHJ" id="2Is-V6-MZj"/>
+                <outlet property="nameTextField" destination="EvW-lY-Pto" id="H3k-Na-E8X"/>
+                <outlet property="nameTextFieldLeftLC" destination="kys-Bt-8TP" id="0xx-hC-K4N"/>
+            </connections>
+            <point key="canvasLocation" x="824" y="569.5"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="AddNotebook" width="33" height="33"/>
+    </resources>
+</document>

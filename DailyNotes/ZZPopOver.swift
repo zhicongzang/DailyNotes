@@ -99,16 +99,16 @@ class ZZPopOver: UIView {
         switch direction {
         case let .FromTop(padding):
             vertexOfTriangle = size.width * vertexOfTriangleFactor
-            frame = CGRect(x: senderFrame.origin.x + senderFrame.width / 2 - vertexOfTriangle , y: senderFrame.maxY + padding, width: size.width, height: size.height)
+            frame = CGRect(x: senderFrame.origin.x + senderFrame.width / 2 - vertexOfTriangle , y: senderFrame.maxY - holder.view.frame.minY + padding, width: size.width, height: size.height)
         case let .FromButtom(padding):
             vertexOfTriangle = size.width * vertexOfTriangleFactor
-            frame = CGRect(x: senderFrame.origin.x + senderFrame.width  / 2 - vertexOfTriangle , y: senderFrame.minY - padding - size.height, width: size.width, height: size.height)
+            frame = CGRect(x: senderFrame.origin.x + senderFrame.width  / 2 - vertexOfTriangle , y: senderFrame.minY - holder.view.frame.minY - padding - size.height, width: size.width, height: size.height)
         case let .FromLeft(padding):
             vertexOfTriangle = size.height * vertexOfTriangleFactor
-            frame = CGRect(x: senderFrame.maxX + padding, y: senderFrame.origin.y + senderFrame.height / 2 - vertexOfTriangle , width: size.width, height: size.height)
+            frame = CGRect(x: senderFrame.maxX - holder.view.frame.minX + padding, y: senderFrame.origin.y + senderFrame.height / 2 - vertexOfTriangle , width: size.width, height: size.height)
         case let .FromRight(padding):
             vertexOfTriangle = size.height * vertexOfTriangleFactor
-            frame = CGRect(x: senderFrame.minX - padding - size.width, y: senderFrame.origin.y + senderFrame.height / 2 - vertexOfTriangle , width: size.width, height: size.height)
+            frame = CGRect(x: senderFrame.minX - holder.view.frame.minX - padding - size.width, y: senderFrame.origin.y + senderFrame.height / 2 - vertexOfTriangle , width: size.width, height: size.height)
         }
         self.init(holder: holder, frame: frame, direction: direction, vertexOfTriangle: vertexOfTriangle)
         

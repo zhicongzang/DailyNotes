@@ -289,10 +289,10 @@
                                 </connections>
                             </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="8eB-Qr-l3S">
-                                <rect key="frame" x="20" y="164" width="374" height="100"/>
+                                <rect key="frame" x="20" y="164" width="374" height="50"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="100" id="eDb-gQ-Lxb"/>
+                                    <constraint firstAttribute="height" constant="50" id="eDb-gQ-Lxb"/>
                                 </constraints>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ReminderTableViewCell" id="kjl-DI-ZDz" customClass="ReminderTableViewCell" customModule="DailyNotes" customModuleProvider="target">
@@ -527,6 +527,85 @@
             </objects>
             <point key="canvasLocation" x="1533" y="168"/>
         </scene>
+        <!--Move Note View Controller-->
+        <scene sceneID="AGQ-DI-Rcx">
+            <objects>
+                <viewController id="5fG-In-n8k" customClass="MoveNoteViewController" customModule="DailyNotes" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="M20-Mt-XZ2"/>
+                        <viewControllerLayoutGuide type="bottom" id="hgV-ns-2jw"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="TKm-j6-MyH">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <navigationBar contentMode="scaleToFill" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hul-QM-PC1">
+                                <rect key="frame" x="0.0" y="20" width="414" height="44"/>
+                                <items>
+                                    <navigationItem title="Move Note" id="ilC-9m-9SF">
+                                        <barButtonItem key="leftBarButtonItem" title="Cancel" id="Hdn-Bf-a4J">
+                                            <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <connections>
+                                                <action selector="cancelButtonPressed:" destination="5fG-In-n8k" id="Kce-LK-zey"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
+                            <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="gJv-Gd-FpW">
+                                <rect key="frame" x="0.0" y="64" width="414" height="44"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <outlet property="delegate" destination="5fG-In-n8k" id="L05-Fy-mN5"/>
+                                </connections>
+                            </searchBar>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Ztt-zm-2zk">
+                                <rect key="frame" x="0.0" y="108" width="414" height="628"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="AddNewNotebookTableViewCell" id="mKr-xv-Lmj">
+                                        <rect key="frame" x="0.0" y="28" width="414" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="mKr-xv-Lmj" id="UkC-fU-52P">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="NotebookTableViewCell" id="2pl-Wx-kO4" customClass="NotebookTableViewCell" customModule="DailyNotes" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="72" width="414" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="2pl-Wx-kO4" id="SVh-XT-7Yc">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="5fG-In-n8k" id="EKd-JC-UBs"/>
+                                    <outlet property="delegate" destination="5fG-In-n8k" id="rYu-vZ-SK4"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailingMargin" secondItem="gJv-Gd-FpW" secondAttribute="trailing" constant="-20" id="3pv-bb-JPG"/>
+                            <constraint firstItem="Hul-QM-PC1" firstAttribute="top" secondItem="M20-Mt-XZ2" secondAttribute="bottom" id="65p-Gj-971"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Hul-QM-PC1" secondAttribute="trailing" constant="-20" id="8zE-w0-tTG"/>
+                            <constraint firstItem="gJv-Gd-FpW" firstAttribute="top" secondItem="M20-Mt-XZ2" secondAttribute="bottom" constant="44" id="Eo8-Xq-25z"/>
+                            <constraint firstItem="gJv-Gd-FpW" firstAttribute="leading" secondItem="TKm-j6-MyH" secondAttribute="leadingMargin" constant="-20" id="QOk-wv-QUI"/>
+                            <constraint firstItem="Hul-QM-PC1" firstAttribute="leading" secondItem="TKm-j6-MyH" secondAttribute="leadingMargin" constant="-20" id="s9L-Vg-W0h"/>
+                        </constraints>
+                    </view>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina55"/>
+                    <connections>
+                        <outlet property="notebookTableView" destination="Ztt-zm-2zk" id="swo-Ch-rmy"/>
+                        <outlet property="searchBar" destination="gJv-Gd-FpW" id="Q2y-1V-nf1"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="yZL-M4-EcA" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2105" y="168"/>
+        </scene>
         <!--New Note-->
         <scene sceneID="f1t-FX-cIR">
             <objects>
@@ -539,8 +618,8 @@
                         <rect key="frame" x="0.0" y="64" width="414" height="672"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qXY-jz-MAO">
-                                <rect key="frame" x="0.0" y="64" width="414" height="60"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qXY-jz-MAO">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="60"/>
                                 <subviews>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Subject" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="h4o-Df-n3E">
                                         <rect key="frame" x="8" y="15" width="398" height="30"/>
@@ -559,14 +638,17 @@
                                     <constraint firstItem="h4o-Df-n3E" firstAttribute="centerY" secondItem="qXY-jz-MAO" secondAttribute="centerY" id="pWj-WF-HFR"/>
                                 </constraints>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zvl-SC-Py4">
-                                <rect key="frame" x="20" y="132" width="104" height="20"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zvl-SC-Py4">
+                                <rect key="frame" x="20" y="68" width="104" height="20"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="20" id="xem-tF-xcB"/>
                                 </constraints>
                                 <state key="normal" title=" Notebook" image="Notebook">
                                     <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
+                                <connections>
+                                    <segue destination="5fG-In-n8k" kind="presentation" id="UO2-t5-pHw"/>
+                                </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7tx-hX-yA1">
                                 <rect key="frame" x="0.0" y="632" width="414" height="40"/>
@@ -666,8 +748,8 @@
                                     <constraint firstItem="EPW-kk-c1C" firstAttribute="centerX" secondItem="7tx-hX-yA1" secondAttribute="centerX" id="y3l-94-C5G"/>
                                 </constraints>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lil-72-x2S">
-                                <rect key="frame" x="374" y="132" width="20" height="20"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lil-72-x2S">
+                                <rect key="frame" x="374" y="68" width="20" height="20"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="20" id="1pC-xw-VIQ"/>
                                     <constraint firstAttribute="width" constant="20" id="91a-PS-tNp"/>
@@ -677,11 +759,14 @@
                                     <segue destination="skM-j6-hn6" kind="presentation" id="an4-f6-Pcl"/>
                                 </connections>
                             </button>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="gAK-56-c7Y" customClass="ZZPlaceholderTextView" customModule="DailyNotes" customModuleProvider="target">
-                                <rect key="frame" x="7" y="160" width="397" height="536"/>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="gAK-56-c7Y" customClass="ZZPlaceholderTextView" customModule="DailyNotes" customModuleProvider="target">
+                                <rect key="frame" x="7" y="96" width="397" height="536"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="string" keyPath="placeholder" value="Text"/>
+                                </userDefinedRuntimeAttributes>
                             </textView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
