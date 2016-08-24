@@ -28,11 +28,16 @@ class NewNoteDetailsViewController: UIViewController {
     var location: CLLocation! {
         didSet {
             annotation.coordinate = location.coordinate
-            if locationNameTextField != nil && locationNameTextField.text?.removeHeadAndTailSpacePro == "" {
-                geocoder.reverseGeocodeLocation(location, completionHandler: { (placemarks, error) in
-                    self.locationName = placemarks?.first?.name
-                })
-            }
+            geocoder.reverseGeocodeLocation(location, completionHandler: { (placemarks, error) in
+                let name = placemarks?.first?.name
+                if self.locationNameTextField != nil {
+                    self.locationNameTextField.placeholder = name
+                }
+                if !self.isLocked && self.locationNameTextField.text?.removeHeadAndTailSpacePro == "" {
+                    self.locationName = name
+                }
+            })
+            
         }
     }
     
@@ -42,9 +47,6 @@ class NewNoteDetailsViewController: UIViewController {
     var locationName: String? {
         didSet {
             self.annotation.subtitle = locationName
-            if locationNameTextField != nil {
-                locationNameTextField.placeholder = locationName
-            }
         }
     }
     
@@ -154,9 +156,15 @@ extension NewNoteDetailsViewController: MKMapViewDelegate {
     func mapViewDidFinishLoadingMap(mapView: MKMapView) {
         self.mapView.addAnnotation(annotation)
         isLocked = false
-        if locationNameTextField != nil {
-            locationNameTextField.placeholder = locationName
-        }
+        geocoder.reverseGeocodeLocation(location, completionHandler: { (placemarks, error) in
+            let name = placemarks?.first?.name
+            if self.locationNameTextField != nil {
+                self.locationNameTextField.placeholder = name
+                if name != self.locationName {
+                    self.locationNameTextField.text = self.locationName
+                }
+            }
+        })
     }
     
     func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
