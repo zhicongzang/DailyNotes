@@ -16,13 +16,12 @@ class NotebookTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        self.selectionStyle = .None
     }
     
     func setup(name name: String, didSelected: Bool) {
         nameLabel.text = name
-        if didSelected {
-            checkedImageView.hidden = false
-        }
+        checkedImageView.hidden = !didSelected
     }
 
     override func setSelected(selected: Bool, animated: Bool) {

@@ -90,3 +90,28 @@ extension NSDate {
     }
     
 }
+
+extension String {
+
+    var removeHeadAndTailSpace:String {
+        let whitespace = NSCharacterSet.whitespaceCharacterSet()
+        return self.stringByTrimmingCharactersInSet(whitespace)
+    }
+    
+    var removeHeadAndTailSpacePro:String {
+        let whitespace = NSCharacterSet.whitespaceAndNewlineCharacterSet()
+        return self.stringByTrimmingCharactersInSet(whitespace)
+    }
+    
+    var removeAllSapce:String {
+        return self.stringByReplacingOccurrencesOfString(" ", withString: "", options: .LiteralSearch, range: nil)
+    }
+    
+    func beginSpaceNum(num: Int) -> String {
+        var beginSpace = ""
+        for _ in 0..<num {
+            beginSpace += " "
+        }
+        return beginSpace + self.removeHeadAndTailSpacePro
+    }
+}

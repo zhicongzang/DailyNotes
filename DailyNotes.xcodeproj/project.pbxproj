@@ -10,10 +10,12 @@
 		DC3332D41D6B95B300D32535 /* MoveNoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC3332D31D6B95B300D32535 /* MoveNoteViewController.swift */; };
 		DC3332DB1D6BA5CB00D32535 /* NotebookTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC3332D91D6BA5CB00D32535 /* NotebookTableViewCell.swift */; };
 		DC3332DC1D6BA5CB00D32535 /* NotebookTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = DC3332DA1D6BA5CB00D32535 /* NotebookTableViewCell.xib */; };
-		DC3332DF1D6BB04900D32535 /* Notebook+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC3332DD1D6BB04900D32535 /* Notebook+CoreDataProperties.swift */; };
 		DC3332E01D6BB04900D32535 /* Notebook.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC3332DE1D6BB04900D32535 /* Notebook.swift */; };
 		DC3332E31D6BBC7600D32535 /* AddNewNotebookTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC3332E11D6BBC7600D32535 /* AddNewNotebookTableViewCell.swift */; };
 		DC3332E41D6BBC7600D32535 /* AddNewNotebookTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = DC3332E21D6BBC7600D32535 /* AddNewNotebookTableViewCell.xib */; };
+		DC3332EF1D6CFB9C00D32535 /* Note.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC3332EC1D6CFB9C00D32535 /* Note.swift */; };
+		DC3332F01D6CFB9C00D32535 /* Notebook+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC3332ED1D6CFB9C00D32535 /* Notebook+CoreDataProperties.swift */; };
+		DC3332F21D6D10BE00D32535 /* Note+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC3332F11D6D10BE00D32535 /* Note+CoreDataProperties.swift */; };
 		DC6ED94A1D401FFD00AEFECB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC6ED9491D401FFD00AEFECB /* AppDelegate.swift */; };
 		DC6ED94F1D401FFD00AEFECB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DC6ED94D1D401FFD00AEFECB /* Main.storyboard */; };
 		DC6ED9521D401FFD00AEFECB /* DailyNotes.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = DC6ED9501D401FFD00AEFECB /* DailyNotes.xcdatamodeld */; };
@@ -97,10 +99,12 @@
 		DC3332D31D6B95B300D32535 /* MoveNoteViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoveNoteViewController.swift; sourceTree = "<group>"; };
 		DC3332D91D6BA5CB00D32535 /* NotebookTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotebookTableViewCell.swift; sourceTree = "<group>"; };
 		DC3332DA1D6BA5CB00D32535 /* NotebookTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NotebookTableViewCell.xib; sourceTree = "<group>"; };
-		DC3332DD1D6BB04900D32535 /* Notebook+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Notebook+CoreDataProperties.swift"; path = "../Notebook+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		DC3332DE1D6BB04900D32535 /* Notebook.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Notebook.swift; path = ../Notebook.swift; sourceTree = "<group>"; };
 		DC3332E11D6BBC7600D32535 /* AddNewNotebookTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddNewNotebookTableViewCell.swift; sourceTree = "<group>"; };
 		DC3332E21D6BBC7600D32535 /* AddNewNotebookTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddNewNotebookTableViewCell.xib; sourceTree = "<group>"; };
+		DC3332EC1D6CFB9C00D32535 /* Note.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Note.swift; path = ../Note.swift; sourceTree = "<group>"; };
+		DC3332ED1D6CFB9C00D32535 /* Notebook+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Notebook+CoreDataProperties.swift"; path = "../Notebook+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		DC3332F11D6D10BE00D32535 /* Note+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Note+CoreDataProperties.swift"; path = "../Note+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		DC6ED9461D401FFD00AEFECB /* DailyNotes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DailyNotes.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC6ED9491D401FFD00AEFECB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DC6ED94E1D401FFD00AEFECB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -317,7 +321,9 @@
 		DCA7869D1D64DC9800702E87 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				DC3332DD1D6BB04900D32535 /* Notebook+CoreDataProperties.swift */,
+				DC3332F11D6D10BE00D32535 /* Note+CoreDataProperties.swift */,
+				DC3332EC1D6CFB9C00D32535 /* Note.swift */,
+				DC3332ED1D6CFB9C00D32535 /* Notebook+CoreDataProperties.swift */,
 				DC3332DE1D6BB04900D32535 /* Notebook.swift */,
 			);
 			name = Models;
@@ -495,6 +501,7 @@
 			files = (
 				DC6ED9861D402C6F00AEFECB /* RootButton.swift in Sources */,
 				DC6ED9881D40386100AEFECB /* RootNavigationBar.swift in Sources */,
+				DC3332F01D6CFB9C00D32535 /* Notebook+CoreDataProperties.swift in Sources */,
 				DCF949891D4FEA80004B3ACE /* FlashButton.swift in Sources */,
 				DCF94C071D41795A00CCDE42 /* NewNoteViewController.swift in Sources */,
 				DC3332E01D6BB04900D32535 /* Notebook.swift in Sources */,
@@ -503,6 +510,7 @@
 				DC8B9AA71D48151A009DB76B /* FontSettingButton.swift in Sources */,
 				DCF949801D4AB357004B3ACE /* Utils.swift in Sources */,
 				DC9F2CAC1D41991E006E8675 /* ZZPopOver.swift in Sources */,
+				DC3332F21D6D10BE00D32535 /* Note+CoreDataProperties.swift in Sources */,
 				DC8B9AA51D4803A3009DB76B /* Extensions.swift in Sources */,
 				DC3332DB1D6BA5CB00D32535 /* NotebookTableViewCell.swift in Sources */,
 				DC8220B51D514D3300FF1FC4 /* DetailPhotosCollectionLayout.swift in Sources */,
@@ -516,10 +524,10 @@
 				DC3332E31D6BBC7600D32535 /* AddNewNotebookTableViewCell.swift in Sources */,
 				DC8221321D625F9100FF1FC4 /* ReminderTableViewCell.swift in Sources */,
 				DCF949821D4ABA47004B3ACE /* NewPhotoViewController.swift in Sources */,
-				DC3332DF1D6BB04900D32535 /* Notebook+CoreDataProperties.swift in Sources */,
 				DC6ED9841D4029E500AEFECB /* RootViewController.swift in Sources */,
 				DC8220C81D53E19900FF1FC4 /* ZZPlaceholderTextView.swift in Sources */,
 				DCF9497C1D4A900B004B3ACE /* PickDateButton.swift in Sources */,
+				DC3332EF1D6CFB9C00D32535 /* Note.swift in Sources */,
 				DC8B9AA91D481F64009DB76B /* NewNoteButton.swift in Sources */,
 				DC6ED9811D40296C00AEFECB /* Constant.swift in Sources */,
 				DCF949731D4927BB004B3ACE /* NewReminderViewController.swift in Sources */,

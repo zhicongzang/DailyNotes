@@ -43,6 +43,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             getAllReminders()
         }
     }
+    
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
@@ -60,6 +61,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
             
         }
+        Notebook.checkDefaultNotebook()
         return true
     }
 

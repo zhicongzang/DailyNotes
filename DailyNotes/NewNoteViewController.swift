@@ -7,14 +7,17 @@
 //
 
 import UIKit
+import MapKit
 
 class NewNoteViewController: UIViewController {
+    
 
     @IBOutlet weak var keyboardButton: KeyboardButton!
     @IBOutlet weak var subjectTextField: UITextField!
     @IBOutlet weak var textView: UITextView!
     @IBOutlet weak var toolBarView: UIView!
     @IBOutlet weak var subjectTextFieldView: UIView!
+    @IBOutlet weak var notebookButton: UIButton!
     
     @IBOutlet weak var toolBarLayoutConstraint: NSLayoutConstraint!
     
@@ -44,8 +47,47 @@ class NewNoteViewController: UIViewController {
         }
     }
     
+    let geocoder: CLGeocoder = CLGeocoder()
+    
+    lazy var locationManager: CLLocationManager = {
+        var _locationManager = CLLocationManager()
+        _locationManager.delegate = self
+        _locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        _locationManager.activityType = .Fitness
+        
+        _locationManager.distanceFilter = kCLLocationAccuracyKilometer
+        return _locationManager
+    }()
+    
+    var note: Note?
+    var notebook: Notebook! {
+        didSet {
+            notebookButton.setTitle(" \(notebook.name!)", forState: .Normal)
+        }
+    }
+    
+    var location: CLLocation! {
+        didSet {
+            if locationName == nil {
+                geocoder.reverseGeocodeLocation(location!, completionHandler: { (placemarks, error) in
+                    self.locationName = placemarks?.first?.name
+                })
+            }
+        }
+    }
+    
+    var locationName: String? {
+        didSet {
+            if let locationName = locationName {
+                subjectTextField.placeholder = "Note from \(locationName)"
+            }
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        locationManager.requestWhenInUseAuthorization()
         
         subjectTextFieldView.setupButtomDividingLine(lineWidth: 0.5, lineColor: UIColor(white: 0.6, alpha: 1).CGColor)
         toolBarView.setupButtomDividingLine(lineWidth: 0.5, lineColor: UIColor(white: 0.6, alpha: 1).CGColor)
@@ -54,6 +96,14 @@ class NewNoteViewController: UIViewController {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(NewNoteViewController.keyboardWillChangeFrame(_:)), name: UIKeyboardWillChangeFrameNotification, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(NewNoteViewController.keyboardWillShow(_:)), name: UIKeyboardWillShowNotification, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(NewNoteViewController.keyboardWillHide(_:)), name: UIKeyboardWillHideNotification, object: nil)
+        setup()
+    }
+    
+    func setup() {
+        if note == nil {
+            notebook = Notebook.getAllNoteBooks().first!
+            locationManager.startUpdatingLocation()
+        }
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -108,18 +158,20 @@ class NewNoteViewController: UIViewController {
             control.resignFirstResponder()
         }
     }
+    
+    override func dismissViewControllerAnimated(flag: Bool, completion: (() -> Void)?) {
+        NSNotificationCenter.defaultCenter().removeObserver(self)
+        super.dismissViewControllerAnimated(flag, completion: completion)
+    }
 
     @IBAction func cancelButtonPressed(sender: AnyObject) {
         subjectTextField.resignFirstResponder()
         textView.resignFirstResponder()
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: UIAlertControllerStyle.ActionSheet)
         let actionDeleteDraft = UIAlertAction(title: "Delete Draft", style: UIAlertActionStyle.Destructive) { (_) in
-            self.dismissViewControllerAnimated(true, completion: {
-                NSNotificationCenter.defaultCenter().removeObserver(self)
-            })
+            self.dismissViewControllerAnimated(true, completion: nil)
         }
         let actionSaveDraft = UIAlertAction(title: "Save Draft", style: UIAlertActionStyle.Default) { (_) in
-            NSNotificationCenter.defaultCenter().removeObserver(self)
             self.dismissViewControllerAnimated(true, completion: nil)
         }
         let actionCancel = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel) { (_) in
@@ -135,7 +187,6 @@ class NewNoteViewController: UIViewController {
     @IBAction func saveButtonPressed(sender: AnyObject) {
         subjectTextField.resignFirstResponder()
         textView.resignFirstResponder()
-        NSNotificationCenter.defaultCenter().removeObserver(self)
         self.dismissViewControllerAnimated(true, completion: nil)
     }
     
@@ -149,5 +200,34 @@ class NewNoteViewController: UIViewController {
         let popOver = ZZPopOver(sender: sender as! UIButton, holder: self, size: CGSize(width: (self.view.frame.width / 17) * 7, height: self.view.frame.width / 10), direction: ZZPopOverDirection.FromButtom(padding: 5), triangleAlignStyle: ZZPopOverTriangleAlignStyle.AlignCustom(factor: 0.3))
         popOver.showPopOver(animated: true, contents: listSettingButtons, contentsStyle: ZZPopOverContentsStyle.ResizeToSameSize)
     }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "ToMoveNoteVC" {
+            let vc = segue.destinationViewController as! MoveNoteViewController
+            vc.selectedNotebook = notebook
+            vc.block = { (selectedNotebook: Notebook) in
+                self.notebook = selectedNotebook
+            }
+        } else if segue.identifier == "ToNewNoteDetailVC" {
+            let vc = segue.destinationViewController as! NewNoteDetailsViewController
+            var subject = subjectTextField.text ?? "New Note"
+            subject = (subject == "") ? "New Note" : subject
+            vc.setInformation(subject: subject, location: location, locationName: locationName)
+            vc.block = { (location: CLLocation, locationName: String?) in
+                self.locationName = locationName
+                self.location = location
+            }
+        }
+    }
 
+}
+
+extension NewNoteViewController: CLLocationManagerDelegate {
+    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        if let location = locations.last {
+            self.location = location
+            self.locationManager.stopUpdatingLocation()
+        }
+    }
+    
 }

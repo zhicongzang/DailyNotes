@@ -39,5 +39,24 @@ class Notebook: NSManagedObject {
         } catch {}
         return false
     }
+    
+    class func getNoteBook(name name: String) -> Notebook? {
+        let moc = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
+        let request = NSFetchRequest(entityName: "Notebook")
+        request.predicate = NSPredicate(format: "name = %@", name)
+        do {
+            let results = try moc.executeFetchRequest(request) as! [Notebook]
+            if let result = results.first {
+                return result
+            }
+        } catch {}
+        return nil
+    }
+    
+    class func checkDefaultNotebook() {
+        if getAllNoteBooks().count == 0 {
+            insertNewNotebook(name: "Default Notebook")
+        }
+    }
 
 }

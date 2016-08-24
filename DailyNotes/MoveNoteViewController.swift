@@ -10,25 +10,29 @@ import UIKit
 
 class MoveNoteViewController: UIViewController {
     
+    private var myContext: UInt8 = 3
+    
     
     @IBOutlet weak var notebookTableView: UITableView!
     @IBOutlet weak var searchBar: UISearchBar!
+    @IBOutlet weak var navigationBar: UINavigationBar!
     
     
+    var allNotebooks = Notebook.getAllNoteBooks()
+    var showNotebooks = Notebook.getAllNoteBooks()
     
-    
-    var notebooks = Notebook.getAllNoteBooks()
+    var selectedNotebook: Notebook!
+    var block: ((Notebook) -> Void)!
     
     override func viewDidLoad() {
         setupSearchBar()
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(MoveNoteViewController.dismissKeyboard(_:)))
-        tapGesture.cancelsTouchesInView = false
-        notebookTableView.addGestureRecognizer(tapGesture)
-        notebookTableView.tableFooterView = UIView()
-        let nib = UINib(nibName: "NotebookTableViewCell", bundle: nil)
-        notebookTableView.registerNib(nib, forCellReuseIdentifier: "NotebookTableViewCell")
-        let nib2 = UINib(nibName: "AddNewNotebookTableViewCell", bundle: nil)
-        notebookTableView.registerNib(nib2, forCellReuseIdentifier: "AddNewNotebookTableViewCell")
+        setupTableView()
+        let tapGestureForTableView = UITapGestureRecognizer(target: self, action: #selector(MoveNoteViewController.dismissKeyboard(_:)))
+        let tapGestureForNavigationBar = UITapGestureRecognizer(target: self, action: #selector(MoveNoteViewController.dismissKeyboard(_:)))
+        tapGestureForTableView.cancelsTouchesInView = false
+        tapGestureForNavigationBar.cancelsTouchesInView = false
+        notebookTableView.addGestureRecognizer(tapGestureForTableView)
+        navigationBar.addGestureRecognizer(tapGestureForNavigationBar)
     }
     
     override func didReceiveMemoryWarning() {
@@ -42,11 +46,44 @@ class MoveNoteViewController: UIViewController {
         }
     }
     
-    @IBAction func cancelButtonPressed(sender: AnyObject) {
+    func setupTableView() {
+        notebookTableView.tableFooterView = UIView()
+        let nib = UINib(nibName: "NotebookTableViewCell", bundle: nil)
+        notebookTableView.registerNib(nib, forCellReuseIdentifier: "NotebookTableViewCell")
+        let nib2 = UINib(nibName: "AddNewNotebookTableViewCell", bundle: nil)
+        notebookTableView.registerNib(nib2, forCellReuseIdentifier: "AddNewNotebookTableViewCell")
+        let cell = notebookTableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as! AddNewNotebookTableViewCell
+        cell.addObserver(self, forKeyPath: "newCreatedNotebookName", options: .New, context: &myContext)
+    }
+    
+    override func dismissViewControllerAnimated(flag: Bool, completion: (() -> Void)?) {
         let cell = notebookTableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as! AddNewNotebookTableViewCell
         if cell.isActive {
             cell.isActive = false
         }
+        cell.removeObserver(self, forKeyPath: "newCreatedNotebookName")
+        block(selectedNotebook)
+        super.dismissViewControllerAnimated(flag, completion: completion)
+    }
+    
+    override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
+        if context == &myContext {
+            let cell = notebookTableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as! AddNewNotebookTableViewCell
+            selectedNotebook = Notebook.getNoteBook(name: cell.newCreatedNotebookName)
+            if allNotebooks.count == showNotebooks.count {
+                allNotebooks = Notebook.getAllNoteBooks()
+                showNotebooks = allNotebooks
+            } else {
+                allNotebooks = Notebook.getAllNoteBooks()
+            }
+            notebookTableView.reloadData()
+            
+        } else {
+            super.observeValueForKeyPath(keyPath, ofObject: object, change: change, context: context)
+        }
+    }
+    
+    @IBAction func cancelButtonPressed(sender: AnyObject) {
         dismissViewControllerAnimated(true, completion: nil)
     }
     
@@ -74,7 +111,10 @@ extension MoveNoteViewController: UISearchBarDelegate {
     func searchBarCancelButtonClicked(searchBar: UISearchBar) {
         searchBar.text = ""
         searchBar.resignFirstResponder()
+        self.showNotebooks = self.allNotebooks
+        notebookTableView.reloadData()
         searchBar.setShowsCancelButton(false, animated: true)
+        
     }
     
     func searchBarTextDidBeginEditing(searchBar: UISearchBar) {
@@ -92,6 +132,24 @@ extension MoveNoteViewController: UISearchBarDelegate {
     func searchBarTextDidEndEditing(searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
     }
+    
+    func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
+        if searchText == "" {
+            self.showNotebooks = self.allNotebooks
+        }
+        else {
+            self.showNotebooks = []
+            for notebook in self.allNotebooks {
+                if notebook.name!.lowercaseString.hasPrefix(searchText.lowercaseString) {
+                    self.showNotebooks.append(notebook)
+                }
+            }
+        }
+        
+        notebookTableView.reloadData()
+    }
+    
+    
     
 }
 
@@ -118,7 +176,7 @@ extension MoveNoteViewController: UITableViewDelegate, UITableViewDataSource {
         if section == 0 {
             return 1
         } else {
-            return notebooks.count
+            return showNotebooks.count
         }
     }
     
@@ -128,9 +186,10 @@ extension MoveNoteViewController: UITableViewDelegate, UITableViewDataSource {
             cell.selectionStyle = .None
             return cell
         } else {
-            let notebook = notebooks[indexPath.row]
+            let notebook = showNotebooks[indexPath.row]
             let cell = tableView.dequeueReusableCellWithIdentifier("NotebookTableViewCell") as! NotebookTableViewCell
-            cell.setup(name: notebook.name ?? "", didSelected: true)
+            let didSelected = (notebook.name == selectedNotebook.name)
+            cell.setup(name: notebook.name ?? "", didSelected: didSelected)
             return cell
         }
     }
@@ -141,8 +200,14 @@ extension MoveNoteViewController: UITableViewDelegate, UITableViewDataSource {
             if !cell.isActive {
                 cell.isActive = true
             }
+        } else if indexPath.section == 1 {
+            selectedNotebook = showNotebooks[indexPath.row]
+            tableView.reloadData()
+            dismissViewControllerAnimated(true, completion: nil)
+            
         }
     }
+    
     
     
 }

@@ -12,8 +12,10 @@ class AddNewNotebookTableViewCell: UITableViewCell {
 
     @IBOutlet weak var imageViewLeftLC: NSLayoutConstraint!
     @IBOutlet weak var nameTextFieldLeftLC: NSLayoutConstraint!
+    @IBOutlet weak var buttonRightLC: NSLayoutConstraint!
     
     @IBOutlet weak var nameTextField: UITextField!
+    @IBOutlet weak var warningLabel: UILabel!
     
     var isActive = false {
         didSet {
@@ -27,9 +29,12 @@ class AddNewNotebookTableViewCell: UITableViewCell {
         }
     }
     
+    dynamic var newCreatedNotebookName = ""
+    
     override func awakeFromNib() {
         super.awakeFromNib()
-        nameTextFieldLeftLC.constant = screenWidth
+        nameTextFieldLeftLC.constant = screenWidth + 20
+        buttonRightLC.constant = 20 - screenWidth
     }
 
     override func setSelected(selected: Bool, animated: Bool) {
@@ -40,25 +45,55 @@ class AddNewNotebookTableViewCell: UITableViewCell {
     
     func showNameTextField() {
         nameTextField.becomeFirstResponder()
-        let constant = imageViewLeftLC.constant
-        imageViewLeftLC.constant = constant - nameTextFieldLeftLC.constant
-        nameTextFieldLeftLC.constant = constant
-        UIView.animateWithDuration(0.3, animations: {
+        imageViewLeftLC.constant -= screenWidth
+        nameTextFieldLeftLC.constant -= screenWidth
+        buttonRightLC.constant += screenWidth
+        UIView.animateWithDuration(0.5, delay: 0, options: UIViewAnimationOptions.CurveEaseInOut, animations: {
             self.layoutIfNeeded()
-        })
+            }, completion: nil)
     }
     
     func dismissNameTextField() {
         nameTextField.resignFirstResponder()
-        imageViewLeftLC.constant = nameTextFieldLeftLC.constant
-        nameTextFieldLeftLC.constant = screenWidth
-        UIView.animateWithDuration(0.5, animations: {
+        if !warningLabel.hidden {
+            warningLabel.hidden = true
+        }
+        imageViewLeftLC.constant += screenWidth
+        nameTextFieldLeftLC.constant += screenWidth
+        buttonRightLC.constant -= screenWidth
+        UIView.animateWithDuration(0.5, delay: 0, options: UIViewAnimationOptions.CurveEaseInOut, animations: {
             self.layoutIfNeeded()
-        })
+            }, completion: nil)
+    }
+    
+    func createNewNotebook() {
+        if let text = nameTextField.text?.removeHeadAndTailSpacePro where text != "" {
+            if !Notebook.insertNewNotebook(name: text) {
+                warningLabel.text = "Name must be unique."
+                warningLabel.hidden = false
+            } else {
+                newCreatedNotebookName = text
+                nameTextField.text = ""
+                isActive = false
+            }
+        }
+        warningLabel.text = "Name must contain at least 1 char."
+        warningLabel.hidden = false
     }
     
     @IBAction func creatButtonPressed(sender: AnyObject) {
-        isActive = false
+        createNewNotebook()
+    }
+    
+    @IBAction func nameTextFieldDidEndOnExit(sender: AnyObject) {
+        createNewNotebook()
+    }
+    
+    
+    @IBAction func nameTextFieldDidBeginEditing(sender: AnyObject) {
+        if !warningLabel.hidden {
+            warningLabel.hidden = true
+        }
     }
     
 }

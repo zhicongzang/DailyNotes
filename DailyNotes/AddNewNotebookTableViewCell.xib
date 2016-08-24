@@ -4,7 +4,6 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
-        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -29,13 +28,17 @@
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="New Notebook" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="EvW-lY-Pto">
-                        <rect key="frame" x="34" y="104" width="248" height="30"/>
+                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="New Notebook" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="EvW-lY-Pto">
+                        <rect key="frame" x="34" y="104" width="495" height="30"/>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <textInputTraits key="textInputTraits" returnKeyType="done"/>
+                        <connections>
+                            <action selector="nameTextFieldDidBeginEditing:" destination="KGk-i7-Jjw" eventType="editingDidBegin" id="MKv-au-ORC"/>
+                            <action selector="nameTextFieldDidEndOnExit:" destination="KGk-i7-Jjw" eventType="editingDidEndOnExit" id="skj-kh-51s"/>
+                        </connections>
                     </textField>
-                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ikm-SL-unf">
-                        <rect key="frame" x="290" y="104" width="38" height="30"/>
+                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ikm-SL-unf">
+                        <rect key="frame" x="537" y="104" width="38" height="30"/>
                         <state key="normal" title="Creat">
                             <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         </state>
@@ -43,23 +46,33 @@
                             <action selector="creatButtonPressed:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="S7U-L5-1ej"/>
                         </connections>
                     </button>
+                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" alpha="0.69999999999999996" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Name must be unique" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OL9-rb-Q1C">
+                        <rect key="frame" x="389" y="108" width="42" height="21"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="CpR-VW-aqi" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="26" id="5sE-qJ-AHJ"/>
+                    <constraint firstItem="CpR-VW-aqi" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="25" id="5sE-qJ-AHJ"/>
                     <constraint firstItem="CpR-VW-aqi" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="7mk-p3-Vv1"/>
+                    <constraint firstItem="Ikm-SL-unf" firstAttribute="leading" secondItem="OL9-rb-Q1C" secondAttribute="trailing" constant="16" id="COo-2u-e3D"/>
                     <constraint firstItem="Ikm-SL-unf" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="LOR-h4-ulB"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="Ikm-SL-unf" secondAttribute="trailing" constant="20" id="Mad-Kc-BAP"/>
                     <constraint firstItem="EvW-lY-Pto" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="Rwa-9w-qVW"/>
                     <constraint firstItem="wZY-Ev-TJv" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="UH0-kI-sVV"/>
-                    <constraint firstItem="EvW-lY-Pto" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="25" id="kys-Bt-8TP"/>
-                    <constraint firstItem="EvW-lY-Pto" firstAttribute="width" secondItem="H2p-sc-9uM" secondAttribute="width" multiplier="0.6" constant="1" id="muv-Lt-3HB"/>
+                    <constraint firstItem="EvW-lY-Pto" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="20" id="kys-Bt-8TP"/>
                     <constraint firstItem="Ikm-SL-unf" firstAttribute="leading" secondItem="EvW-lY-Pto" secondAttribute="trailing" constant="8" id="mvB-c5-WNR"/>
                     <constraint firstItem="wZY-Ev-TJv" firstAttribute="leading" secondItem="CpR-VW-aqi" secondAttribute="trailing" constant="8" id="rQp-rd-uzl"/>
+                    <constraint firstItem="OL9-rb-Q1C" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="uhN-4V-9Dg"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
+                <outlet property="buttonRightLC" destination="Mad-Kc-BAP" id="nzo-4b-9zm"/>
                 <outlet property="imageViewLeftLC" destination="5sE-qJ-AHJ" id="2Is-V6-MZj"/>
                 <outlet property="nameTextField" destination="EvW-lY-Pto" id="H3k-Na-E8X"/>
                 <outlet property="nameTextFieldLeftLC" destination="kys-Bt-8TP" id="0xx-hC-K4N"/>
+                <outlet property="warningLabel" destination="OL9-rb-Q1C" id="3tm-Ic-aKM"/>
             </connections>
             <point key="canvasLocation" x="824" y="569.5"/>
         </tableViewCell>
