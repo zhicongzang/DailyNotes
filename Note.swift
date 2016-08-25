@@ -25,7 +25,7 @@ class Note: NSManagedObject {
         }
     }
     
-    class func insertNewNotebook(subject subject: String, notebook: Notebook, createdDate: NSDate, updateDate: NSDate, location: CLLocation, locationName: String?, text: NSAttributedString) -> Bool {
+    class func insertNewNote(subject subject: String, notebook: Notebook, createdDate: NSDate, updateDate: NSDate, reminderDate: NSDate?, location: CLLocation, locationName: String?, text: NSAttributedString) -> Bool {
         let moc = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
         do {
             let note = NSEntityDescription.insertNewObjectForEntityForName("Note", inManagedObjectContext: moc) as! Note
@@ -33,6 +33,7 @@ class Note: NSManagedObject {
             note.notebook = notebook
             note.createdDate = createdDate
             note.updateDate = updateDate
+            note.reminderDate = reminderDate
             note.latitude = location.coordinate.latitude
             note.longitude = location.coordinate.latitude
             note.locationName = locationName

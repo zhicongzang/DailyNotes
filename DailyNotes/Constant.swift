@@ -17,4 +17,4 @@ let AssetCollectionTitle = "Daily Note"
 let DetailCellWidth = screenWidth
 let DetailCellHeight = screenHeight
 let DetailCellPageDistance = ceil(screenWidth * 1.1)
-let ReminderTableViewCellHeight: CGFloat = 50.0
+let RootTableViewCellHeight: CGFloat = 50.0

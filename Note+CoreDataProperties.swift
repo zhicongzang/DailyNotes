@@ -2,7 +2,7 @@
 //  Note+CoreDataProperties.swift
 //  DailyNotes
 //
-//  Created by Zhicong Zang on 8/23/16.
+//  Created by Zhicong Zang on 8/24/16.
 //  Copyright © 2016 Zhicong Zang. All rights reserved.
 //
 //  Choose "Create NSManagedObject Subclass…" from the Core Data editor menu
@@ -13,10 +13,11 @@ import Foundation
 import CoreData
 
 extension Note {
-
+    
     @NSManaged var subject: String?
     @NSManaged var createdDate: NSDate?
     @NSManaged var updateDate: NSDate?
+    @NSManaged var reminderDate: NSDate?
     @NSManaged var latitude: NSNumber?
     @NSManaged var longitude: NSNumber?
     @NSManaged var text: NSAttributedString?

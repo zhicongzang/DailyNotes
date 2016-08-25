@@ -106,6 +106,17 @@ class NewNoteViewController: UIViewController {
         }
     }
     
+    func saveNote() {
+        let subject: String
+        if let sbj = subjectTextField.text?.removeHeadAndTailSpacePro where sbj != "" {
+            subject = sbj
+        } else {
+            subject = subjectTextField.placeholder!
+        }
+        
+        Note.insertNewNote(subject: subject, notebook: notebook, createdDate: NSDate(), updateDate: NSDate(), reminderDate: nil, location: location, locationName: locationName, text: textView.attributedText)
+    }
+    
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
@@ -172,6 +183,7 @@ class NewNoteViewController: UIViewController {
             self.dismissViewControllerAnimated(true, completion: nil)
         }
         let actionSaveDraft = UIAlertAction(title: "Save Draft", style: UIAlertActionStyle.Default) { (_) in
+            self.saveNote()
             self.dismissViewControllerAnimated(true, completion: nil)
         }
         let actionCancel = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel) { (_) in
@@ -187,6 +199,7 @@ class NewNoteViewController: UIViewController {
     @IBAction func saveButtonPressed(sender: AnyObject) {
         subjectTextField.resignFirstResponder()
         textView.resignFirstResponder()
+        saveNote()
         self.dismissViewControllerAnimated(true, completion: nil)
     }
     
