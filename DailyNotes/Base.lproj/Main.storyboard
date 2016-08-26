@@ -254,7 +254,7 @@
                                 <rect key="frame" x="43" y="84" width="38" height="38"/>
                                 <state key="normal" image="Note"/>
                                 <connections>
-                                    <segue destination="NZt-zW-e1V" kind="presentation" id="cXL-MY-sz1"/>
+                                    <segue destination="NZt-zW-e1V" kind="presentation" identifier="NewNote" id="cXL-MY-sz1"/>
                                 </connections>
                             </button>
                             <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fOc-Md-r6M" customClass="RootNavigationBar" customModule="DailyNotes" customModuleProvider="target">
@@ -309,27 +309,47 @@
                                     <outlet property="delegate" destination="ARR-tz-eD8" id="TM9-YY-VHO"/>
                                 </connections>
                             </tableView>
-                            <tableView clipsSubviews="YES" tag="1" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="luP-IR-O1b">
-                                <rect key="frame" x="20" y="222" width="374" height="50"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yhf-a3-DMi">
+                                <rect key="frame" x="20" y="236" width="374" height="100"/>
+                                <subviews>
+                                    <tableView clipsSubviews="YES" tag="1" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="luP-IR-O1b" customClass="ExpendableTableView" customModule="DailyNotes" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="50" width="374" height="50"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <prototypes>
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="RootNotebookTableViewCell" id="fW4-Pb-Mh5" customClass="RootNotebookTableViewCell" customModule="DailyNotes" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="28" width="374" height="44"/>
+                                                <autoresizingMask key="autoresizingMask"/>
+                                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="fW4-Pb-Mh5" id="i79-Pe-c3d">
+                                                    <rect key="frame" x="0.0" y="0.0" width="374" height="43"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                </tableViewCellContentView>
+                                            </tableViewCell>
+                                        </prototypes>
+                                        <connections>
+                                            <outlet property="dataSource" destination="ARR-tz-eD8" id="7Hg-gH-ph2"/>
+                                            <outlet property="delegate" destination="ARR-tz-eD8" id="oye-8z-H3d"/>
+                                        </connections>
+                                    </tableView>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LCw-0v-Web" customClass="RootTableViewTitle" customModule="DailyNotes" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="374" height="50"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="50" id="IZ8-kN-gec"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="dbQ-wc-fRB"/>
+                                    <constraint firstAttribute="trailing" secondItem="luP-IR-O1b" secondAttribute="trailing" id="C5e-se-8YW"/>
+                                    <constraint firstAttribute="bottom" secondItem="luP-IR-O1b" secondAttribute="bottom" id="IZk-oV-JBb"/>
+                                    <constraint firstItem="LCw-0v-Web" firstAttribute="leading" secondItem="yhf-a3-DMi" secondAttribute="leading" id="Lkv-cN-Ls4"/>
+                                    <constraint firstItem="LCw-0v-Web" firstAttribute="top" secondItem="yhf-a3-DMi" secondAttribute="top" id="RiI-33-ddA"/>
+                                    <constraint firstAttribute="trailing" secondItem="LCw-0v-Web" secondAttribute="trailing" id="VkH-0H-Xkb"/>
+                                    <constraint firstAttribute="height" constant="100" id="dq5-68-GbU"/>
+                                    <constraint firstItem="luP-IR-O1b" firstAttribute="top" secondItem="LCw-0v-Web" secondAttribute="bottom" id="sn1-xB-Cma"/>
+                                    <constraint firstItem="luP-IR-O1b" firstAttribute="leading" secondItem="yhf-a3-DMi" secondAttribute="leading" id="uLv-Pp-XvU"/>
                                 </constraints>
-                                <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="RootNotebookTableViewCell" id="fW4-Pb-Mh5" customClass="RootNotebookTableViewCell" customModule="DailyNotes" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="374" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="fW4-Pb-Mh5" id="i79-Pe-c3d">
-                                            <rect key="frame" x="0.0" y="0.0" width="374" height="43"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                </prototypes>
-                                <connections>
-                                    <outlet property="dataSource" destination="ARR-tz-eD8" id="7Hg-gH-ph2"/>
-                                    <outlet property="delegate" destination="ARR-tz-eD8" id="oye-8z-H3d"/>
-                                </connections>
-                            </tableView>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -341,7 +361,7 @@
                             <constraint firstItem="PFN-zG-Bsz" firstAttribute="centerY" secondItem="5fg-Kw-weq" secondAttribute="centerY" id="AYr-H6-lA5"/>
                             <constraint firstItem="izn-f7-G1H" firstAttribute="centerY" secondItem="5fg-Kw-weq" secondAttribute="centerY" id="E4Y-cM-5R0"/>
                             <constraint firstItem="izn-f7-G1H" firstAttribute="width" secondItem="RuS-de-UFx" secondAttribute="width" multiplier="1/11" id="FcY-B2-WVJ"/>
-                            <constraint firstItem="luP-IR-O1b" firstAttribute="trailing" secondItem="RuS-de-UFx" secondAttribute="trailingMargin" id="JwT-xh-uzd"/>
+                            <constraint firstItem="yhf-a3-DMi" firstAttribute="top" secondItem="8eB-Qr-l3S" secondAttribute="bottom" constant="22" id="GjP-Y1-Mb7"/>
                             <constraint firstItem="izn-f7-G1H" firstAttribute="height" secondItem="RuS-de-UFx" secondAttribute="width" multiplier="1/11" id="KL4-z0-tJi"/>
                             <constraint firstItem="5fg-Kw-weq" firstAttribute="centerX" secondItem="RuS-de-UFx" secondAttribute="centerX" id="MqZ-Wk-b1p"/>
                             <constraint firstItem="2z7-M6-38V" firstAttribute="width" secondItem="RuS-de-UFx" secondAttribute="width" multiplier="1/11" id="Neb-Ks-vDq"/>
@@ -353,13 +373,13 @@
                             <constraint firstItem="8eB-Qr-l3S" firstAttribute="trailing" secondItem="RuS-de-UFx" secondAttribute="trailingMargin" id="kmh-pX-Pbz"/>
                             <constraint firstItem="fOc-Md-r6M" firstAttribute="leading" secondItem="RuS-de-UFx" secondAttribute="leadingMargin" constant="-20" id="m6h-QA-c2f"/>
                             <constraint firstItem="8eB-Qr-l3S" firstAttribute="top" secondItem="fOc-Md-r6M" secondAttribute="bottom" constant="100" id="mnV-5g-oKl"/>
+                            <constraint firstItem="yhf-a3-DMi" firstAttribute="leading" secondItem="RuS-de-UFx" secondAttribute="leadingMargin" id="o4I-lW-HxZ"/>
                             <constraint firstItem="5fg-Kw-weq" firstAttribute="leading" secondItem="YYv-kO-TO8" secondAttribute="trailing" constant="40" id="p9f-dn-74n"/>
                             <constraint firstItem="YYv-kO-TO8" firstAttribute="height" secondItem="RuS-de-UFx" secondAttribute="width" multiplier="1/11" id="qPu-kp-CXl"/>
                             <constraint firstItem="2z7-M6-38V" firstAttribute="height" secondItem="RuS-de-UFx" secondAttribute="width" multiplier="1/11" id="sBp-iN-qdO"/>
                             <constraint firstItem="5fg-Kw-weq" firstAttribute="width" secondItem="RuS-de-UFx" secondAttribute="width" multiplier="1/11" id="sWE-Ew-JrY"/>
-                            <constraint firstItem="luP-IR-O1b" firstAttribute="leading" secondItem="RuS-de-UFx" secondAttribute="leadingMargin" id="tZ7-Lf-YYF"/>
+                            <constraint firstItem="yhf-a3-DMi" firstAttribute="trailing" secondItem="RuS-de-UFx" secondAttribute="trailingMargin" id="t4O-LN-BqU"/>
                             <constraint firstItem="YYv-kO-TO8" firstAttribute="centerY" secondItem="5fg-Kw-weq" secondAttribute="centerY" id="wjk-bI-nLm"/>
-                            <constraint firstItem="luP-IR-O1b" firstAttribute="top" secondItem="8eB-Qr-l3S" secondAttribute="bottom" constant="20" id="yUd-el-g4A"/>
                             <constraint firstItem="fOc-Md-r6M" firstAttribute="top" secondItem="6hi-6y-IRe" secondAttribute="bottom" id="yvw-iv-mk6"/>
                             <constraint firstItem="8eB-Qr-l3S" firstAttribute="leading" secondItem="RuS-de-UFx" secondAttribute="leadingMargin" id="z9f-Yb-TUa"/>
                         </constraints>
@@ -385,11 +405,13 @@
                     <connections>
                         <outlet property="audioButton" destination="2z7-M6-38V" id="DIq-Fh-k9R"/>
                         <outlet property="buttonsToTopLayoutConstraint" destination="ecA-x4-E71" id="ex4-Fi-bhd"/>
+                        <outlet property="combinedView" destination="yhf-a3-DMi" id="bAF-Sc-31H"/>
                         <outlet property="listButton" destination="PFN-zG-Bsz" id="d6r-xe-neF"/>
                         <outlet property="noteButton" destination="izn-f7-G1H" id="bS3-cQ-Xyp"/>
                         <outlet property="notebookTableView" destination="luP-IR-O1b" id="0bC-j3-bKT"/>
-                        <outlet property="notebookTableViewHeightLC" destination="dbQ-wc-fRB" id="0yx-Kg-o3E"/>
-                        <outlet property="notebookTableViewToReminderTableViewLC" destination="yUd-el-g4A" id="kBv-DU-yrl"/>
+                        <outlet property="notebookTableViewHeightLC" destination="dq5-68-GbU" id="Ig4-Iq-z22"/>
+                        <outlet property="notebookTableViewTitle" destination="LCw-0v-Web" id="veU-00-XWg"/>
+                        <outlet property="notebookTableViewToReminderTableViewLC" destination="GjP-Y1-Mb7" id="NTH-HS-Oac"/>
                         <outlet property="photoButton" destination="YYv-kO-TO8" id="9T0-7v-xcE"/>
                         <outlet property="reminderButton" destination="5fg-Kw-weq" id="zCu-Q1-aNL"/>
                         <outlet property="reminderTableView" destination="8eB-Qr-l3S" id="HAU-Ym-T4p"/>
@@ -401,6 +423,7 @@
                         <outletCollection property="buttonPaddings" destination="46V-bf-jf3" collectionClass="NSMutableArray" id="5rE-qo-zTM"/>
                         <outletCollection property="buttonPaddings" destination="p9f-dn-74n" collectionClass="NSMutableArray" id="tzG-2R-l0d"/>
                         <outletCollection property="buttonPaddings" destination="13X-l7-A9d" collectionClass="NSMutableArray" id="9nR-jv-qpZ"/>
+                        <segue destination="NZt-zW-e1V" kind="presentation" identifier="OldNote" id="l07-S3-kTX"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9Gg-gB-cvt" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -884,12 +907,6 @@
                                     <action selector="textFieldDidEndOnExit:" destination="skM-j6-hn6" eventType="editingDidEndOnExit" id="6X7-vU-XVZ"/>
                                 </connections>
                             </textField>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Update: Today   Created: Today" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TSG-0C-NcS">
-                                <rect key="frame" x="20" y="150" width="170" height="17"/>
-                                <fontDescription key="fontDescription" name="AvenirNext-Italic" family="Avenir Next" pointSize="12"/>
-                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="ijA-jC-Udf">
                                 <rect key="frame" x="0.0" y="175" width="414" height="561"/>
                                 <connections>
@@ -911,6 +928,12 @@
                                     <action selector="textFieldDidEndOnExit:" destination="skM-j6-hn6" eventType="editingDidEndOnExit" id="j1q-yc-N75"/>
                                 </connections>
                             </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Update: Today,   Created: Today" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TSG-0C-NcS">
+                                <rect key="frame" x="20" y="150" width="173" height="17"/>
+                                <fontDescription key="fontDescription" name="AvenirNext-Italic" family="Avenir Next" pointSize="12"/>
+                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -987,4 +1010,7 @@
         <image name="Settings" width="33" height="33"/>
         <image name="ShutterRelease" width="100" height="100"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="l07-S3-kTX"/>
+    </inferredMetricsTieBreakers>
 </document>

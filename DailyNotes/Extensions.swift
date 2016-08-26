@@ -89,6 +89,20 @@ extension NSDate {
         return dateFormatter.stringFromDate(self)
     }
     
+    func stringDaysToNow() -> String {
+        let calendar : NSCalendar = NSCalendar.currentCalendar()
+        let daysComponents = calendar.components([.Day], fromDate:  self, toDate: NSDate(), options: [] )
+        let days = daysComponents.day
+        if days == 0 {
+            return "Today"
+        }
+        if days == 1 {
+            return "\(days) day age"
+        }
+        return "\(days) days age"
+        
+    }
+    
 }
 
 extension String {

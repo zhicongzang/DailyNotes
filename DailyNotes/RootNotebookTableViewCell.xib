@@ -15,22 +15,31 @@
                 <rect key="frame" x="0.0" y="0.0" width="484" height="49"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <tableView clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="JMs-u3-noA">
-                        <rect key="frame" x="0.0" y="0.0" width="480" height="105"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </tableView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Subject" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Am7-V8-afN">
+                        <rect key="frame" x="32" y="8" width="53" height="18"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Last update date: 08/09/2016" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PsY-n0-t4d">
+                        <rect key="frame" x="32" y="27" width="135" height="14"/>
+                        <fontDescription key="fontDescription" name="AvenirNext-Italic" family="Avenir Next" pointSize="10"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
                 <constraints>
-                    <constraint firstAttribute="bottomMargin" secondItem="JMs-u3-noA" secondAttribute="bottom" constant="-8" id="1aT-D4-55h"/>
-                    <constraint firstItem="JMs-u3-noA" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="-8" id="5rU-WS-VsJ"/>
-                    <constraint firstItem="JMs-u3-noA" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="-8" id="UVH-i7-8Mu"/>
-                    <constraint firstAttribute="trailingMargin" secondItem="JMs-u3-noA" secondAttribute="trailing" constant="-8" id="tdt-1O-1bm"/>
+                    <constraint firstItem="Am7-V8-afN" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="24" id="7NR-k2-woj"/>
+                    <constraint firstItem="Am7-V8-afN" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" id="ZPh-v7-bqv"/>
+                    <constraint firstItem="PsY-n0-t4d" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="24" id="geE-wb-9Ce"/>
+                    <constraint firstItem="PsY-n0-t4d" firstAttribute="bottom" secondItem="H2p-sc-9uM" secondAttribute="bottomMargin" id="jYA-0e-vQs"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
-                <outlet property="noteTableView" destination="JMs-u3-noA" id="4DU-dg-Jrb"/>
+                <outlet property="subjectLabel" destination="Am7-V8-afN" id="3hI-Fm-A2e"/>
+                <outlet property="updateDateLabel" destination="PsY-n0-t4d" id="9ud-cg-le6"/>
             </connections>
-            <point key="canvasLocation" x="627" y="432"/>
+            <point key="canvasLocation" x="631" y="468"/>
         </tableViewCell>
     </objects>
 </document>

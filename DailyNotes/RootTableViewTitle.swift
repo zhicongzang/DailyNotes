@@ -36,7 +36,6 @@ class RootTableViewTitle: UIControl {
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        setup("", imageName: "")
     }
     
     init(frame: CGRect, title: String, imageName: String) {
@@ -44,17 +43,19 @@ class RootTableViewTitle: UIControl {
         setup(title, imageName: imageName)
     }
     
+
+    
     func setup(title: String, imageName: String) {
         backgroundColor = UIColor.whiteColor()
         self.setupButtomDividingLine(lineWidth: 0.5, lineColor: UIColor(white: 0.6, alpha: 1).CGColor)
         let imageView = UIImageView(frame: CGRect(x: 10, y: (frame.height - 20) / 2, width: 20, height: 20))
         imageView.image = UIImage(named: imageName)
-        let label = UILabel(frame: CGRect(x: 30 + 8, y: 0, width: frame.width / 2, height: frame.height))
+        let label = UILabel(frame: CGRect(x: 30 + 8, y: 0, width: (screenWidth - 40) / 2, height: frame.height))
         label.text = title
         label.font = UIFont.systemFontOfSize(CGFloat(22))
-        openImageView = UIImageView(frame: CGRect(x: frame.width - 15 - 10, y: (frame.height - 15) / 2, width: 15, height: 15))
+        openImageView = UIImageView(frame: CGRect(x: (screenWidth - 40) - 15 - 10, y: (frame.height - 15) / 2, width: 15, height: 15))
         openImageView.image = UIImage(named: "Go")
-        countLabel = UILabel(frame: CGRect(x: frame.width - 25 - 5 - 50, y: 0, width: 50, height: frame.height))
+        countLabel = UILabel(frame: CGRect(x: (screenWidth - 40) - 25 - 5 - 50, y: 0, width: 50, height: frame.height))
         countLabel.text = "All xxx"
         countLabel.textAlignment = .Right
         countLabel.font = UIFont.systemFontOfSize(CGFloat(13))

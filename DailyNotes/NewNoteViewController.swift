@@ -84,10 +84,16 @@ class NewNoteViewController: UIViewController {
         }
     }
     
+    var createdDate: NSDate?
+    var updateDate: NSDate?
+    var reminderDate: NSDate?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         locationManager.requestWhenInUseAuthorization()
+        
+        setupNote()
         
         subjectTextFieldView.setupButtomDividingLine(lineWidth: 0.5, lineColor: UIColor(white: 0.6, alpha: 1).CGColor)
         toolBarView.setupButtomDividingLine(lineWidth: 0.5, lineColor: UIColor(white: 0.6, alpha: 1).CGColor)
@@ -96,13 +102,23 @@ class NewNoteViewController: UIViewController {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(NewNoteViewController.keyboardWillChangeFrame(_:)), name: UIKeyboardWillChangeFrameNotification, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(NewNoteViewController.keyboardWillShow(_:)), name: UIKeyboardWillShowNotification, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(NewNoteViewController.keyboardWillHide(_:)), name: UIKeyboardWillHideNotification, object: nil)
-        setup()
+        
     }
     
-    func setup() {
+    func setupNote() {
         if note == nil {
             notebook = Notebook.getAllNoteBooks().first!
             locationManager.startUpdatingLocation()
+        } else {
+            notebook = note?.notebook!
+            locationName = note?.locationName
+            location = CLLocation(latitude: (note?.latitude)!.doubleValue, longitude: (note?.longitude)!.doubleValue)
+            createdDate = note?.createdDate
+            updateDate = note?.updateDate
+            reminderDate = note?.reminderDate
+            textView.attributedText = note?.text
+            subjectTextField.text = note?.subject
+            
         }
     }
     
@@ -113,8 +129,9 @@ class NewNoteViewController: UIViewController {
         } else {
             subject = subjectTextField.placeholder!
         }
+        let date = NSDate()
         
-        Note.insertNewNote(subject: subject, notebook: notebook, createdDate: NSDate(), updateDate: NSDate(), reminderDate: nil, location: location, locationName: locationName, text: textView.attributedText)
+        Note.saveNote(note, subject: subject, notebook: notebook, createdDate: createdDate ?? date, updateDate: date, reminderDate: reminderDate, location: location, locationName: locationName, text: textView.attributedText)
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -225,7 +242,7 @@ class NewNoteViewController: UIViewController {
             let vc = segue.destinationViewController as! NewNoteDetailsViewController
             var subject = subjectTextField.text ?? "New Note"
             subject = (subject == "") ? "New Note" : subject
-            vc.setInformation(subject: subject, location: location, locationName: locationName)
+            vc.setInformation(subject: subject, location: location, locationName: locationName, createdDate: createdDate, updateDate: updateDate)
             vc.block = { (location: CLLocation, locationName: String?) in
                 self.locationName = locationName
                 self.location = location

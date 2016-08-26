@@ -23,7 +23,8 @@ class RootViewController: UIViewController {
     @IBOutlet weak var settingsButton: UIButton!
     
     @IBOutlet weak var reminderTableView: UITableView!
-    @IBOutlet weak var notebookTableView: UITableView!
+    @IBOutlet weak var notebookTableView: ExpendableTableView!
+    
     
     @IBOutlet var buttonPaddings: [NSLayoutConstraint]!
     @IBOutlet weak var buttonsToTopLayoutConstraint: NSLayoutConstraint!
@@ -36,25 +37,22 @@ class RootViewController: UIViewController {
     let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
     
     var reminderTableViewTitle: RootTableViewTitle!
-    var notebookTableViewTitle: RootTableViewTitle!
-    
-    var notebookTableViewCells = [NSIndexPath: RootNotebookTableViewCell]()
+    @IBOutlet weak var notebookTableViewTitle: RootTableViewTitle!
+    @IBOutlet weak var combinedView: UIView!
     
     var notebooks: [Notebook]! {
         didSet {
+            notebookTableViewTitle.countLabel.text = "All \(notebooks.count)"
             dispatch_async(dispatch_get_main_queue(), {
+                self.notebookTableView.reloadData()
                 if self.notebookTableViewTitle.isOpen {
-                    self.notebookTableViewHeightLC.constant = min(RootTableViewCellHeight * 9, max(self.calculateNotebookTableViewHeight(), CGFloat(self.notebooks.count + 1) * RootTableViewCellHeight))
+                    self.notebookTableViewHeightLC.constant = min(RootTableViewCellHeight * 9, self.notebookTableView.tableViewTotalHeight(sectionHeight: RootTableViewCellHeight, rowHeight: RootTableViewCellHeight) + RootTableViewCellHeight)
                 } else {
-                    self.notebookTableViewHeightLC.constant = min(RootTableViewCellHeight * 4, max(self.calculateNotebookTableViewHeight(), CGFloat(self.notebooks.count + 1) * RootTableViewCellHeight))
+                    self.notebookTableViewHeightLC.constant = min(RootTableViewCellHeight * 4, self.notebookTableView.tableViewTotalHeight(sectionHeight: RootTableViewCellHeight, rowHeight: RootTableViewCellHeight) + RootTableViewCellHeight)
                 }
                 UIView.animateWithDuration(0.3, delay: 0, options: UIViewAnimationOptions.BeginFromCurrentState, animations: {
                     self.view.layoutIfNeeded()
-                    }, completion: {(completed) in
-                        if completed {
-                            self.notebookTableView.reloadData()
-                        }
-                })
+                    }, completion: nil)
             })
         }
     }
@@ -110,7 +108,8 @@ class RootViewController: UIViewController {
     
     func setupReminderTableView() {
         reminderTableViewTitle = RootTableViewTitle(frame: CGRect(x: 0, y: 0, width: screenWidth - 40, height: RootTableViewCellHeight), title: "Reminder", imageName: "Reminder")
-        reminderTableViewTitle.addTarget(self, action: #selector(RootViewController.reminderTableViewTitlePressed(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(RootViewController.reminderTableViewTitlePressed(_:)))
+        reminderTableViewTitle.addGestureRecognizer(tapGesture)
         reminderTableViewToTopLC.constant = rootButtonWidth * 2
         reminderTableView.layer.masksToBounds = true
         reminderTableView.layer.cornerRadius = 10.0
@@ -123,13 +122,14 @@ class RootViewController: UIViewController {
     }
     
     func setupNotebookTableView() {
-        notebookTableViewTitle = RootTableViewTitle(frame: CGRect(x: 0, y: 0, width: screenWidth - 40, height: RootTableViewCellHeight), title: "Notebook", imageName: "Notebook")
-        notebookTableViewTitle.addTarget(self, action: #selector(RootViewController.notebookTableViewTitlePressed(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+        notebookTableViewTitle.setup("Notebook", imageName: "Notebook")
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(RootViewController.notebookTableViewTitlePressed(_:)))
+        notebookTableViewTitle.addGestureRecognizer(tapGesture)
         notebookTableViewToReminderTableViewLC.constant = rootButtonWidth / 2
-        notebookTableView.layer.masksToBounds = true
-        notebookTableView.layer.cornerRadius = 10.0
-        notebookTableView.layer.borderColor = UIColor(white: 0.6, alpha: 1).CGColor
-        notebookTableView.layer.borderWidth = 0.5
+        combinedView.layer.masksToBounds = true
+        combinedView.layer.cornerRadius = 10.0
+        combinedView.layer.borderColor = UIColor(white: 0.6, alpha: 1).CGColor
+        combinedView.layer.borderWidth = 0.5
         notebookTableView.separatorColor = UIColor(white: 0.6, alpha: 1)
         notebookTableView.bounces = false
         let nib = UINib(nibName: "RootNotebookTableViewCell", bundle: nil)
@@ -165,7 +165,7 @@ class RootViewController: UIViewController {
             reminderTableViewTitle.isOpen = !reminderTableViewTitle.isOpen
         } else if notebookTableViewTitle.isOpen {
             reminderTableViewHeightLC.constant = CGFloat(min(appDelegate.uncompletedReminders.count + 1, 4)) * RootTableViewCellHeight
-            notebookTableViewHeightLC.constant = min(RootTableViewCellHeight * 4, max(self.calculateNotebookTableViewHeight(), CGFloat(self.notebooks.count + 1) * RootTableViewCellHeight))
+            notebookTableViewHeightLC.constant = min(RootTableViewCellHeight * 4, self.notebookTableView.tableViewTotalHeight(sectionHeight: RootTableViewCellHeight, rowHeight: RootTableViewCellHeight) + RootTableViewCellHeight)
             notebookTableViewToReminderTableViewLC.constant = rootButtonWidth / 2
             UIView.animateWithDuration(0.3, delay: 0, options: UIViewAnimationOptions.BeginFromCurrentState, animations: {
                 self.reminderTableView.alpha = 1.0
@@ -191,6 +191,17 @@ class RootViewController: UIViewController {
         control.removeTarget(self, action: #selector(RootViewController.touchBack(_:)), forControlEvents: UIControlEvents.TouchDown)
     }
     
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "OldNote" {
+            if let sender = sender as? RootNotebookTableViewCell {
+                let nc = segue.destinationViewController as! UINavigationController
+                let vc = nc.topViewController as! NewNoteViewController
+                vc.note = sender.note
+            }
+            
+        }
+    }
+    
     
 }
 
@@ -212,9 +223,21 @@ extension RootViewController: UITableViewDelegate, UITableViewDataSource {
             return reminderTableViewTitle
         }
         if tableView.tag == 1 {
-            notebookTableViewTitle.countLabel.text = "All \(notebooks.count)"
-            return notebookTableViewTitle
+            if let tableView = tableView as? ExpendableTableView {
+                if let view = tableView.sectionViews[section] as? NotebookSectionTitle {
+                    view.resetNotebook(notebooks[section])
+                    return view
+                }
+                let notebook = notebooks[section]
+                let view = NotebookSectionTitle(frame: CGRect(x: 0, y: 0, width: screenWidth - 40, height: RootTableViewCellHeight), notebook: notebook, section: section)
+                let tapGesture = UITapGestureRecognizer(target: self, action: #selector(RootViewController.noteSectionPressed(_:)))
+                view.addGestureRecognizer(tapGesture)
+                tableView.sectionViews[section] = view
+                return view
+            }
+            
         }
+        
         return nil
         
     }
@@ -224,7 +247,7 @@ extension RootViewController: UITableViewDelegate, UITableViewDataSource {
             return 1
         }
         if tableView.tag == 1 {
-            return 1
+            return notebooks.count
         }
         return 0
     }
@@ -234,7 +257,8 @@ extension RootViewController: UITableViewDelegate, UITableViewDataSource {
             return appDelegate.uncompletedReminders.count
         }
         if tableView.tag == 1 {
-            return notebooks.count
+            let notebook = notebooks[section]
+            return notebook.note?.count ?? 0
         }
         return 0
     }
@@ -244,13 +268,17 @@ extension RootViewController: UITableViewDelegate, UITableViewDataSource {
             return RootTableViewCellHeight
         }
         if tableView.tag == 1 {
-            if let cell = notebookTableViewCells[indexPath] {
-                return cell.height
+            if let tb = tableView as? ExpendableTableView {
+                if tb.openedSections.contains(indexPath.section) {
+                    return RootTableViewCellHeight
+                }
+                return 0
             }
-            return RootTableViewCellHeight
+            
         }
         return 0
     }
+    
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         if tableView.tag == 0 {
@@ -262,32 +290,34 @@ extension RootViewController: UITableViewDelegate, UITableViewDataSource {
             return cell
         }
         if tableView.tag == 1 {
+
             let cell = tableView.dequeueReusableCellWithIdentifier("RootNotebookTableViewCell") as! RootNotebookTableViewCell
-            if indexPath.row < notebooks.count {
-                let notebook = notebooks[indexPath.row]
-                cell.setup(notebook: notebook, updateTableViewBlock: {() in
-                    if self.notebookTableViewTitle.isOpen {
-                        self.notebookTableViewHeightLC.constant = min(RootTableViewCellHeight * 9, max(self.calculateNotebookTableViewHeight(), CGFloat(self.notebooks.count + 1) * RootTableViewCellHeight))
-                    } else {
-                        self.notebookTableViewHeightLC.constant = min(RootTableViewCellHeight * 4, max(self.calculateNotebookTableViewHeight(), CGFloat(self.notebooks.count + 1) * RootTableViewCellHeight))
-                    }
-                    UIView.animateWithDuration(0.3, delay: 0, options: UIViewAnimationOptions.BeginFromCurrentState, animations: {
-                        self.view.layoutIfNeeded()
-                        }, completion: {(completed) in
-                            if completed {
-                                tableView.reloadData()
-                            }
-                    })
-                })
+            let notebook = notebooks[indexPath.section]
+            if let notes = notebook.note, let note = notes[indexPath.row] as? Note {
+                cell.setup(note: note)
+                return cell
             }
-            notebookTableViewCells[indexPath] = cell
-            return cell
+        
+            
         }
         return UITableViewCell()
     }
     
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        if tableView.tag == 1 {
+            let cell = tableView.cellForRowAtIndexPath(indexPath) as! RootNotebookTableViewCell
+            dispatch_async(dispatch_get_main_queue(), { 
+                self.performSegueWithIdentifier("OldNote", sender: cell)
+            })
+            
+        }
+        
+    }
+    
+    
+    
     @objc
-    func reminderTableViewTitlePressed(sender: AnyObject) {
+    func reminderTableViewTitlePressed(recognizer: UIGestureRecognizer) {
         if reminderTableViewTitle.isOpen {
             reminderTableViewToTopLC.constant = rootButtonWidth * 2
             reminderTableViewHeightLC.constant = CGFloat(min(appDelegate.uncompletedReminders.count + 1, 4)) * RootTableViewCellHeight
@@ -315,10 +345,10 @@ extension RootViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     @objc
-    func notebookTableViewTitlePressed(sender: AnyObject) {
+    func notebookTableViewTitlePressed(recognizer: UIGestureRecognizer) {
         if notebookTableViewTitle.isOpen {
             reminderTableViewHeightLC.constant = CGFloat(min(appDelegate.uncompletedReminders.count + 1, 4)) * RootTableViewCellHeight
-            notebookTableViewHeightLC.constant = min(RootTableViewCellHeight * 4, self.calculateNotebookTableViewHeight())
+            notebookTableViewHeightLC.constant = min(RootTableViewCellHeight * 4, self.notebookTableView.tableViewTotalHeight(sectionHeight: RootTableViewCellHeight, rowHeight: RootTableViewCellHeight) + RootTableViewCellHeight)
             notebookTableViewToReminderTableViewLC.constant = rootButtonWidth / 2
             UIView.animateWithDuration(0.3, delay: 0, options: UIViewAnimationOptions.BeginFromCurrentState, animations: {
                 self.view.layoutIfNeeded()
@@ -329,7 +359,7 @@ extension RootViewController: UITableViewDelegate, UITableViewDataSource {
             })
         } else {
             reminderTableViewHeightLC.constant = 0
-            notebookTableViewHeightLC.constant = min(RootTableViewCellHeight * 9, self.calculateNotebookTableViewHeight())
+            notebookTableViewHeightLC.constant = min(RootTableViewCellHeight * 9, self.notebookTableView.tableViewTotalHeight(sectionHeight: RootTableViewCellHeight, rowHeight: RootTableViewCellHeight) + RootTableViewCellHeight)
             notebookTableViewToReminderTableViewLC.constant = -3 / 2 * rootButtonWidth
             UIView.animateWithDuration(0.3, delay: 0, options: UIViewAnimationOptions.BeginFromCurrentState, animations: {
                 self.view.layoutIfNeeded()
@@ -341,19 +371,30 @@ extension RootViewController: UITableViewDelegate, UITableViewDataSource {
         }
         notebookTableViewTitle.isOpen = !notebookTableViewTitle.isOpen
     }
-}
-
-extension RootViewController {
-    func calculateNotebookTableViewHeight() -> CGFloat {
-        var height: CGFloat = RootTableViewCellHeight
-        for i in 0..<notebooks.count {
-            if let cell = notebookTableView.cellForRowAtIndexPath(NSIndexPath(forRow: i, inSection: 0)) as? RootNotebookTableViewCell {
-                height += cell.height
+    
+    @objc
+    func noteSectionPressed(recognizer: UIGestureRecognizer) {
+        if let view = recognizer.view as? NotebookSectionTitle {
+            let completion = {() in
+                if self.notebookTableViewTitle.isOpen {
+                    self.notebookTableViewHeightLC.constant = min(RootTableViewCellHeight * 9, self.notebookTableView.tableViewTotalHeight(sectionHeight: RootTableViewCellHeight, rowHeight: RootTableViewCellHeight) + RootTableViewCellHeight)
+                } else {
+                    self.notebookTableViewHeightLC.constant = min(RootTableViewCellHeight * 4, self.notebookTableView.tableViewTotalHeight(sectionHeight: RootTableViewCellHeight, rowHeight: RootTableViewCellHeight) + RootTableViewCellHeight)
+                }
+                UIView.animateWithDuration(0.3, delay: 0, options: UIViewAnimationOptions.BeginFromCurrentState, animations: {
+                    self.view.layoutIfNeeded()
+                    }, completion: nil)
+                }
+            if view.isOpen {
+                notebookTableView.closeSection(section: view.section, completion: completion)
+            } else {
+                notebookTableView.openSection(section: view.section, completion: completion)
             }
+            view.isOpen = !view.isOpen
         }
-        return height
     }
 }
+
 
 
 

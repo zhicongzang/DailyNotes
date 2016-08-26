@@ -9,13 +9,16 @@
 import UIKit
 
 
-class NoteTableViewTitle: UIControl {
+class NotebookSectionTitle: UIControl {
     
     var openImageView: UIImageView!
     
     var countLabel: UILabel!
     
     var titleLabel: UILabel!
+    
+    var notebook: Notebook!
+    var section: Int!
     
     var isOpen = false {
         didSet {
@@ -34,11 +37,29 @@ class NoteTableViewTitle: UIControl {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setup()
+        section = 0
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         setup()
+        section = 0
+    }
+    
+    init(frame: CGRect, notebook: Notebook, section: Int) {
+        super.init(frame: frame)
+        self.notebook = notebook
+        self.section = section
+        setup()
+        titleLabel.text = notebook.name
+        countLabel.text = "\(notebook.note?.count ?? 0) notes"
+    }
+    
+    func resetNotebook(notebook: Notebook) {
+        isOpen = false
+        self.notebook = notebook
+        titleLabel.text = notebook.name
+        countLabel.text = "\(notebook.note?.count ?? 0) notes"
     }
     
     

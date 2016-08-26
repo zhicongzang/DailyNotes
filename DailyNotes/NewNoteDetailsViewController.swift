@@ -54,6 +54,9 @@ class NewNoteDetailsViewController: UIViewController {
     
     let geocoder: CLGeocoder = CLGeocoder()
     
+    var createdDate: NSDate?
+    var updateDate: NSDate?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -72,6 +75,11 @@ class NewNoteDetailsViewController: UIViewController {
         navigationBar.addGestureRecognizer(tapGestureForNavigationBar)
         self.view.addGestureRecognizer(tapGesture)
         
+        if createdDate != nil {
+            dateLabel.text = "Update: \(updateDate!.stringDaysToNow()), Created: \(createdDate!.stringDaysToNow())"
+        }
+        
+        
     }
     
     @objc func dismissKeyboard(recognizer: UIGestureRecognizer) {
@@ -79,11 +87,13 @@ class NewNoteDetailsViewController: UIViewController {
         tagTextField.resignFirstResponder()
     }
     
-    func setInformation(subject subject: String, location: CLLocation, locationName: String?) {
+    func setInformation(subject subject: String, location: CLLocation, locationName: String?, createdDate: NSDate?, updateDate: NSDate?) {
         annotation.title = subject
         self.location = location
         self.locationName = locationName
         self.annotation.subtitle = locationName
+        self.createdDate = createdDate
+        self.updateDate = updateDate
     }
     
     func setupMapView() {
