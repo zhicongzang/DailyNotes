@@ -45,12 +45,5 @@ class FontSettingButton: UIButton {
     func setup() {
         self.layer.cornerRadius = 2
         self.layer.masksToBounds = true
-        self.addTarget(self, action: #selector(FontSettingButton.didSelected(_:)), forControlEvents: UIControlEvents.TouchUpInside)
     }
-    
-    @objc func didSelected(sender: FontSettingButton) {
-        selected = !selected
-    }
-    
-
 }

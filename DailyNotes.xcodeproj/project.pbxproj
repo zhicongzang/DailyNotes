@@ -20,6 +20,7 @@
 		DC3332F81D6E490F00D32535 /* Note+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC3332F71D6E490F00D32535 /* Note+CoreDataProperties.swift */; };
 		DC3332FA1D6E541A00D32535 /* NotebookSectionTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC3332F91D6E541A00D32535 /* NotebookSectionTitle.swift */; };
 		DC3332FC1D6F801700D32535 /* ExpendableTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC3332FB1D6F801700D32535 /* ExpendableTableView.swift */; };
+		DC3332FE1D78C29700D32535 /* NoteTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC3332FD1D78C29700D32535 /* NoteTextView.swift */; };
 		DC6ED94A1D401FFD00AEFECB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC6ED9491D401FFD00AEFECB /* AppDelegate.swift */; };
 		DC6ED94F1D401FFD00AEFECB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DC6ED94D1D401FFD00AEFECB /* Main.storyboard */; };
 		DC6ED9521D401FFD00AEFECB /* DailyNotes.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = DC6ED9501D401FFD00AEFECB /* DailyNotes.xcdatamodeld */; };
@@ -113,6 +114,7 @@
 		DC3332F71D6E490F00D32535 /* Note+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Note+CoreDataProperties.swift"; path = "../Note+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		DC3332F91D6E541A00D32535 /* NotebookSectionTitle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotebookSectionTitle.swift; sourceTree = "<group>"; };
 		DC3332FB1D6F801700D32535 /* ExpendableTableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpendableTableView.swift; sourceTree = "<group>"; };
+		DC3332FD1D78C29700D32535 /* NoteTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoteTextView.swift; sourceTree = "<group>"; };
 		DC6ED9461D401FFD00AEFECB /* DailyNotes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DailyNotes.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC6ED9491D401FFD00AEFECB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DC6ED94E1D401FFD00AEFECB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -276,6 +278,7 @@
 			isa = PBXGroup;
 			children = (
 				DC8220C61D53E16A00FF1FC4 /* ZZControls */,
+				DC3332FD1D78C29700D32535 /* NoteTextView.swift */,
 				DC6ED9851D402C6F00AEFECB /* RootButton.swift */,
 				DCF94C081D41885900CCDE42 /* KeyboardButton.swift */,
 				DC8B9AA61D48151A009DB76B /* FontSettingButton.swift */,
@@ -516,6 +519,7 @@
 				DC6ED9881D40386100AEFECB /* RootNavigationBar.swift in Sources */,
 				DC3332F01D6CFB9C00D32535 /* Notebook+CoreDataProperties.swift in Sources */,
 				DCF949891D4FEA80004B3ACE /* FlashButton.swift in Sources */,
+				DC3332FE1D78C29700D32535 /* NoteTextView.swift in Sources */,
 				DCF94C071D41795A00CCDE42 /* NewNoteViewController.swift in Sources */,
 				DC3332E01D6BB04900D32535 /* Notebook.swift in Sources */,
 				DC8221351D62668800FF1FC4 /* ReminderButton.swift in Sources */,

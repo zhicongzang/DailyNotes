@@ -814,7 +814,7 @@
                                     <segue destination="skM-j6-hn6" kind="presentation" identifier="ToNewNoteDetailVC" id="an4-f6-Pcl"/>
                                 </connections>
                             </button>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="gAK-56-c7Y" customClass="ZZPlaceholderTextView" customModule="DailyNotes" customModuleProvider="target">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="gAK-56-c7Y" customClass="NoteTextView" customModule="DailyNotes" customModuleProvider="target">
                                 <rect key="frame" x="7" y="96" width="397" height="536"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -822,6 +822,9 @@
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="string" keyPath="placeholder" value="Text"/>
                                 </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <outlet property="delegate" destination="tNh-37-q1I" id="PZ5-As-Iap"/>
+                                </connections>
                             </textView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>

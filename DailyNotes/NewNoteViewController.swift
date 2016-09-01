@@ -11,10 +11,12 @@ import MapKit
 
 class NewNoteViewController: UIViewController {
     
+    var lastAttrbutes: [String: AnyObject]?
+    
 
     @IBOutlet weak var keyboardButton: KeyboardButton!
     @IBOutlet weak var subjectTextField: UITextField!
-    @IBOutlet weak var textView: UITextView!
+    @IBOutlet weak var textView: NoteTextView!
     @IBOutlet weak var toolBarView: UIView!
     @IBOutlet weak var subjectTextFieldView: UIView!
     @IBOutlet weak var notebookButton: UIButton!
@@ -90,6 +92,8 @@ class NewNoteViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        setupButtons()
         
         locationManager.requestWhenInUseAuthorization()
         
@@ -252,6 +256,157 @@ class NewNoteViewController: UIViewController {
 
 }
 
+extension NewNoteViewController {
+    
+    func setupButtons() {
+        alignLeftButton.selected = true
+        alignLeftButton.addTarget(self, action: #selector(NewNoteViewController.textAlignLeft(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+        alignCenterButton.addTarget(self, action: #selector(NewNoteViewController.textAlignCenter(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+        alignRightButton.addTarget(self, action: #selector(NewNoteViewController.textAlignRight(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+        textBackgroundColorButton.addTarget(self, action: #selector(NewNoteViewController.textBackgroundColor(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+        fontStrikethroughButton.addTarget(self, action: #selector(NewNoteViewController.fontStrikethrough(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+        fontUnderlineButton.addTarget(self, action: #selector(NewNoteViewController.fontUnderline(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+        fontItalicButton.addTarget(self, action: #selector(NewNoteViewController.fontItalic(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+        fontBoldButton.addTarget(self, action: #selector(NewNoteViewController.fontBold(_:)), forControlEvents: UIControlEvents.TouchUpInside)
+    }
+    
+    func textAlign(align: NSTextAlignment) {
+        let style =  NSMutableParagraphStyle()
+        style.alignment = align
+        let string = NSMutableAttributedString(attributedString: textView.attributedText)
+        let selectedRange = textView.selectedRange
+        let searchRange = NSRange(location: 0, length: selectedRange.length + selectedRange.location)
+        var range = NSString(string: string.string).rangeOfString("\n", options: NSStringCompareOptions.BackwardsSearch, range: searchRange)
+        if range.location == NSNotFound {
+            range = NSRange(location: 0, length: 1)
+        } else {
+            range = NSRange(location: range.location + 1, length: 1)
+        }
+        if range.length + range.location >= string.length {
+            textView.typingAttributes[NSParagraphStyleAttributeName] = style
+            return
+        }
+        string.addAttribute(NSParagraphStyleAttributeName, value:  style, range: range)
+        textView.attributedText = string
+        textView.selectedRange = selectedRange
+    }
+    
+    func textAddAttrbute(attrbute: (String, AnyObject)) {
+        if textView.selectedRange.length > 0 {
+            let range = textView.selectedRange
+            let string = NSMutableAttributedString(attributedString: textView.attributedText)
+            string.addAttribute(attrbute.0, value:  attrbute.1, range: range)
+            textView.attributedText = string
+            textView.selectedRange = range
+        } else {
+            textView.typingAttributes[attrbute.0] = attrbute.1
+        }
+    }
+    
+    func textRemoveAttrbute(attrbuteName: String) {
+        if textView.selectedRange.length > 0 {
+            let range = textView.selectedRange
+            let string = NSMutableAttributedString(attributedString: textView.attributedText)
+            string.removeAttribute(attrbuteName, range: range)
+            textView.attributedText = string
+            textView.selectedRange = range
+        } else {
+            textView.typingAttributes[attrbuteName] = nil
+        }
+    }
+    
+    @objc
+    func textAlignLeft(sender: FontSettingButton) {
+        if !sender.selected {
+            textAlign(.Left)
+            alignLeftButton.selected = true
+            alignCenterButton.selected = false
+            alignRightButton.selected = false
+        }
+    }
+    
+    @objc
+    func textAlignCenter(sender: FontSettingButton) {
+        if sender.selected {
+            textAlign(.Left)
+            alignLeftButton.selected = true
+            alignCenterButton.selected = false
+            alignRightButton.selected = false
+            return
+        }
+        textAlign(.Center)
+        alignLeftButton.selected = false
+        alignCenterButton.selected = true
+        alignRightButton.selected = false
+    }
+    
+    @objc
+    func textAlignRight(sender: FontSettingButton) {
+        if sender.selected {
+            textAlign(.Left)
+            alignLeftButton.selected = true
+            alignCenterButton.selected = false
+            alignRightButton.selected = false
+            return
+        }
+        textAlign(.Right)
+        alignLeftButton.selected = false
+        alignCenterButton.selected = false
+        alignRightButton.selected = true
+    }
+    
+    @objc
+    func textBackgroundColor(sender: FontSettingButton) {
+        if sender.selected {
+            textRemoveAttrbute(NSBackgroundColorAttributeName)
+        } else {
+            textAddAttrbute((NSBackgroundColorAttributeName, UIColor.yellowColor()))
+        }
+        sender.selected = !sender.selected
+    }
+    
+    @objc
+    func fontStrikethrough(sender: FontSettingButton) {
+        if sender.selected {
+            textRemoveAttrbute(NSStrikethroughStyleAttributeName)
+        } else {
+            textAddAttrbute((NSStrikethroughStyleAttributeName, 1))
+        }
+        sender.selected = !sender.selected
+    }
+    
+    @objc
+    func fontUnderline(sender: FontSettingButton) {
+        if sender.selected {
+            textRemoveAttrbute(NSUnderlineStyleAttributeName)
+        } else {
+            textAddAttrbute((NSUnderlineStyleAttributeName, 1))
+        }
+        sender.selected = !sender.selected
+    }
+    
+    @objc
+    func fontItalic(sender: FontSettingButton) {
+        if sender.selected {
+            textAddAttrbute((NSFontAttributeName, UIFont.systemFontOfSize(14)))
+        } else {
+            textAddAttrbute((NSFontAttributeName, UIFont.italicSystemFontOfSize(14)))
+        }
+        sender.selected = !sender.selected
+    }
+    
+    @objc
+    func fontBold(sender: FontSettingButton) {
+        if sender.selected {
+            textAddAttrbute((NSFontAttributeName, UIFont.systemFontOfSize(14)))
+        } else {
+            textAddAttrbute((NSFontAttributeName, UIFont.boldSystemFontOfSize(14)))
+        }
+        sender.selected = !sender.selected
+    }
+    
+}
+
 extension NewNoteViewController: CLLocationManagerDelegate {
     func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if let location = locations.last {
@@ -261,3 +416,56 @@ extension NewNoteViewController: CLLocationManagerDelegate {
     }
     
 }
+
+
+extension NewNoteViewController: UITextViewDelegate {
+    func textViewDidChangeSelection(textView: UITextView) {
+        if lastAttrbutes != nil {
+            textView.typingAttributes = lastAttrbutes!
+            lastAttrbutes = nil
+            return
+        }
+        if textView.selectedRange.length > 0 {
+            textView.typingAttributes = textView.attributedText.attributesAtIndex(textView.selectedRange.location + 1, effectiveRange: nil)
+        } else if textView.selectedRange.location > 0 {
+            textView.typingAttributes = textView.attributedText.attributesAtIndex(textView.selectedRange.location - 1, effectiveRange: nil)
+        }
+    }
+    func textView(textView: UITextView, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {
+        if text == "\n" {
+//            let string = NSMutableAttributedString(attributedString: textView.attributedText)
+//            string.addAttributes(textView.typingAttributes, range: range)
+//            string.replaceCharactersInRange(range, withString: " ")
+//            
+//            string.setAttributes([:], range: range)
+//            textView.attributedText = string
+//            textView.selectedRange = NSRange(location: range.location,length: 0)
+            lastAttrbutes = textView.typingAttributes
+            textView.typingAttributes = [:]
+        }
+
+        return true
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

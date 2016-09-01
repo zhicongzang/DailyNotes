@@ -128,4 +128,18 @@ extension String {
         }
         return beginSpace + self.removeHeadAndTailSpacePro
     }
+    
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
