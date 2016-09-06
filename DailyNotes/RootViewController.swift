@@ -194,8 +194,7 @@ class RootViewController: UIViewController {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "OldNote" {
             if let sender = sender as? RootNotebookTableViewCell {
-                let nc = segue.destinationViewController as! UINavigationController
-                let vc = nc.topViewController as! NewNoteViewController
+                let vc = segue.destinationViewController as! NewNoteViewController
                 vc.note = sender.note
             }
             

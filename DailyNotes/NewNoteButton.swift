@@ -28,3 +28,17 @@ class NewNoteButton: UIButton {
     }
 
 }
+
+class NewNoteReminderButton: NewNoteButton {
+    var isSet = false {
+        didSet {
+            if oldValue != isSet {
+                if isSet {
+                    self.setImage(UIImage(named: "ReminderFilled"), forState: UIControlState.Normal)
+                } else {
+                    self.setImage(UIImage(named: "Reminder"), forState: UIControlState.Normal)
+                }
+            }
+        }
+    }
+}

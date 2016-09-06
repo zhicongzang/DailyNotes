@@ -80,12 +80,32 @@ extension UIView {
         dividingLineLayer.backgroundColor = lineColor
         self.layer.addSublayer(dividingLineLayer)
     }
+    
+    func setupRightDividingLine(lineWidth lineWidth: CGFloat, lineColor: CGColor) {
+        let dividingLineLayer = CAShapeLayer()
+        dividingLineLayer.frame = CGRect(x: self.frame.width - lineWidth, y: 0, width: lineWidth, height: self.frame.height)
+        dividingLineLayer.backgroundColor = lineColor
+        self.layer.addSublayer(dividingLineLayer)
+    }
+    
+    func setupLeftDividingLine(lineWidth lineWidth: CGFloat, lineColor: CGColor) {
+        let dividingLineLayer = CAShapeLayer()
+        dividingLineLayer.frame = CGRect(x: 0, y: 0, width: lineWidth, height: self.frame.height)
+        dividingLineLayer.backgroundColor = lineColor
+        self.layer.addSublayer(dividingLineLayer)
+    }
 }
 
 extension NSDate {
     func toReminderDateString() -> String {
         let dateFormatter = NSDateFormatter()
         dateFormatter.dateFormat = "MMM dd, yyy  hh:mm"
+        return dateFormatter.stringFromDate(self)
+    }
+    
+    func toReminderDateStringNoTime() -> String {
+        let dateFormatter = NSDateFormatter()
+        dateFormatter.dateFormat = "MMM dd, yyy"
         return dateFormatter.stringFromDate(self)
     }
     
@@ -101,6 +121,12 @@ extension NSDate {
         }
         return "\(days) days age"
         
+    }
+    
+    func dateComponent()-> NSDateComponents{
+        let calendarUnit: NSCalendarUnit = [.Minute, .Hour, .Day, .Month, .Year]
+        let dateComponents = NSCalendar.currentCalendar().components(calendarUnit, fromDate: self)
+        return dateComponents
     }
     
 }

@@ -8,10 +8,17 @@
 
 import UIKit
 import MapKit
+import EventKit
 
 class NewNoteViewController: UIViewController {
     
+    lazy var eventStore: EKEventStore = {
+        let delegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        return delegate.eventStore
+    }()
+    
     var lastAttrbutes: [String: AnyObject]?
+    var lastRange: NSRange?
     
 
     @IBOutlet weak var keyboardButton: KeyboardButton!
@@ -20,8 +27,18 @@ class NewNoteViewController: UIViewController {
     @IBOutlet weak var toolBarView: UIView!
     @IBOutlet weak var subjectTextFieldView: UIView!
     @IBOutlet weak var notebookButton: UIButton!
+    @IBOutlet weak var reminderButton: NewNoteReminderButton!
     
     @IBOutlet weak var toolBarLayoutConstraint: NSLayoutConstraint!
+    
+    @IBOutlet weak var datePickerBackView: UIView!
+    @IBOutlet weak var datePicker: UIDatePicker!
+    @IBOutlet weak var datePickerDetailLabel: UILabel!
+    @IBOutlet weak var datePickerCancelControl: UIControl!
+    @IBOutlet weak var datePickerDoneControl: UIControl!
+    @IBOutlet weak var datePickerContentView: UIView!
+    
+    
     
     let alignLeftButton = FontSettingButton(image: UIImage(named: "AlignLeft"), highlightedImage: UIImage(named: "AlignLeftHighlight"))
     let alignCenterButton = FontSettingButton(image: UIImage(named: "AlignCenter"), highlightedImage: UIImage(named: "AlignCenterHighlight"))
@@ -88,12 +105,17 @@ class NewNoteViewController: UIViewController {
     
     var createdDate: NSDate?
     var updateDate: NSDate?
-    var reminderDate: NSDate?
+    var reminderDate: NSDate? {
+        didSet {
+            reminderButton.isSet = (reminderDate != nil)
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setupButtons()
+        setupDatePicker()
         
         locationManager.requestWhenInUseAuthorization()
         
@@ -106,6 +128,19 @@ class NewNoteViewController: UIViewController {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(NewNoteViewController.keyboardWillChangeFrame(_:)), name: UIKeyboardWillChangeFrameNotification, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(NewNoteViewController.keyboardWillShow(_:)), name: UIKeyboardWillShowNotification, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(NewNoteViewController.keyboardWillHide(_:)), name: UIKeyboardWillHideNotification, object: nil)
+        
+    }
+    
+    func setupDatePicker() {
+        datePickerBackView.backgroundColor = UIColor(white: 0.8, alpha: 0.6)
+        datePicker.setupTopDividingLine(lineWidth: 0.5, lineColor: UIColor(white: 0.6, alpha: 1).CGColor)
+        datePickerContentView.setupTopDividingLine(lineWidth: 0.5, lineColor: UIColor(white: 0.6, alpha: 1).CGColor)
+        datePicker.setupButtomDividingLine(lineWidth: 0.5, lineColor: UIColor(white: 0.6, alpha: 1).CGColor)
+        datePickerCancelControl.setupRightDividingLine(lineWidth: 0.25, lineColor: UIColor(white: 0.6, alpha: 1).CGColor)
+        datePickerDoneControl.setupLeftDividingLine(lineWidth: 0.25, lineColor: UIColor(white: 0.6, alpha: 1).CGColor)
+        datePickerCancelControl.setupButtomDividingLine(lineWidth: 0.5, lineColor: UIColor(white: 0.6, alpha: 1).CGColor)
+        datePickerDoneControl.setupButtomDividingLine(lineWidth: 0.5, lineColor: UIColor(white: 0.6, alpha: 1).CGColor)
+        datePickerBackView.hidden = true
         
     }
     
@@ -136,6 +171,19 @@ class NewNoteViewController: UIViewController {
         let date = NSDate()
         
         Note.saveNote(note, subject: subject, notebook: notebook, createdDate: createdDate ?? date, updateDate: date, reminderDate: reminderDate, location: location, locationName: locationName, text: textView.attributedText)
+        if let reminderDate = self.reminderDate {
+            let reminder = EKReminder(eventStore: eventStore)
+            reminder.title = subject
+            reminder.calendar = eventStore.defaultCalendarForNewReminders()
+            let dueDateComponents = reminderDate.dateComponent()
+            reminder.dueDateComponents = dueDateComponents
+            let alerm = EKAlarm(absoluteDate: reminderDate)
+            reminder.addAlarm(alerm)
+            do {
+                try eventStore.saveReminder(reminder, commit: true)
+                (UIApplication.sharedApplication().delegate as! AppDelegate).getAllReminders()
+            } catch {}
+        }
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -233,6 +281,54 @@ class NewNoteViewController: UIViewController {
     @IBAction func listButtonPressed(sender: AnyObject) {
         let popOver = ZZPopOver(sender: sender as! UIButton, holder: self, size: CGSize(width: (self.view.frame.width / 17) * 7, height: self.view.frame.width / 10), direction: ZZPopOverDirection.FromButtom(padding: 5), triangleAlignStyle: ZZPopOverTriangleAlignStyle.AlignCustom(factor: 0.3))
         popOver.showPopOver(animated: true, contents: listSettingButtons, contentsStyle: ZZPopOverContentsStyle.ResizeToSameSize)
+    }
+    
+    @IBAction func pictureButtonPressed(sender: AnyObject) {
+        presentViewController(imagePickerController, animated: true, completion: nil)
+    }
+    
+    @IBAction func cameraButtonPressed(sender: AnyObject) {
+        presentViewController(imageTakerController, animated: true, completion: nil)
+    }
+    
+    @IBAction func reminderButtonPressed(sender: AnyObject) {
+        subjectTextField.resignFirstResponder()
+        textView.resignFirstResponder()
+        if let reminderDate = self.reminderDate {
+            datePicker.date = reminderDate
+            datePickerDetailLabel.text = datePicker.date.toReminderDateStringNoTime()
+        } else {
+            datePicker.date = NSDate()
+            datePickerDetailLabel.text = datePicker.date.toReminderDateStringNoTime()
+        }
+        self.datePickerBackView.transform = CGAffineTransformMakeScale(1.1, 1.1)
+        self.datePickerBackView.alpha = 0
+        self.datePickerBackView.hidden = false
+        UIView.animateWithDuration(0.3, delay: 0, options: .BeginFromCurrentState, animations: {
+            self.datePickerBackView.transform = CGAffineTransformIdentity
+            self.datePickerBackView.alpha = 1
+            }, completion: nil)
+    }
+
+    @IBAction func PickerCancelPressed(sender: AnyObject) {
+        UIView.animateWithDuration(0.3, delay: 0, options: .BeginFromCurrentState, animations: {
+            self.datePickerBackView.alpha = 0
+            }, completion: { (finished) in
+                self.datePickerBackView.hidden = true
+            })
+    }
+    
+    @IBAction func PickerDonePressed(sender: AnyObject) {
+        UIView.animateWithDuration(0.3, delay: 0, options: .BeginFromCurrentState, animations: {
+            self.datePickerBackView.alpha = 0
+            }, completion: { (finished) in
+                self.datePickerBackView.hidden = true
+                self.reminderDate = self.datePicker.date
+        })
+    }
+    
+    @IBAction func datePickerChanged(sender: UIDatePicker) {
+        datePickerDetailLabel.text = sender.date.toReminderDateStringNoTime()
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -393,6 +489,7 @@ extension NewNoteViewController {
             textAddAttrbute((NSFontAttributeName, UIFont.italicSystemFontOfSize(14)))
         }
         sender.selected = !sender.selected
+        fontBoldButton.selected = false
     }
     
     @objc
@@ -403,8 +500,50 @@ extension NewNoteViewController {
             textAddAttrbute((NSFontAttributeName, UIFont.boldSystemFontOfSize(14)))
         }
         sender.selected = !sender.selected
+        fontItalicButton.selected = false
     }
     
+    func updateButtonsAndTyping(attributes attributes: [String : AnyObject]) {
+        fontSettingButtons.forEach({ (button) in
+            button.selected = false
+        })
+        alignLeftButton.selected = true
+        attributes.forEach({ (name, attribute) in
+            switch name {
+            case NSFontAttributeName:
+                if let font = attribute as? UIFont {
+                    switch font {
+                    case UIFont.boldSystemFontOfSize(14):
+                        fontBoldButton.selected = true
+                    case UIFont.italicSystemFontOfSize(14):
+                        fontItalicButton.selected = true
+                    default:
+                        break
+                    }
+                }
+            case NSUnderlineStyleAttributeName:
+                fontUnderlineButton.selected = true
+            case NSStrikethroughStyleAttributeName:
+                fontStrikethroughButton.selected = true
+            case NSParagraphStyleAttributeName:
+                if let style = attribute as? NSMutableParagraphStyle {
+                    switch style.alignment {
+                    case .Center:
+                        alignCenterButton.selected = true
+                        alignLeftButton.selected = false
+                    case .Right:
+                        alignRightButton.selected = true
+                        alignLeftButton.selected = false
+                    default:
+                        break
+                    }
+                }
+            default:
+                break
+            }
+        })
+        textView.typingAttributes = attributes
+    }
 }
 
 extension NewNoteViewController: CLLocationManagerDelegate {
@@ -419,32 +558,75 @@ extension NewNoteViewController: CLLocationManagerDelegate {
 
 
 extension NewNoteViewController: UITextViewDelegate {
+    
     func textViewDidChangeSelection(textView: UITextView) {
-        if lastAttrbutes != nil {
-            textView.typingAttributes = lastAttrbutes!
-            lastAttrbutes = nil
+        guard let oldRange = lastRange where (oldRange.location + 1 == textView.selectedRange.location) && oldRange.length == 0 && textView.selectedRange.length == 0 else {
+            if lastAttrbutes != nil {
+                updateButtonsAndTyping(attributes: lastAttrbutes!)
+                lastAttrbutes = nil
+                return
+            }
+            if textView.selectedRange.length > 0 {
+                updateButtonsAndTyping(attributes: textView.attributedText.attributesAtIndex(textView.selectedRange.location + 1, effectiveRange: nil))
+            } else if textView.selectedRange.location > 0 {
+                updateButtonsAndTyping(attributes: textView.attributedText.attributesAtIndex(textView.selectedRange.location - 1, effectiveRange: nil))
+            }
+            lastRange = textView.selectedRange
             return
         }
-        if textView.selectedRange.length > 0 {
-            textView.typingAttributes = textView.attributedText.attributesAtIndex(textView.selectedRange.location + 1, effectiveRange: nil)
-        } else if textView.selectedRange.location > 0 {
-            textView.typingAttributes = textView.attributedText.attributesAtIndex(textView.selectedRange.location - 1, effectiveRange: nil)
-        }
+        lastRange = textView.selectedRange
+        
     }
     func textView(textView: UITextView, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {
         if text == "\n" {
-//            let string = NSMutableAttributedString(attributedString: textView.attributedText)
-//            string.addAttributes(textView.typingAttributes, range: range)
-//            string.replaceCharactersInRange(range, withString: " ")
-//            
-//            string.setAttributes([:], range: range)
-//            textView.attributedText = string
-//            textView.selectedRange = NSRange(location: range.location,length: 0)
             lastAttrbutes = textView.typingAttributes
             textView.typingAttributes = [:]
         }
 
         return true
+    }
+}
+
+extension NewNoteViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    var imagePickerController: UIImagePickerController {
+        get {
+            let imagePicker = UIImagePickerController()
+            imagePicker.delegate = self
+            imagePicker.sourceType = .PhotoLibrary
+            return imagePicker
+        }
+    }
+    
+    var imageTakerController: UIImagePickerController {
+        get {
+            let imagePicker = UIImagePickerController()
+            imagePicker.delegate = self
+            imagePicker.sourceType = .Camera
+            return imagePicker
+        }
+    }
+    
+    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
+        picker.dismissViewControllerAnimated(true, completion: nil)
+        let attachment = NSTextAttachment()
+        let image = info[UIImagePickerControllerOriginalImage] as? UIImage
+        attachment.image = image
+        let bounds: CGRect
+        if image?.size.width <= screenWidth - 7 * 2 {
+            bounds = CGRect(x: 0, y: 0, width: image?.size.width ?? 0, height: image?.size.height ?? 0)
+        } else {
+            bounds = CGRect(x: 0, y: 0, width: screenWidth - 7 * 2, height: (image?.size.height ?? 0) * (screenWidth - 7 * 2) / (image?.size.width ?? 0))
+        }
+        attachment.bounds = bounds
+        let attributeStr = NSAttributedString(attachment: attachment)
+        let mutableStr = NSMutableAttributedString(attributedString: textView.attributedText)
+        mutableStr.insertAttributedString(attributeStr, atIndex: textView.selectedRange.location)
+        textView.attributedText = mutableStr
+        textView.selectedRange = NSRange(location: textView.selectedRange.location + 1, length: 0)
+    }
+    
+    func imagePickerControllerDidCancel(picker: UIImagePickerController) {
+        picker.dismissViewControllerAnimated(true, completion: nil)
     }
 }
 

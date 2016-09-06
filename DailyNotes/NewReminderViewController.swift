@@ -70,11 +70,6 @@ class NewReminderViewController: UIViewController {
         saveButton.enabled = false
     }
     
-    func dateComponentFromNSDate(date: NSDate)-> NSDateComponents{
-        let calendarUnit: NSCalendarUnit = [.Minute, .Hour, .Day, .Month, .Year]
-        let dateComponents = NSCalendar.currentCalendar().components(calendarUnit, fromDate: date)
-        return dateComponents
-    }
     
     override func didMoveToParentViewController(parent: UIViewController?) {
         contentView.transform = CGAffineTransformMakeScale(1.1, 1.1)
@@ -94,7 +89,7 @@ class NewReminderViewController: UIViewController {
         let reminder = EKReminder(eventStore: eventStore)
         reminder.title = textView.text.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet()) != "" ? textView.text : "Reminder at \(reminderLabel.text!)"
         reminder.calendar = eventStore.defaultCalendarForNewReminders()
-        let dueDateComponents = dateComponentFromNSDate(date!)
+        let dueDateComponents = date!.dateComponent()
         reminder.dueDateComponents = dueDateComponents
         let alerm = EKAlarm(absoluteDate: date!)
         reminder.addAlarm(alerm)
