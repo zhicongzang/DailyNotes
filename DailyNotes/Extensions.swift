@@ -157,6 +157,26 @@ extension String {
     
 }
 
+extension NSAttributedString {
+    
+    func heightWithConstrainedWidth(width: CGFloat) -> CGFloat {
+        let constraintRect = CGSize(width: width, height: CGFloat.max)
+        let boundingBox = self.boundingRectWithSize(constraintRect, options: NSStringDrawingOptions.UsesLineFragmentOrigin, context: nil)
+        return ceil(boundingBox.height)
+    }
+    
+    func createImage(imageWidth width: CGFloat) -> UIImage {
+        let size = CGSize(width: width, height: self.heightWithConstrainedWidth(width))
+        UIGraphicsBeginImageContextWithOptions(size, false, 0)
+        self.drawInRect(CGRect(x: 0, y: 0, width: size.width, height: size.height))
+        
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return image
+    }
+    
+}
+
 
 
 

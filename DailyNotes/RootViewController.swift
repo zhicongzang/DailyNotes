@@ -194,7 +194,7 @@ class RootViewController: UIViewController {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "OldNote" {
             if let sender = sender as? RootNotebookTableViewCell {
-                let vc = segue.destinationViewController as! NewNoteViewController
+                let vc = segue.destinationViewController as! NotePreviewViewController
                 vc.note = sender.note
             }
             
@@ -300,6 +300,14 @@ extension RootViewController: UITableViewDelegate, UITableViewDataSource {
             
         }
         return UITableViewCell()
+    }
+    
+    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        if tableView.tag == 0 {
+            if editingStyle == .Delete {
+                appDelegate.removeUncompletedReminderByIndex(indexPath.row)
+            }
+        }
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {

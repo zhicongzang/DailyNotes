@@ -37,6 +37,7 @@ class NewNoteViewController: UIViewController {
     @IBOutlet weak var datePickerCancelControl: UIControl!
     @IBOutlet weak var datePickerDoneControl: UIControl!
     @IBOutlet weak var datePickerContentView: UIView!
+    @IBOutlet weak var datePickerCancelLabel: UILabel!
     
     
     
@@ -135,7 +136,8 @@ class NewNoteViewController: UIViewController {
         datePickerBackView.backgroundColor = UIColor(white: 0.8, alpha: 0.6)
         datePicker.setupTopDividingLine(lineWidth: 0.5, lineColor: UIColor(white: 0.6, alpha: 1).CGColor)
         datePickerContentView.setupTopDividingLine(lineWidth: 0.5, lineColor: UIColor(white: 0.6, alpha: 1).CGColor)
-        datePicker.setupButtomDividingLine(lineWidth: 0.5, lineColor: UIColor(white: 0.6, alpha: 1).CGColor)
+        datePickerCancelControl.setupTopDividingLine(lineWidth: 0.5, lineColor: UIColor(white: 0.6, alpha: 1).CGColor)
+        datePickerDoneControl.setupTopDividingLine(lineWidth: 0.5, lineColor: UIColor(white: 0.6, alpha: 1).CGColor)
         datePickerCancelControl.setupRightDividingLine(lineWidth: 0.25, lineColor: UIColor(white: 0.6, alpha: 1).CGColor)
         datePickerDoneControl.setupLeftDividingLine(lineWidth: 0.25, lineColor: UIColor(white: 0.6, alpha: 1).CGColor)
         datePickerCancelControl.setupButtomDividingLine(lineWidth: 0.5, lineColor: UIColor(white: 0.6, alpha: 1).CGColor)
@@ -170,20 +172,29 @@ class NewNoteViewController: UIViewController {
         }
         let date = NSDate()
         
-        Note.saveNote(note, subject: subject, notebook: notebook, createdDate: createdDate ?? date, updateDate: date, reminderDate: reminderDate, location: location, locationName: locationName, text: textView.attributedText)
-        if let reminderDate = self.reminderDate {
-            let reminder = EKReminder(eventStore: eventStore)
-            reminder.title = subject
-            reminder.calendar = eventStore.defaultCalendarForNewReminders()
-            let dueDateComponents = reminderDate.dateComponent()
-            reminder.dueDateComponents = dueDateComponents
-            let alerm = EKAlarm(absoluteDate: reminderDate)
-            reminder.addAlarm(alerm)
-            do {
-                try eventStore.saveReminder(reminder, commit: true)
-                (UIApplication.sharedApplication().delegate as! AppDelegate).getAllReminders()
-            } catch {}
+        if note?.reminderDate != nil && reminderDate == nil {
+            (UIApplication.sharedApplication().delegate as! AppDelegate).removeReminder(title: note?.subject ?? "", dueDate: (note?.reminderDate)!)
         }
+        else if let reminderDate = self.reminderDate {
+            if note?.reminderDate == nil {
+                let reminder = EKReminder(eventStore: eventStore)
+                reminder.title = subject
+                reminder.calendar = eventStore.defaultCalendarForNewReminders()
+                let dueDateComponents = reminderDate.dateComponent()
+                reminder.dueDateComponents = dueDateComponents
+                let alerm = EKAlarm(absoluteDate: reminderDate)
+                reminder.addAlarm(alerm)
+                do {
+                    try eventStore.saveReminder(reminder, commit: true)
+                    (UIApplication.sharedApplication().delegate as! AppDelegate).getAllReminders()
+                } catch {}
+            } else if let oldReminderDate = note?.reminderDate, let oldTitle = note?.subject {
+                (UIApplication.sharedApplication().delegate as! AppDelegate).modifyReminder(title: oldTitle, dueDate: oldReminderDate, newTitle: subject, newDueDate: reminderDate)
+            }
+            
+        }
+        
+        Note.saveNote(note, subject: subject, notebook: notebook, createdDate: createdDate ?? date, updateDate: date, reminderDate: reminderDate, location: location, locationName: locationName, text: textView.attributedText)
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -291,9 +302,7 @@ class NewNoteViewController: UIViewController {
         presentViewController(imageTakerController, animated: true, completion: nil)
     }
     
-    @IBAction func reminderButtonPressed(sender: AnyObject) {
-        subjectTextField.resignFirstResponder()
-        textView.resignFirstResponder()
+    func showDatePicker() {
         if let reminderDate = self.reminderDate {
             datePicker.date = reminderDate
             datePickerDetailLabel.text = datePicker.date.toReminderDateStringNoTime()
@@ -309,12 +318,26 @@ class NewNoteViewController: UIViewController {
             self.datePickerBackView.alpha = 1
             }, completion: nil)
     }
+    
+    @IBAction func reminderButtonPressed(sender: NewNoteReminderButton) {
+        subjectTextField.resignFirstResponder()
+        textView.resignFirstResponder()
+        
+        if reminderButton.isSet {
+            datePickerCancelLabel.text = "Remove"
+        } else {
+            datePickerCancelLabel.text = "Cancel"
+        }
+        showDatePicker()
+        
+    }
 
     @IBAction func PickerCancelPressed(sender: AnyObject) {
         UIView.animateWithDuration(0.3, delay: 0, options: .BeginFromCurrentState, animations: {
             self.datePickerBackView.alpha = 0
             }, completion: { (finished) in
                 self.datePickerBackView.hidden = true
+                self.reminderDate = nil
             })
     }
     

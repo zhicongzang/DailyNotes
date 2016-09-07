@@ -34,9 +34,78 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         })
     }
     
+    func removeAllReminders() {
+        let predicate = self.eventStore.predicateForRemindersInCalendars(nil)
+        self.eventStore.fetchRemindersMatchingPredicate(predicate, completion: { (reminders) in
+            reminders?.forEach({ (reminder) in
+                do {
+                    try self.eventStore.removeReminder(reminder, commit: true)
+                } catch {}
+            })
+            
+        })
+    }
+    
     func changedCompletionOfReminderByIndex(index: Int, completed: Bool) {
         if index < uncompletedReminders.count {
             uncompletedReminders[index].completed = completed
+            do {
+                try eventStore.saveReminder(uncompletedReminders[index], commit: true)
+            } catch {}
+            getAllReminders()
+        }
+    }
+    
+    func removeReminder(title title: String, dueDate: NSDate) {
+        reminders.forEach { (reminder) in
+            if let date = reminder.dueDateComponents?.date {
+                if reminder.title == title && date.toReminderDateString() == dueDate.toReminderDateString() {
+                    do {
+                        try eventStore.removeReminder(reminder, commit: true)
+                    } catch {}
+                }
+            }
+            
+        }
+        getAllReminders()
+    }
+    
+    func modifyReminder(title title: String, dueDate: NSDate, newTitle: String?, newDueDate: NSDate?) {
+        reminders.forEach { (reminder) in
+            if let date = reminder.dueDateComponents?.date {
+                if reminder.title == title && date.toReminderDateString() == dueDate.toReminderDateString() {
+                    if let title = newTitle {
+                        reminder.title = title
+                    }
+                    if let dueDate = newDueDate {
+                        reminder.dueDateComponents = dueDate.dateComponent()
+                    }
+                    do {
+                        try eventStore.saveReminder(reminder, commit: true)
+                    } catch {}
+                }
+            }
+        }
+        getAllReminders()
+    }
+    
+    func removeUncompletedReminderByIndex(index: Int) {
+        if index < uncompletedReminders.count {
+            do {
+                try eventStore.removeReminder(uncompletedReminders[index], commit: true)
+            } catch {}
+            getAllReminders()
+        }
+    }
+    
+    func modifyUncompletedReminderByIndex(index: Int, newTitle: String?, newDueDate: NSDate?) {
+        if index < uncompletedReminders.count {
+            if let title = newTitle {
+                uncompletedReminders[index].title = title
+            }
+            if let dueDate = newDueDate {
+                uncompletedReminders[index].dueDateComponents = dueDate.dateComponent()
+            }
             do {
                 try eventStore.saveReminder(uncompletedReminders[index], commit: true)
             } catch {}
