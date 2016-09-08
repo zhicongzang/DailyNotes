@@ -507,9 +507,9 @@ extension NewNoteViewController {
     @objc
     func fontItalic(sender: FontSettingButton) {
         if sender.selected {
-            textAddAttrbute((NSFontAttributeName, UIFont.systemFontOfSize(14)))
+            textAddAttrbute((NSFontAttributeName, UIFont.systemFontOfSize(17)))
         } else {
-            textAddAttrbute((NSFontAttributeName, UIFont.italicSystemFontOfSize(14)))
+            textAddAttrbute((NSFontAttributeName, UIFont.italicSystemFontOfSize(17)))
         }
         sender.selected = !sender.selected
         fontBoldButton.selected = false
@@ -518,9 +518,9 @@ extension NewNoteViewController {
     @objc
     func fontBold(sender: FontSettingButton) {
         if sender.selected {
-            textAddAttrbute((NSFontAttributeName, UIFont.systemFontOfSize(14)))
+            textAddAttrbute((NSFontAttributeName, UIFont.systemFontOfSize(17)))
         } else {
-            textAddAttrbute((NSFontAttributeName, UIFont.boldSystemFontOfSize(14)))
+            textAddAttrbute((NSFontAttributeName, UIFont.boldSystemFontOfSize(17)))
         }
         sender.selected = !sender.selected
         fontItalicButton.selected = false
@@ -536,9 +536,9 @@ extension NewNoteViewController {
             case NSFontAttributeName:
                 if let font = attribute as? UIFont {
                     switch font {
-                    case UIFont.boldSystemFontOfSize(14):
+                    case UIFont.boldSystemFontOfSize(17):
                         fontBoldButton.selected = true
-                    case UIFont.italicSystemFontOfSize(14):
+                    case UIFont.italicSystemFontOfSize(17):
                         fontItalicButton.selected = true
                     default:
                         break
