@@ -7,10 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		324045421D8249AD00E0FC1C /* ZZTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3240453F1D8249AD00E0FC1C /* ZZTag.swift */; };
+		324045431D8249AD00E0FC1C /* ZZTagsField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 324045401D8249AD00E0FC1C /* ZZTagsField.swift */; };
+		324045441D8249AD00E0FC1C /* ZZTagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 324045411D8249AD00E0FC1C /* ZZTagView.swift */; };
 		DC232F711D80BB8800B81583 /* NotePreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC232F701D80BB8800B81583 /* NotePreviewViewController.swift */; };
-		DC232F751D81EF6100B81583 /* ZZTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC232F741D81EF6100B81583 /* ZZTag.swift */; };
-		DC232F771D81F04300B81583 /* ZZTagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC232F761D81F04300B81583 /* ZZTagView.swift */; };
-		DC232F791D81F60C00B81583 /* ZZTagsField.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC232F781D81F60C00B81583 /* ZZTagsField.swift */; };
 		DC3332D41D6B95B300D32535 /* MoveNoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC3332D31D6B95B300D32535 /* MoveNoteViewController.swift */; };
 		DC3332DB1D6BA5CB00D32535 /* NotebookTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC3332D91D6BA5CB00D32535 /* NotebookTableViewCell.swift */; };
 		DC3332DC1D6BA5CB00D32535 /* NotebookTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = DC3332DA1D6BA5CB00D32535 /* NotebookTableViewCell.xib */; };
@@ -105,10 +105,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		3240453F1D8249AD00E0FC1C /* ZZTag.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZZTag.swift; sourceTree = "<group>"; };
+		324045401D8249AD00E0FC1C /* ZZTagsField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZZTagsField.swift; sourceTree = "<group>"; };
+		324045411D8249AD00E0FC1C /* ZZTagView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZZTagView.swift; sourceTree = "<group>"; };
 		DC232F701D80BB8800B81583 /* NotePreviewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotePreviewViewController.swift; sourceTree = "<group>"; };
-		DC232F741D81EF6100B81583 /* ZZTag.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZZTag.swift; sourceTree = "<group>"; };
-		DC232F761D81F04300B81583 /* ZZTagView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZZTagView.swift; sourceTree = "<group>"; };
-		DC232F781D81F60C00B81583 /* ZZTagsField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZZTagsField.swift; sourceTree = "<group>"; };
 		DC3332D31D6B95B300D32535 /* MoveNoteViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoveNoteViewController.swift; sourceTree = "<group>"; };
 		DC3332D91D6BA5CB00D32535 /* NotebookTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotebookTableViewCell.swift; sourceTree = "<group>"; };
 		DC3332DA1D6BA5CB00D32535 /* NotebookTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NotebookTableViewCell.xib; sourceTree = "<group>"; };
@@ -209,9 +209,9 @@
 		DC232F731D81EF3E00B81583 /* ZZTagsField */ = {
 			isa = PBXGroup;
 			children = (
-				DC232F741D81EF6100B81583 /* ZZTag.swift */,
-				DC232F761D81F04300B81583 /* ZZTagView.swift */,
-				DC232F781D81F60C00B81583 /* ZZTagsField.swift */,
+				3240453F1D8249AD00E0FC1C /* ZZTag.swift */,
+				324045401D8249AD00E0FC1C /* ZZTagsField.swift */,
+				324045411D8249AD00E0FC1C /* ZZTagView.swift */,
 			);
 			name = ZZTagsField;
 			sourceTree = "<group>";
@@ -553,9 +553,8 @@
 				DC8220B51D514D3300FF1FC4 /* DetailPhotosCollectionLayout.swift in Sources */,
 				DC3332FC1D6F801700D32535 /* ExpendableTableView.swift in Sources */,
 				DC8220C41D528B0F00FF1FC4 /* DetailCollectionViewCell.swift in Sources */,
-				DC232F751D81EF6100B81583 /* ZZTag.swift in Sources */,
+				324045421D8249AD00E0FC1C /* ZZTag.swift in Sources */,
 				DC3332F51D6E41F500D32535 /* RootNotebookTableViewCell.swift in Sources */,
-				DC232F791D81F60C00B81583 /* ZZTagsField.swift in Sources */,
 				DCA7869F1D64E0AE00702E87 /* NewNoteDetailsViewController.swift in Sources */,
 				DC8220C11D527CA900FF1FC4 /* PhotoCollectionViewCell.swift in Sources */,
 				DC232F711D80BB8800B81583 /* NotePreviewViewController.swift in Sources */,
@@ -563,8 +562,10 @@
 				DC8220B31D5145D100FF1FC4 /* DetailPhotosViewController.swift in Sources */,
 				DC6ED94A1D401FFD00AEFECB /* AppDelegate.swift in Sources */,
 				DC3332D41D6B95B300D32535 /* MoveNoteViewController.swift in Sources */,
+				324045431D8249AD00E0FC1C /* ZZTagsField.swift in Sources */,
 				DC3332E31D6BBC7600D32535 /* AddNewNotebookTableViewCell.swift in Sources */,
 				DC8221321D625F9100FF1FC4 /* ReminderTableViewCell.swift in Sources */,
+				324045441D8249AD00E0FC1C /* ZZTagView.swift in Sources */,
 				DCF949821D4ABA47004B3ACE /* NewPhotoViewController.swift in Sources */,
 				DC6ED9841D4029E500AEFECB /* RootViewController.swift in Sources */,
 				DC8220C81D53E19900FF1FC4 /* ZZPlaceholderTextView.swift in Sources */,
@@ -573,7 +574,6 @@
 				DC3332EF1D6CFB9C00D32535 /* Note.swift in Sources */,
 				DC8B9AA91D481F64009DB76B /* NewNoteButton.swift in Sources */,
 				DC6ED9811D40296C00AEFECB /* Constant.swift in Sources */,
-				DC232F771D81F04300B81583 /* ZZTagView.swift in Sources */,
 				DCF949731D4927BB004B3ACE /* NewReminderViewController.swift in Sources */,
 				DCA786961D63CA8800702E87 /* RootTableViewTitle.swift in Sources */,
 			);

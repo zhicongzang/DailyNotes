@@ -11,7 +11,7 @@ import UIKit
 class ZZTagView: UIView {
     
     static let XPadding: CGFloat = 6.0
-    static let YPadding: CGFloat = 6.0
+    static let YPadding: CGFloat = 1.0
     
     private let textLabel = UILabel()
     
@@ -72,6 +72,9 @@ class ZZTagView: UIView {
         backgroundColor = tintColor
         self.layer.cornerRadius = 3.0
         self.layer.masksToBounds = true
+        self.layer.borderColor = UIColor.blackColor().CGColor
+        self.layer.borderWidth = 0.5
+        
         
         textColor = .whiteColor()
         selectedColor = .grayColor()
@@ -81,6 +84,7 @@ class ZZTagView: UIView {
         textLabel.font = font
         textLabel.textColor = self.textColor
         textLabel.backgroundColor = .clearColor()
+        self.addSubview(textLabel)
         
         self.displayText = tag.text
         updateLabelText()
@@ -158,20 +162,41 @@ class ZZTagView: UIView {
         }
     }
     
-    override func canBecomeFocused() -> Bool {
+    override func canBecomeFirstResponder() -> Bool {
         return true
     }
     
     override func becomeFirstResponder() -> Bool {
+        let didBecomeFirstResponder = super.becomeFirstResponder()
         selected = true
-        return super.becomeFirstResponder()
+        return didBecomeFirstResponder
     }
     
     override func resignFirstResponder() -> Bool {
+        let didResignFirstResponder = super.resignFirstResponder()
         selected = false
-        return super.resignFirstResponder()
+        return didResignFirstResponder
+    }
+    
+}
+
+extension ZZTagView: UIKeyInput {
+    
+    func hasText() -> Bool {
+        return true
     }
     
+    func insertText(text: String) {
+        if let didRequestDeleteEvent = onDidRequestDelete {
+            didRequestDeleteEvent(tagView: self, replacementText: text)
+        }
+    }
+    
+    func deleteBackward() {
+        if let didRequestDeleteEvent = onDidRequestDelete {
+            didRequestDeleteEvent(tagView: self, replacementText: nil)
+        }
+    }
 }
 
 

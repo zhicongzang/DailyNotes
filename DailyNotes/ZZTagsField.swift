@@ -1,24 +1,19 @@
 //
 //  ZZTagsField.swift
-//  DailyNotes
+//  TestZZTagsField
 //
-//  Created by Zhicong Zang on 9/8/16.
+//  Created by ZZC on 9/8/16.
 //  Copyright © 2016 Zhicong Zang. All rights reserved.
 //
 
 import UIKit
 
-@IBDesignable
 class ZZTagsField: UIView {
-    
-    private static let HSpace: CGFloat = 0.0
-    private static let TextFieldHSpace: CGFloat = ZZTagView.XPadding
-    private static let VSpace: CGFloat = 4.0
-    private static let MinTextFieldWidth: CGFloat = 56.0
-    private static let RowHeight: CGFloat = 25.0
-    private static let FieldMarginX: CGFloat = ZZTagView.XPadding
-    
+
     private let textField = BackspaceDetectingTextField()
+    
+    var views:[String: AnyObject] = [:]
+    var viewsLayout = [NSLayoutConstraint]()
     
     @IBInspectable override var tintColor: UIColor! {
         didSet {
@@ -105,7 +100,6 @@ class ZZTagsField: UIView {
     
     private(set) var tags = [ZZTag]()
     private var tagViews = [ZZTagView]()
-    private var intrinsicContentHeight: CGFloat = 0.0
     
     var onDidEndEditing: ((ZZTagsField) -> Void)?
     
@@ -123,7 +117,6 @@ class ZZTagsField: UIView {
     
     var onDidChangeHeightTo: ((ZZTagsField, height: CGFloat) -> Void)?
     
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setup()
@@ -139,13 +132,13 @@ class ZZTagsField: UIView {
         selectedColor = .grayColor()
         selectedTextColor = .blackColor()
         
-        textField.backgroundColor = .clearColor()
         textField.autocorrectionType = UITextAutocorrectionType.No
         textField.autocapitalizationType = UITextAutocapitalizationType.None
         textField.delegate = self
         textField.font = font
         textField.textColor = fieldTextColor
-        addSubview(textField)
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        self.addSubview(textField)
         
         textField.onDeleteBackwards = {
             if self.readOnly {
@@ -157,91 +150,33 @@ class ZZTagsField: UIView {
             }
         }
         
+        views["textField"] = textField
+        
+        
+        let textFieldLCH = NSLayoutConstraint.constraintsWithVisualFormat("H:|-[textField]-|", options: [], metrics: nil, views: views)
+        let textFieldLCV = NSLayoutConstraint.constraintsWithVisualFormat("V:|-0-[textField]-0-|", options: [], metrics: nil, views: views)
+        viewsLayout += (textFieldLCH + textFieldLCV)
+        NSLayoutConstraint.activateConstraints(viewsLayout)
+        
         textField.addTarget(self, action: #selector(onTextFieldDidChange(_:)), forControlEvents: UIControlEvents.EditingChanged)
-        intrinsicContentHeight = ZZTagsField.RowHeight
         repositionViews()
     }
     
-    private func repositionViews() {
-        let rightBoundary: CGFloat = CGRectGetWidth(self.bounds) - padding.right
-        let firstLineRightBoundary: CGFloat = rightBoundary
-        var curX: CGFloat = padding.left
-        var curY: CGFloat = padding.top
-        var totalHeight: CGFloat = ZZTagsField.RowHeight
-        var isOnFirstLine = true
-        
-        // Position Tag views
-        var tagRect = CGRect.null
-        for tagView in tagViews {
-            tagRect = CGRect(origin: CGPoint.zero, size: tagView.sizeToFit(self.intrinsicContentSize()))
-            
-            let tagBoundary = isOnFirstLine ? firstLineRightBoundary : rightBoundary
-            if curX + CGRectGetWidth(tagRect) > tagBoundary {
-                // Need a new line
-                curX = padding.left
-                curY += ZZTagsField.RowHeight + ZZTagsField.VSpace
-                totalHeight += ZZTagsField.RowHeight
-                isOnFirstLine = false
-            }
-            
-            tagRect.origin.x = curX
-            // Center our tagView vertically within STANDARD_ROW_HEIGHT
-            tagRect.origin.y = curY + ((ZZTagsField.RowHeight - CGRectGetHeight(tagRect))/2.0)
-            tagView.frame = tagRect
-            tagView.setNeedsLayout()
-            
-            curX = CGRectGetMaxX(tagRect) + ZZTagsField.HSpace + self.spaceBetweenTags
+    func repositionViews() {
+        NSLayoutConstraint.deactivateConstraints(viewsLayout)
+        let textFieldLCV = NSLayoutConstraint.constraintsWithVisualFormat("V:|-0-[textField]-0-|", options: [], metrics: nil, views: views)
+        viewsLayout = textFieldLCV
+        var vfl = "H:|"
+        for i in 0..<tags.count {
+            views["Z" + tags[i].text] = tagViews[i]
+            let height = tagViews[i].intrinsicContentSize().height
+            let padding = (self.frame.height - height) / 2
+            viewsLayout += NSLayoutConstraint.constraintsWithVisualFormat("V:|-\(padding)-[Z\(tags[i].text)]-\(padding)-|", options: [], metrics: nil, views: views)
+            vfl += "-5-[Z\(tags[i].text)]"
         }
-        
-        // Always indent TextField by a little bit
-        curX += max(0, ZZTagsField.TextFieldHSpace - self.spaceBetweenTags)
-        let textBoundary: CGFloat = isOnFirstLine ? firstLineRightBoundary : rightBoundary
-        var availableWidthForTextField: CGFloat = textBoundary - curX
-        if availableWidthForTextField < ZZTagsField.MinTextFieldWidth {
-            isOnFirstLine = false
-            // If in the future we add more UI elements below the tags,
-            // isOnFirstLine will be useful, and this calculation is important.
-            // So leaving it set here, and marking the warning to ignore it
-            curX = padding.left + ZZTagsField.TextFieldHSpace
-            curY += ZZTagsField.RowHeight + ZZTagsField.VSpace
-            totalHeight += ZZTagsField.RowHeight
-            // Adjust the width
-            availableWidthForTextField = rightBoundary - curX
-        }
-        
-        var textFieldRect: CGRect
-        if textField.enabled {
-            textFieldRect = self.textField.frame
-            textFieldRect.origin.x = curX
-            textFieldRect.origin.y = curY
-            textFieldRect.size.width = availableWidthForTextField
-            textFieldRect.size.height = ZZTagsField.RowHeight
-        }
-        else {
-            textFieldRect = CGRect.zero
-            textField.hidden = true
-        }
-        self.textField.frame = textFieldRect
-        
-        let oldContentHeight: CGFloat = self.intrinsicContentHeight
-        intrinsicContentHeight = max(totalHeight, CGRectGetMaxY(textFieldRect) + padding.bottom)
-        invalidateIntrinsicContentSize()
-        
-        if oldContentHeight != self.intrinsicContentHeight {
-            let newContentHeight = intrinsicContentSize().height
-            if let didChangeHeightToEvent = self.onDidChangeHeightTo {
-                didChangeHeightToEvent(self, height: newContentHeight)
-            }
-            frame.size.height = newContentHeight
-        }
-        else {
-            frame.size.height = oldContentHeight
-        }
-        setNeedsDisplay()
-    }
-    
-    override func intrinsicContentSize() -> CGSize {
-        return CGSize(width: self.frame.size.width - padding.left - padding.right, height: max(45, self.intrinsicContentHeight))
+        vfl += "-5-[textField]-5-|"
+        viewsLayout += NSLayoutConstraint.constraintsWithVisualFormat(vfl, options: [], metrics: nil, views: views)
+        NSLayoutConstraint.activateConstraints(viewsLayout)
     }
     
     private func updatePlaceholderTextVisibility() {
@@ -318,6 +253,7 @@ class ZZTagsField: UIView {
                 self.removeTagAtIndex(index)
             }
         }
+        tagView.translatesAutoresizingMaskIntoConstraints = false
         
         self.tagViews.append(tagView)
         addSubview(tagView)
@@ -398,6 +334,7 @@ class ZZTagsField: UIView {
         }
     }
     
+
 }
 
 extension ZZTagsField: UITextFieldDelegate {
@@ -427,9 +364,6 @@ extension ZZTagsField: UITextFieldDelegate {
         return true
     }
 }
-
-
-
 
 private class BackspaceDetectingTextField: UITextField {
     
