@@ -13,12 +13,13 @@ class ZZTagsField: UIView {
     private let textField = BackspaceDetectingTextField()
     
     var views:[String: AnyObject] = [:]
-    var viewsLayout = [NSLayoutConstraint]()
+    var viewsLayoutH = [NSLayoutConstraint]()
+    var viewsLayoutV = [String: [NSLayoutConstraint]]()
     
-    @IBInspectable override var tintColor: UIColor! {
+    @IBInspectable var tagColor: UIColor! {
         didSet {
             tagViews.forEach() { item in
-                item.tintColor = self.tintColor
+                item.tagColor = self.tagColor
             }
         }
     }
@@ -59,7 +60,19 @@ class ZZTagsField: UIView {
         }
     }
     
-    @IBInspectable var font: UIFont? {
+    @IBInspectable var fontSize: CGFloat = 17.0 {
+        didSet {
+            font = UIFont(name: fontFamily, size: fontSize)
+        }
+    }
+    
+    @IBInspectable var fontFamily: String = UIFont.systemFontOfSize(17).familyName {
+        didSet {
+            font = UIFont(name: fontFamily, size: fontSize)
+        }
+    }
+    
+    var font: UIFont? {
         didSet {
             textField.font = font
             tagViews.forEach() { item in
@@ -72,12 +85,6 @@ class ZZTagsField: UIView {
         didSet {
             unselectAllTagViews()
             textField.enabled = !readOnly
-            repositionViews()
-        }
-    }
-    
-    @IBInspectable var padding: UIEdgeInsets = UIEdgeInsets(top: 10.0, left: 8.0, bottom: 10.0, right: 8.0) {
-        didSet {
             repositionViews()
         }
     }
@@ -95,6 +102,13 @@ class ZZTagsField: UIView {
         
         set {
             textField.keyboardType = newValue
+        }
+    }
+    
+    @IBInspectable var textFieldWidth: CGFloat = 10.0 {
+        didSet {
+            textField.width = textFieldWidth
+            repositionViews()
         }
     }
     
@@ -151,32 +165,43 @@ class ZZTagsField: UIView {
         }
         
         views["textField"] = textField
-        
-        
-        let textFieldLCH = NSLayoutConstraint.constraintsWithVisualFormat("H:|-[textField]-|", options: [], metrics: nil, views: views)
-        let textFieldLCV = NSLayoutConstraint.constraintsWithVisualFormat("V:|-0-[textField]-0-|", options: [], metrics: nil, views: views)
-        viewsLayout += (textFieldLCH + textFieldLCV)
-        NSLayoutConstraint.activateConstraints(viewsLayout)
+        let textFieldLCV = NSLayoutConstraint.constraintsWithVisualFormat("V:|-\(spaceBetweenTags)-[textField]-\(spaceBetweenTags)-|", options: [], metrics: nil, views: views)
+        viewsLayoutV["textField"] = textFieldLCV
         
         textField.addTarget(self, action: #selector(onTextFieldDidChange(_:)), forControlEvents: UIControlEvents.EditingChanged)
+        updatePlaceholderTextVisibility()
         repositionViews()
     }
     
+    override func intrinsicContentSize() -> CGSize {
+        if tagViews.count > 0 {
+            var width: CGFloat = 0
+            tagViews.forEach({ (view) in
+                width += view.intrinsicContentSize().width
+            })
+            return CGSize(width: width + CGFloat(tagViews.count + 2) * spaceBetweenTags + textField.intrinsicContentSize().width, height: tagViews.first!.intrinsicContentSize().height + 2 * spaceBetweenTags)
+        }
+        let tagView = ZZTagView(tag: ZZTag(text: "Z"))
+        tagView.font = self.font
+        let tagViewSize = tagView.intrinsicContentSize()
+        return CGSize(width: tagViewSize.width + 3 * spaceBetweenTags + textField.intrinsicContentSize().width, height: tagViewSize.height + 2 * spaceBetweenTags)
+        
+    }
+
+    
+
+    
     func repositionViews() {
-        NSLayoutConstraint.deactivateConstraints(viewsLayout)
-        let textFieldLCV = NSLayoutConstraint.constraintsWithVisualFormat("V:|-0-[textField]-0-|", options: [], metrics: nil, views: views)
-        viewsLayout = textFieldLCV
+        NSLayoutConstraint.deactivateConstraints(viewsLayoutH)
+        NSLayoutConstraint.deactivateConstraints(viewsLayoutV.values.flatMap{$0})
         var vfl = "H:|"
         for i in 0..<tags.count {
-            views["Z" + tags[i].text] = tagViews[i]
-            let height = tagViews[i].intrinsicContentSize().height
-            let padding = (self.frame.height - height) / 2
-            viewsLayout += NSLayoutConstraint.constraintsWithVisualFormat("V:|-\(padding)-[Z\(tags[i].text)]-\(padding)-|", options: [], metrics: nil, views: views)
-            vfl += "-5-[Z\(tags[i].text)]"
+            vfl += "-\(spaceBetweenTags)-[Z\(tags[i].text)]"
         }
-        vfl += "-5-[textField]-5-|"
-        viewsLayout += NSLayoutConstraint.constraintsWithVisualFormat(vfl, options: [], metrics: nil, views: views)
-        NSLayoutConstraint.activateConstraints(viewsLayout)
+        vfl += "-\(spaceBetweenTags)-[textField]-\(spaceBetweenTags)-|"
+        viewsLayoutH = NSLayoutConstraint.constraintsWithVisualFormat(vfl, options: [], metrics: nil, views: views)
+        NSLayoutConstraint.activateConstraints(viewsLayoutH)
+        NSLayoutConstraint.activateConstraints(viewsLayoutV.values.flatMap{$0})
     }
     
     private func updatePlaceholderTextVisibility() {
@@ -235,7 +260,7 @@ class ZZTagsField: UIView {
         
         let tagView = ZZTagView(tag: tag)
         tagView.font = self.font
-        tagView.tintColor = self.tintColor
+        tagView.tagColor = self.tagColor
         tagView.textColor = self.textColor
         tagView.selectedColor = self.selectedColor
         tagView.selectedTextColor = self.selectedTextColor
@@ -263,8 +288,12 @@ class ZZTagsField: UIView {
             didAddTagEvent(self, tag: tag)
         }
         
+        views["Z" + tag.text] = tagView
+        viewsLayoutV["Z" + tag.text] = NSLayoutConstraint.constraintsWithVisualFormat("V:|-\(spaceBetweenTags)-[Z\(tag.text)]-\(spaceBetweenTags)-|", options: [], metrics: nil, views: views)
+        
         onTextFieldDidChange(self.textField)
         repositionViews()
+        updatePlaceholderTextVisibility()
     }
     
     func removeTag(tag: String) {
@@ -287,6 +316,9 @@ class ZZTagsField: UIView {
             if let didRemoveTagEvent = onDidRemoveTag {
                 didRemoveTagEvent(self, tag: removedTag)
             }
+            views["Z" + removedTag.text] = nil
+            viewsLayoutV["Z" + removedTag.text] = nil
+            
             updatePlaceholderTextVisibility()
             repositionViews()
         }
@@ -334,6 +366,14 @@ class ZZTagsField: UIView {
         }
     }
     
+    override func resignFirstResponder() -> Bool {
+        tagViews.forEach { (view) in
+            view.resignFirstResponder()
+        }
+        textField.resignFirstResponder()
+        return true
+    }
+    
 
 }
 
@@ -367,6 +407,8 @@ extension ZZTagsField: UITextFieldDelegate {
 
 private class BackspaceDetectingTextField: UITextField {
     
+    var width: CGFloat = 10.0
+    
     var onDeleteBackwards: (() -> ())?
     
     init() {
@@ -382,6 +424,10 @@ private class BackspaceDetectingTextField: UITextField {
             deleteBackwardsEvent()
         }
         super.deleteBackward()
+    }
+    
+    private override func intrinsicContentSize() -> CGSize {
+        return CGSize(width: width, height: super.intrinsicContentSize().height)
     }
     
     

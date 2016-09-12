@@ -14,7 +14,9 @@ class NewNoteDetailsViewController: UIViewController {
     
     var block: ((CLLocation, String?) -> Void)!
 
-    @IBOutlet weak var tagField: ZZTagsField!
+    
+    @IBOutlet weak var tagsField: ZZTagsField!
+    @IBOutlet weak var tagsFieldScrollView: UIScrollView!
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var locationNameTextField: UITextField!
     @IBOutlet weak var dateLabel: UILabel!
@@ -60,7 +62,7 @@ class NewNoteDetailsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        tagField.setupButtomDividingLine(lineWidth: 0.5, lineColor: UIColor(white: 0.6, alpha: 1).CGColor)
+        tagsFieldScrollView.setupButtomDividingLine(lineWidth: 0.5, lineColor: UIColor(white: 0.6, alpha: 1).CGColor)
         locationNameTextField.setupButtomDividingLine(lineWidth: 0.5, lineColor: UIColor(white: 0.6, alpha: 1).CGColor)
         
         setupMapView()
@@ -84,7 +86,7 @@ class NewNoteDetailsViewController: UIViewController {
     
     @objc func dismissKeyboard(recognizer: UIGestureRecognizer) {
         locationNameTextField.resignFirstResponder()
-        tagField.resignFirstResponder()
+        tagsField.resignFirstResponder()
     }
     
     func setInformation(subject subject: String, location: CLLocation, locationName: String?, createdDate: NSDate?, updateDate: NSDate?) {

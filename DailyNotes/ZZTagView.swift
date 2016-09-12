@@ -29,7 +29,7 @@ class ZZTagView: UIView {
         }
     }
     
-    override var tintColor: UIColor! {
+    var tagColor: UIColor! {
         didSet {
             updateContent(animated: false)
         }
@@ -67,9 +67,11 @@ class ZZTagView: UIView {
         }
     }
     
+    
+    
     init(tag: ZZTag) {
         super.init(frame: CGRect.zero)
-        backgroundColor = tintColor
+        backgroundColor = tagColor
         self.layer.cornerRadius = 3.0
         self.layer.masksToBounds = true
         self.layer.borderColor = UIColor.blackColor().CGColor
@@ -108,18 +110,18 @@ class ZZTagView: UIView {
             UIView.animateWithDuration(
                 0.03,
                 animations: {
-                    self.backgroundColor = self.selected ? self.selectedColor : self.tintColor
+                    self.backgroundColor = self.selected ? self.selectedColor : self.tagColor
                     self.textLabel.textColor = self.selected ? self.selectedTextColor : self.textColor
                 },
                 completion: { finished in
                     if !self.selected {
-                        self.backgroundColor = self.tintColor
+                        self.backgroundColor = self.tagColor
                         self.textLabel.textColor = self.textColor
                     }
                 }
             )
         } else {
-            backgroundColor = selected ? selectedColor : tintColor
+            backgroundColor = selected ? selectedColor : self.tagColor
             textLabel.textColor = selected ? selectedTextColor : textColor
         }
     }

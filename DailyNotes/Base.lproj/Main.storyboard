@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="ARR-tz-eD8">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="ARR-tz-eD8">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -1184,50 +1184,60 @@
                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oVn-1U-slC" customClass="ZZTagsField" customModule="DailyNotes" customModuleProvider="target">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="p0s-tv-qxR">
                                 <rect key="frame" x="20" y="112" width="374" height="30"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JY9-Yd-yL9" customClass="ZZTagsField" customModule="DailyNotes" customModuleProvider="target">
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="tagColor">
+                                                <color key="value" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="textColor">
+                                                <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="selectedColor">
+                                                <color key="value" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="selectedTextColor">
+                                                <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="fontSize">
+                                                <real key="value" value="14"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="textFieldWidth">
+                                                <real key="value" value="50"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </view>
+                                </subviews>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="Nyb-2S-5WZ"/>
+                                    <constraint firstItem="JY9-Yd-yL9" firstAttribute="leading" secondItem="p0s-tv-qxR" secondAttribute="leading" id="3j2-M0-TCg"/>
+                                    <constraint firstAttribute="trailing" secondItem="JY9-Yd-yL9" secondAttribute="trailing" id="VQC-S1-i7F"/>
+                                    <constraint firstAttribute="height" constant="30" id="Yki-yP-Xys"/>
+                                    <constraint firstAttribute="bottom" secondItem="JY9-Yd-yL9" secondAttribute="bottom" id="abD-1C-G4s"/>
+                                    <constraint firstItem="JY9-Yd-yL9" firstAttribute="top" secondItem="p0s-tv-qxR" secondAttribute="top" id="h1I-gP-mF9"/>
                                 </constraints>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="textColor">
-                                        <color key="value" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="tintColor">
-                                        <color key="value" red="1" green="0.26481314171552639" blue="0.3663153736039545" alpha="1" colorSpace="calibratedRGB"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="selectedColor">
-                                        <color key="value" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="selectedTextColor">
-                                        <color key="value" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="fieldTextColor">
-                                        <color key="value" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="boolean" keyPath="readOnly" value="NO"/>
-                                </userDefinedRuntimeAttributes>
-                            </view>
+                            </scrollView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="trailingMargin" secondItem="ijA-jC-Udf" secondAttribute="trailing" constant="-20" id="7xe-Tg-VbP"/>
+                            <constraint firstItem="p0s-tv-qxR" firstAttribute="top" secondItem="Mg6-NY-cje" secondAttribute="bottom" constant="8" id="9yT-6c-b1O"/>
                             <constraint firstItem="EoA-cj-WRs" firstAttribute="top" secondItem="ijA-jC-Udf" secondAttribute="bottom" id="FXp-Rj-54b"/>
                             <constraint firstAttribute="trailingMargin" secondItem="uFI-Ob-vV9" secondAttribute="trailing" constant="-20" id="I5X-Xs-Dtt"/>
                             <constraint firstItem="Mg6-NY-cje" firstAttribute="leading" secondItem="AcL-Vp-CqI" secondAttribute="leadingMargin" id="JDt-Jm-5f4"/>
                             <constraint firstItem="uFI-Ob-vV9" firstAttribute="leading" secondItem="AcL-Vp-CqI" secondAttribute="leadingMargin" constant="-20" id="JcE-fp-KMs"/>
                             <constraint firstItem="qKr-nF-FIl" firstAttribute="centerX" secondItem="AcL-Vp-CqI" secondAttribute="centerX" id="N5B-KX-JEc"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Mg6-NY-cje" secondAttribute="trailing" id="QKD-98-8Fz"/>
-                            <constraint firstItem="oVn-1U-slC" firstAttribute="trailing" secondItem="AcL-Vp-CqI" secondAttribute="trailingMargin" id="S1T-iz-l6T"/>
                             <constraint firstItem="uFI-Ob-vV9" firstAttribute="top" secondItem="TXM-hg-OGt" secondAttribute="bottom" id="T14-Fe-Fmh"/>
+                            <constraint firstItem="p0s-tv-qxR" firstAttribute="trailing" secondItem="AcL-Vp-CqI" secondAttribute="trailingMargin" id="Xjf-lu-2d7"/>
                             <constraint firstItem="qKr-nF-FIl" firstAttribute="centerY" secondItem="ijA-jC-Udf" secondAttribute="centerY" id="ZFc-fr-LMg"/>
-                            <constraint firstItem="oVn-1U-slC" firstAttribute="top" secondItem="Mg6-NY-cje" secondAttribute="bottom" constant="8" id="erc-va-zCl"/>
+                            <constraint firstItem="TSG-0C-NcS" firstAttribute="top" secondItem="p0s-tv-qxR" secondAttribute="bottom" constant="8" id="cUf-3J-Ljw"/>
                             <constraint firstItem="ijA-jC-Udf" firstAttribute="top" secondItem="TSG-0C-NcS" secondAttribute="bottom" constant="8" id="gAw-dk-dFm"/>
                             <constraint firstItem="Mg6-NY-cje" firstAttribute="top" secondItem="uFI-Ob-vV9" secondAttribute="bottom" constant="10" id="kgV-En-E5l"/>
                             <constraint firstItem="ijA-jC-Udf" firstAttribute="leading" secondItem="AcL-Vp-CqI" secondAttribute="leadingMargin" constant="-20" id="lQK-rD-1hN"/>
-                            <constraint firstItem="TSG-0C-NcS" firstAttribute="top" secondItem="oVn-1U-slC" secondAttribute="bottom" constant="8" id="lTK-Vg-zZr"/>
-                            <constraint firstItem="oVn-1U-slC" firstAttribute="leading" secondItem="AcL-Vp-CqI" secondAttribute="leadingMargin" id="ttV-MC-YOu"/>
+                            <constraint firstItem="p0s-tv-qxR" firstAttribute="leading" secondItem="AcL-Vp-CqI" secondAttribute="leadingMargin" id="u4v-vq-B94"/>
                             <constraint firstItem="TSG-0C-NcS" firstAttribute="leading" secondItem="AcL-Vp-CqI" secondAttribute="leadingMargin" id="zHU-GV-xvG"/>
                         </constraints>
                     </view>
@@ -1238,7 +1248,8 @@
                         <outlet property="mapView" destination="ijA-jC-Udf" id="EDl-bN-8BL"/>
                         <outlet property="moveAnnotationImageView" destination="qKr-nF-FIl" id="He5-l7-ooA"/>
                         <outlet property="navigationBar" destination="uFI-Ob-vV9" id="oTI-r8-v1a"/>
-                        <outlet property="tagField" destination="oVn-1U-slC" id="7q4-sd-G6R"/>
+                        <outlet property="tagsField" destination="JY9-Yd-yL9" id="drE-vC-ghG"/>
+                        <outlet property="tagsFieldScrollView" destination="p0s-tv-qxR" id="qE8-55-BYA"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Qw2-QE-ROk" userLabel="First Responder" sceneMemberID="firstResponder"/>
