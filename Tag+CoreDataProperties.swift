@@ -1,5 +1,5 @@
 //
-//  Notebook+CoreDataProperties.swift
+//  Tag+CoreDataProperties.swift
 //  DailyNotes
 //
 //  Created by Zhicong Zang on 9/13/16.
@@ -12,7 +12,7 @@
 import Foundation
 import CoreData
 
-extension Notebook {
+extension Tag {
 
     @NSManaged var name: String?
     @NSManaged var notes: NSOrderedSet?

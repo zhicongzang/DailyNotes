@@ -1184,7 +1184,7 @@
                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="p0s-tv-qxR">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p0s-tv-qxR">
                                 <rect key="frame" x="20" y="112" width="374" height="30"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JY9-Yd-yL9" customClass="ZZTagsField" customModule="DailyNotes" customModuleProvider="target">
@@ -1218,6 +1218,9 @@
                                     <constraint firstAttribute="bottom" secondItem="JY9-Yd-yL9" secondAttribute="bottom" id="abD-1C-G4s"/>
                                     <constraint firstItem="JY9-Yd-yL9" firstAttribute="top" secondItem="p0s-tv-qxR" secondAttribute="top" id="h1I-gP-mF9"/>
                                 </constraints>
+                                <connections>
+                                    <outlet property="delegate" destination="skM-j6-hn6" id="rhG-Ka-x6S"/>
+                                </connections>
                             </scrollView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>

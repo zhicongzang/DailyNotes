@@ -25,15 +25,15 @@ class Note: NSManagedObject {
         }
     }
     
-    class func saveNote(note: Note?, subject: String, notebook: Notebook, createdDate: NSDate, updateDate: NSDate, reminderDate: NSDate?, location: CLLocation, locationName: String?, text: NSAttributedString) -> Bool {
+    class func saveNote(note: Note?, subject: String, notebook: Notebook, createdDate: NSDate, updateDate: NSDate, reminderDate: NSDate?, location: CLLocation, locationName: String?, text: NSAttributedString, tags: [Tag]) -> Bool {
         if let note = note {
-            return updateNote(note, subject: subject, notebook: notebook, updateDate: updateDate, reminderDate: reminderDate, location: location, locationName: locationName, text: text)
+            return updateNote(note, subject: subject, notebook: notebook, updateDate: updateDate, reminderDate: reminderDate, location: location, locationName: locationName, text: text, tags: tags)
         } else {
-            return insertNewNote(subject: subject, notebook: notebook, createdDate: createdDate, updateDate: updateDate, reminderDate: reminderDate, location: location, locationName: locationName, text: text)
+            return insertNewNote(subject: subject, notebook: notebook, createdDate: createdDate, updateDate: updateDate, reminderDate: reminderDate, location: location, locationName: locationName, text: text, tags: tags)
         }
     }
     
-    class func insertNewNote(subject subject: String, notebook: Notebook, createdDate: NSDate, updateDate: NSDate, reminderDate: NSDate?, location: CLLocation, locationName: String?, text: NSAttributedString) -> Bool {
+    class func insertNewNote(subject subject: String, notebook: Notebook, createdDate: NSDate, updateDate: NSDate, reminderDate: NSDate?, location: CLLocation, locationName: String?, text: NSAttributedString, tags: [Tag]) -> Bool {
         let moc = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
         do {
             let note = NSEntityDescription.insertNewObjectForEntityForName("Note", inManagedObjectContext: moc) as! Note
@@ -46,14 +46,14 @@ class Note: NSManagedObject {
             note.longitude = location.coordinate.longitude
             note.locationName = locationName
             note.text = text
-            
+            note.tags = NSOrderedSet(array: tags)
             try moc.save()
             return true
         } catch {}
         return false
     }
     
-    class func updateNote(note: Note, subject: String, notebook: Notebook, updateDate: NSDate, reminderDate: NSDate?, location: CLLocation, locationName: String?, text: NSAttributedString) -> Bool {
+    class func updateNote(note: Note, subject: String, notebook: Notebook, updateDate: NSDate, reminderDate: NSDate?, location: CLLocation, locationName: String?, text: NSAttributedString, tags: [Tag]) -> Bool {
         note.subject = subject
         note.notebook = notebook
         note.updateDate = updateDate
@@ -62,6 +62,7 @@ class Note: NSManagedObject {
         note.longitude = location.coordinate.longitude
         note.locationName = locationName
         note.text = text
+        note.tags = NSOrderedSet(array: tags)
         let moc = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
         do {
             try moc.save()

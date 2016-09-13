@@ -12,7 +12,7 @@ import MapKit
 class NewNoteDetailsViewController: UIViewController {
     
     
-    var block: ((CLLocation, String?) -> Void)!
+    var block: ((CLLocation, String?, [Tag]) -> Void)!
 
     
     @IBOutlet weak var tagsField: ZZTagsField!
@@ -59,6 +59,8 @@ class NewNoteDetailsViewController: UIViewController {
     var createdDate: NSDate?
     var updateDate: NSDate?
     
+    var tags = [Tag]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -66,6 +68,7 @@ class NewNoteDetailsViewController: UIViewController {
         locationNameTextField.setupButtomDividingLine(lineWidth: 0.5, lineColor: UIColor(white: 0.6, alpha: 1).CGColor)
         
         setupMapView()
+        setupTagsField()
         
         let tapGestureForMapView = UITapGestureRecognizer(target: self, action: #selector(NewNoteDetailsViewController.dismissKeyboard(_:)))
         tapGestureForMapView.cancelsTouchesInView = false
@@ -89,13 +92,35 @@ class NewNoteDetailsViewController: UIViewController {
         tagsField.resignFirstResponder()
     }
     
-    func setInformation(subject subject: String, location: CLLocation, locationName: String?, createdDate: NSDate?, updateDate: NSDate?) {
+    func setInformation(subject subject: String, location: CLLocation, locationName: String?, createdDate: NSDate?, updateDate: NSDate?, tags: [Tag]) {
         annotation.title = subject
         self.location = location
         self.locationName = locationName
         self.annotation.subtitle = locationName
         self.createdDate = createdDate
         self.updateDate = updateDate
+        self.tags = tags
+    }
+    
+    func setupTagsField() {
+        tagsField.textFieldWidth = screenWidth * 8 / 10
+        tags.forEach { (tag) in
+            tagsField.addTag(tag.name ?? "")
+        }
+        tagsField.onDidChangeText = {(tagsField, text) in
+            if text != "" {
+                self.tagsFieldScrollView.contentOffset.x = max(0, self.tagsFieldScrollView.contentSize.width - screenWidth)
+            }
+        }
+        tagsField.onDidAddTag = {(tagsField, tag) in
+            Tag.insertNewTag(name: tag.text)
+            if let t = Tag.getTag(name: tag.text) {
+                self.tags.append(t)
+            }
+        }
+        tagsField.onDidRemoveTag = {(tagsField, tag) in
+            self.tags = self.tags.filter({ $0.name != tag.text })
+        }
     }
     
     func setupMapView() {
@@ -157,7 +182,7 @@ class NewNoteDetailsViewController: UIViewController {
 
     
     override func dismissViewControllerAnimated(flag: Bool, completion: (() -> Void)?) {
-        block(location, locationName)
+        block(location, locationName,tags)
         super.dismissViewControllerAnimated(flag, completion: completion)
     }
 
@@ -232,3 +257,22 @@ extension NewNoteDetailsViewController: UIGestureRecognizerDelegate {
     
     
 }
+
+extension NewNoteDetailsViewController: UIScrollViewDelegate {
+//    func scrollViewWillEndDragging(scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+//        if !tagsField.isTyping {
+//            targetContentOffset.memory.x = max(0, scrollView.contentSize.width - 2 * screenWidth)
+//        }
+//    }
+    func scrollViewDidScroll(scrollView: UIScrollView) {
+        if !tagsField.isTyping {
+            scrollView.contentOffset.x = min(scrollView.contentOffset.x, scrollView.contentSize.width - tagsField.textFieldWidth - screenWidth * 8 / 10)
+        }
+    }
+}
+
+
+
+
+
+

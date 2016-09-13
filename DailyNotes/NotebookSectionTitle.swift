@@ -52,14 +52,14 @@ class NotebookSectionTitle: UIControl {
         self.section = section
         setup()
         titleLabel.text = notebook.name
-        countLabel.text = "\(notebook.note?.count ?? 0) notes"
+        countLabel.text = "\(notebook.notes?.count ?? 0) notes"
     }
     
     func resetNotebook(notebook: Notebook) {
         isOpen = false
         self.notebook = notebook
         titleLabel.text = notebook.name
-        countLabel.text = "\(notebook.note?.count ?? 0) notes"
+        countLabel.text = "\(notebook.notes?.count ?? 0) notes"
     }
     
     

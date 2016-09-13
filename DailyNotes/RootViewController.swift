@@ -257,7 +257,7 @@ extension RootViewController: UITableViewDelegate, UITableViewDataSource {
         }
         if tableView.tag == 1 {
             let notebook = notebooks[section]
-            return notebook.note?.count ?? 0
+            return notebook.notes?.count ?? 0
         }
         return 0
     }
@@ -292,7 +292,7 @@ extension RootViewController: UITableViewDelegate, UITableViewDataSource {
 
             let cell = tableView.dequeueReusableCellWithIdentifier("RootNotebookTableViewCell") as! RootNotebookTableViewCell
             let notebook = notebooks[indexPath.section]
-            if let notes = notebook.note, let note = notes[indexPath.row] as? Note {
+            if let notes = notebook.notes, let note = notes[indexPath.row] as? Note {
                 cell.setup(note: note)
                 return cell
             }

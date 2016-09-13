@@ -111,6 +111,7 @@ class NewNoteViewController: UIViewController {
             reminderButton.isSet = (reminderDate != nil)
         }
     }
+    var tags = [Tag]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -159,7 +160,11 @@ class NewNoteViewController: UIViewController {
             reminderDate = note?.reminderDate
             textView.attributedText = note?.text
             subjectTextField.text = note?.subject
-            
+            if let ts = note?.tags {
+                ts.forEach({ (tag) in
+                    self.tags.append(tag as! Tag)
+                })
+            }
         }
     }
     
@@ -194,7 +199,7 @@ class NewNoteViewController: UIViewController {
             
         }
         
-        Note.saveNote(note, subject: subject, notebook: notebook, createdDate: createdDate ?? date, updateDate: date, reminderDate: reminderDate, location: location, locationName: locationName, text: textView.attributedText)
+        Note.saveNote(note, subject: subject, notebook: notebook, createdDate: createdDate ?? date, updateDate: date, reminderDate: reminderDate, location: location, locationName: locationName, text: textView.attributedText, tags: tags)
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -365,10 +370,11 @@ class NewNoteViewController: UIViewController {
             let vc = segue.destinationViewController as! NewNoteDetailsViewController
             var subject = subjectTextField.text ?? "New Note"
             subject = (subject == "") ? "New Note" : subject
-            vc.setInformation(subject: subject, location: location, locationName: locationName, createdDate: createdDate, updateDate: updateDate)
-            vc.block = { (location: CLLocation, locationName: String?) in
+            vc.setInformation(subject: subject, location: location, locationName: locationName, createdDate: createdDate, updateDate: updateDate, tags: tags)
+            vc.block = { (location: CLLocation, locationName: String?, tags: [Tag]) in
                 self.locationName = locationName
                 self.location = location
+                self.tags = tags
             }
         }
     }

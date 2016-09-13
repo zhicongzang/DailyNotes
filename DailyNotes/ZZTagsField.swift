@@ -131,6 +131,12 @@ class ZZTagsField: UIView {
     
     var onDidChangeHeightTo: ((ZZTagsField, height: CGFloat) -> Void)?
     
+    var isTyping: Bool {
+        get {
+            return textField.isFirstResponder()
+        }
+    }
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setup()
@@ -196,7 +202,7 @@ class ZZTagsField: UIView {
         NSLayoutConstraint.deactivateConstraints(viewsLayoutV.values.flatMap{$0})
         var vfl = "H:|"
         for i in 0..<tags.count {
-            vfl += "-\(spaceBetweenTags)-[Z\(tags[i].text)]"
+            vfl += "-\(spaceBetweenTags)-[Z\(tags[i].text.md5)]"
         }
         vfl += "-\(spaceBetweenTags)-[textField]-\(spaceBetweenTags)-|"
         viewsLayoutH = NSLayoutConstraint.constraintsWithVisualFormat(vfl, options: [], metrics: nil, views: views)
@@ -284,16 +290,17 @@ class ZZTagsField: UIView {
         addSubview(tagView)
         
         self.textField.text = ""
-        if let didAddTagEvent = onDidAddTag {
-            didAddTagEvent(self, tag: tag)
-        }
         
-        views["Z" + tag.text] = tagView
-        viewsLayoutV["Z" + tag.text] = NSLayoutConstraint.constraintsWithVisualFormat("V:|-\(spaceBetweenTags)-[Z\(tag.text)]-\(spaceBetweenTags)-|", options: [], metrics: nil, views: views)
+        views["Z\(tag.text.md5)"] = tagView
+        viewsLayoutV["Z\(tag.text.md5)"] = NSLayoutConstraint.constraintsWithVisualFormat("V:|-\(spaceBetweenTags)-[Z\(tag.text.md5)]-\(spaceBetweenTags)-|", options: [], metrics: nil, views: views)
         
         onTextFieldDidChange(self.textField)
         repositionViews()
         updatePlaceholderTextVisibility()
+        
+        if let didAddTagEvent = onDidAddTag {
+            didAddTagEvent(self, tag: tag)
+        }
     }
     
     func removeTag(tag: String) {
@@ -313,14 +320,14 @@ class ZZTagsField: UIView {
             self.tagViews.removeAtIndex(index)
             let removedTag = self.tags[index]
             self.tags.removeAtIndex(index)
-            if let didRemoveTagEvent = onDidRemoveTag {
-                didRemoveTagEvent(self, tag: removedTag)
-            }
-            views["Z" + removedTag.text] = nil
-            viewsLayoutV["Z" + removedTag.text] = nil
+            views["Z\(removedTag.text.md5)"] = nil
+            viewsLayoutV["Z\(removedTag.text.md5)"] = nil
             
             updatePlaceholderTextVisibility()
             repositionViews()
+            if let didRemoveTagEvent = onDidRemoveTag {
+                didRemoveTagEvent(self, tag: removedTag)
+            }
         }
     }
     
@@ -367,10 +374,13 @@ class ZZTagsField: UIView {
     }
     
     override func resignFirstResponder() -> Bool {
+        textField.resignFirstResponder()
+        if let currentText = tokenizeTextFieldText() where (self.textField.text?.isEmpty ?? true) == false {
+            self.addTag(currentText)
+        }
         tagViews.forEach { (view) in
             view.resignFirstResponder()
         }
-        textField.resignFirstResponder()
         return true
     }
     
