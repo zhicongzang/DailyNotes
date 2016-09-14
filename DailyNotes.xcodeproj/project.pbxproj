@@ -16,6 +16,8 @@
 		DC232FDE1D8884C500B81583 /* Notebook+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC232FDB1D8884C500B81583 /* Notebook+CoreDataProperties.swift */; };
 		DC232FDF1D8884C500B81583 /* Tag+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC232FDC1D8884C500B81583 /* Tag+CoreDataProperties.swift */; };
 		DC232FE01D8884C500B81583 /* Note+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC232FDD1D8884C500B81583 /* Note+CoreDataProperties.swift */; };
+		DC232FE21D89FB4500B81583 /* NewAudioViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC232FE11D89FB4500B81583 /* NewAudioViewController.swift */; };
+		DC232FE41D89FC0C00B81583 /* AudioRecordButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC232FE31D89FC0C00B81583 /* AudioRecordButton.swift */; };
 		DC3332D41D6B95B300D32535 /* MoveNoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC3332D31D6B95B300D32535 /* MoveNoteViewController.swift */; };
 		DC3332DB1D6BA5CB00D32535 /* NotebookTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC3332D91D6BA5CB00D32535 /* NotebookTableViewCell.swift */; };
 		DC3332DC1D6BA5CB00D32535 /* NotebookTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = DC3332DA1D6BA5CB00D32535 /* NotebookTableViewCell.xib */; };
@@ -118,6 +120,8 @@
 		DC232FDB1D8884C500B81583 /* Notebook+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Notebook+CoreDataProperties.swift"; path = "../Notebook+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		DC232FDC1D8884C500B81583 /* Tag+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Tag+CoreDataProperties.swift"; path = "../Tag+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		DC232FDD1D8884C500B81583 /* Note+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Note+CoreDataProperties.swift"; path = "../Note+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		DC232FE11D89FB4500B81583 /* NewAudioViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewAudioViewController.swift; sourceTree = "<group>"; };
+		DC232FE31D89FC0C00B81583 /* AudioRecordButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioRecordButton.swift; sourceTree = "<group>"; };
 		DC3332D31D6B95B300D32535 /* MoveNoteViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoveNoteViewController.swift; sourceTree = "<group>"; };
 		DC3332D91D6BA5CB00D32535 /* NotebookTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotebookTableViewCell.swift; sourceTree = "<group>"; };
 		DC3332DA1D6BA5CB00D32535 /* NotebookTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NotebookTableViewCell.xib; sourceTree = "<group>"; };
@@ -261,6 +265,7 @@
 				DCF949711D4927BB004B3ACE /* NewReminderViewController.swift */,
 				DCF949811D4ABA47004B3ACE /* NewPhotoViewController.swift */,
 				DC8220B21D5145D100FF1FC4 /* DetailPhotosViewController.swift */,
+				DC232FE11D89FB4500B81583 /* NewAudioViewController.swift */,
 				DC6ED94D1D401FFD00AEFECB /* Main.storyboard */,
 				DC6ED9531D401FFD00AEFECB /* Assets.xcassets */,
 				DC6ED9551D401FFD00AEFECB /* LaunchScreen.storyboard */,
@@ -315,6 +320,7 @@
 				DCF9497B1D4A900B004B3ACE /* PickDateButton.swift */,
 				DCF949881D4FEA80004B3ACE /* FlashButton.swift */,
 				DC8221341D62668800FF1FC4 /* ReminderButton.swift */,
+				DC232FE31D89FC0C00B81583 /* AudioRecordButton.swift */,
 				DC8220C01D527CA900FF1FC4 /* PhotoCollectionViewCell.swift */,
 				DC8220B41D514D3300FF1FC4 /* DetailPhotosCollectionLayout.swift */,
 				DC8220C21D528B0F00FF1FC4 /* DetailCollectionViewCell.swift */,
@@ -553,6 +559,7 @@
 				DCF94C071D41795A00CCDE42 /* NewNoteViewController.swift in Sources */,
 				DC3332E01D6BB04900D32535 /* Notebook.swift in Sources */,
 				DC8221351D62668800FF1FC4 /* ReminderButton.swift in Sources */,
+				DC232FE41D89FC0C00B81583 /* AudioRecordButton.swift in Sources */,
 				DC6ED9521D401FFD00AEFECB /* DailyNotes.xcdatamodeld in Sources */,
 				DC8B9AA71D48151A009DB76B /* FontSettingButton.swift in Sources */,
 				DCF949801D4AB357004B3ACE /* Utils.swift in Sources */,
@@ -568,6 +575,7 @@
 				DCA7869F1D64E0AE00702E87 /* NewNoteDetailsViewController.swift in Sources */,
 				DC8220C11D527CA900FF1FC4 /* PhotoCollectionViewCell.swift in Sources */,
 				DC232F711D80BB8800B81583 /* NotePreviewViewController.swift in Sources */,
+				DC232FE21D89FB4500B81583 /* NewAudioViewController.swift in Sources */,
 				DCF94C091D41885900CCDE42 /* KeyboardButton.swift in Sources */,
 				DC8220B31D5145D100FF1FC4 /* DetailPhotosViewController.swift in Sources */,
 				DC232FCA1D887AE700B81583 /* ZZTagsFieldExtensions.swift in Sources */,

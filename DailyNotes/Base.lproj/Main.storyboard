@@ -221,7 +221,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hxm-gf-I8X" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1519" y="161"/>
+            <point key="canvasLocation" x="1519" y="156"/>
         </scene>
         <!--Note Preview-->
         <scene sceneID="w25-qf-bPN">
@@ -703,7 +703,26 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="92x-fU-9Tx" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1527" y="1002"/>
+            <point key="canvasLocation" x="883" y="1018"/>
+        </scene>
+        <!--New Audio View Controller-->
+        <scene sceneID="rF6-1U-hxg">
+            <objects>
+                <viewController storyboardIdentifier="NewAudio" useStoryboardIdentifierAsRestorationIdentifier="YES" id="VAM-oB-1aM" customClass="NewAudioViewController" customModule="DailyNotes" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="ad2-y0-PTe"/>
+                        <viewControllerLayoutGuide type="bottom" id="JsJ-2O-bs6"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="VqS-ld-0CM">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina55"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1U6-cQ-dJq" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1519" y="1018"/>
         </scene>
         <!--Move Note View Controller-->
         <scene sceneID="AGQ-DI-Rcx">
@@ -1282,6 +1301,6 @@
         <image name="TestImage3" width="1200" height="1746"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="cLn-O2-G4w"/>
+        <segue reference="wqN-ho-ErD"/>
     </inferredMetricsTieBreakers>
 </document>
